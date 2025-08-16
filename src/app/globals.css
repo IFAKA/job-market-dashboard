@@ -1,0 +1,142 @@
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
+
+@layer base {
+  :root {
+    /* Argentine Flag Colors */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 210 100% 50%; /* Argentine Blue */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 0 100% 50%; /* Argentine Red */
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 210 100% 50%;
+    --radius: 0.5rem;
+    --chart-1: 210 100% 50%; /* Argentine Blue */
+    --chart-2: 0 100% 50%; /* Argentine Red */
+    --chart-3: 45 100% 50%; /* Golden Yellow */
+    --chart-4: 120 100% 40%; /* Green */
+    --chart-5: 280 100% 60%; /* Purple */
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 100% 50%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 0 100% 50%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 210 100% 50%;
+    --chart-1: 210 100% 50%;
+    --chart-2: 0 100% 50%;
+    --chart-3: 45 100% 50%;
+    --chart-4: 120 100% 40%;
+    --chart-5: 280 100% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Apple Watch Style Guidelines */
+@layer components {
+  .apple-watch-card {
+    @apply rounded-3xl bg-card border border-border/50 shadow-lg backdrop-blur-sm;
+  }
+  
+  .apple-watch-button {
+    @apply rounded-full bg-primary text-primary-foreground px-6 py-3 font-medium transition-all duration-200 hover:scale-105 active:scale-95;
+  }
+  
+  .apple-watch-badge {
+    @apply rounded-full px-3 py-1 text-xs font-medium;
+  }
+  
+  .apple-watch-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+  }
+  
+  .apple-watch-glow {
+    box-shadow: 0 0 20px rgba(0, 100, 255, 0.3);
+  }
+  
+  .apple-watch-text-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
+
+/* Smooth animations */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  .text-4xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+  
+  .text-3xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  
+  .text-2xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
