@@ -177,36 +177,40 @@ export default function Dashboard() {
       <MetricsGrid metrics={data.metrics} />
 
       {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 mb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-2 text-lg font-semibold text-gray-800">
             <BarChart3 className="w-5 h-5 text-sky-500" />
             <span>{t('charts.topCategories', language)}</span>
           </div>
-          <BarChart
-            data={categoryChartData}
-            title={typeof t('charts.topCategories', language) === 'string' 
-              ? t('charts.topCategories', language) as string 
-              : (t('charts.topCategories', language) as string[])[0]
-            }
-            height={400}
-            width={500}
-          />
+          <div className="chart-container w-full h-[350px] sm:h-[400px] md:h-[450px]">
+            <BarChart
+              data={categoryChartData}
+              title={typeof t('charts.topCategories', language) === 'string' 
+                ? t('charts.topCategories', language) as string 
+                : (t('charts.topCategories', language) as string[])[0]
+              }
+              height={400}
+              width={500}
+            />
+          </div>
         </div>
         <div className="space-y-4">
           <div className="flex items-center gap-2 text-lg font-semibold text-gray-800">
             <PieChartIcon className="w-5 h-5 text-sky-500" />
             <span>{t('charts.categoryDistribution', language)}</span>
           </div>
-          <PieChart
-            data={categoryChartData}
-            title={typeof t('charts.categoryDistribution', language) === 'string' 
-              ? t('charts.categoryDistribution', language) as string 
-              : (t('charts.categoryDistribution', language) as string[])[0]
-            }
-            height={400}
-            width={500}
-          />
+          <div className="chart-container w-full h-[350px] sm:h-[400px] md:h-[450px]">
+            <PieChart
+              data={categoryChartData}
+              title={typeof t('charts.categoryDistribution', language) === 'string' 
+                ? t('charts.categoryDistribution', language) as string 
+                : (t('charts.categoryDistribution', language) as string[])[0]
+              }
+              height={400}
+              width={500}
+            />
+          </div>
         </div>
       </div>
 
@@ -216,15 +220,17 @@ export default function Dashboard() {
           <Code className="w-5 h-5 text-sky-500" />
           <span>{t('charts.technologies', language)}</span>
         </div>
-        <BarChart
-          data={technologyChartData}
-          title={typeof t('charts.technologies', language) === 'string' 
-            ? t('charts.technologies', language) as string 
-            : (t('charts.technologies', language) as string[])[0]
-          }
-          height={400}
-          width={800}
-        />
+        <div className="chart-container w-full h-[350px] sm:h-[400px] md:h-[450px]">
+          <BarChart
+            data={technologyChartData}
+            title={typeof t('charts.technologies', language) === 'string' 
+              ? t('charts.technologies', language) as string 
+              : (t('charts.technologies', language) as string[])[0]
+            }
+            height={400}
+            width={800}
+          />
+        </div>
       </div>
 
       {/* Category Explorer */}

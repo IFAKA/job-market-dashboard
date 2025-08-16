@@ -115,9 +115,9 @@ export default function CategoryPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6 sm:mb-8">
         <button 
           onClick={handleBackClick}
           className="inline-flex items-center text-sky-600 hover:text-sky-700 mb-4 transition-colors"
@@ -126,23 +126,23 @@ export default function CategoryPage() {
           {t('career.backToPaths', language)}
         </button>
         <div className="flex items-center gap-3 mb-4">
-          <h1 className="text-4xl font-bold text-gray-900">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
             {typeof categoryDetails.name === 'string' && categoryDetails.name.startsWith('career.') 
               ? t(categoryDetails.name, language) 
               : categoryDetails.name}
           </h1>
-          <Star className="w-8 h-8 text-yellow-500" />
+          <Star className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-500" />
         </div>
-        <p className="text-xl text-gray-600 max-w-4xl">
+        <p className="text-lg sm:text-xl text-gray-600 max-w-4xl">
           {typeof categoryDetails.description === 'string' && categoryDetails.description.startsWith('career.') 
             ? t(categoryDetails.description, language) 
             : categoryDetails.description}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
         {/* Main Content */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6 sm:space-y-8">
           {/* Category Overview */}
           <Card className="bg-gradient-to-r from-sky-50 to-blue-50 border-sky-200">
             <CardHeader>
@@ -152,7 +152,7 @@ export default function CategoryPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
@@ -183,13 +183,13 @@ export default function CategoryPage() {
 
           {/* Subcategories */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-              <Code className="w-6 h-6 text-sky-500" />
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center gap-2">
+              <Code className="w-5 h-5 sm:w-6 sm:h-6 text-sky-500" />
               {t('career.specializations', language)}
             </h2>
             
             {Object.keys(subcategories).length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 {Object.entries(subcategories).map(([subcategoryKey, subcategoryDetails]) => {
                   const subcategorySlug = getCareerSlug(subcategoryKey);
                   
@@ -200,11 +200,13 @@ export default function CategoryPage() {
                       onClick={() => handleSubcategoryClick(subcategorySlug)}
                     >
                       <CardHeader>
-                        <CardTitle className="text-lg font-semibold text-gray-900 flex items-center justify-between group-hover:text-sky-600 transition-colors">
-                          {typeof subcategoryDetails.name === 'string' && subcategoryDetails.name.startsWith('career.') 
-                            ? t(subcategoryDetails.name, language) 
-                            : subcategoryDetails.name}
-                          <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-sky-500 group-hover:translate-x-1 transition-all" />
+                        <CardTitle className="text-base sm:text-lg font-semibold text-gray-900 flex items-center justify-between group-hover:text-sky-600 transition-colors">
+                          <span className="truncate">
+                            {typeof subcategoryDetails.name === 'string' && subcategoryDetails.name.startsWith('career.') 
+                              ? t(subcategoryDetails.name, language) 
+                              : subcategoryDetails.name}
+                          </span>
+                          <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-sky-500 group-hover:translate-x-1 transition-all flex-shrink-0 ml-2" />
                         </CardTitle>
                         <CardDescription className="text-sm text-gray-600">
                           {typeof subcategoryDetails.description === 'string' && subcategoryDetails.description.startsWith('career.') 
@@ -262,9 +264,9 @@ export default function CategoryPage() {
               </div>
             ) : (
               <Card className="bg-gray-50 border-gray-200">
-                <CardContent className="p-8 text-center">
-                  <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-700 mb-2">
+                <CardContent className="p-6 sm:p-8 text-center">
+                  <BookOpen className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-2">
                     {t('career.noSpecializations', language)}
                   </h3>
                   <p className="text-gray-600 mb-4">

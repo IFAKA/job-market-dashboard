@@ -44,25 +44,25 @@ export default function MetricsPage() {
   // getColorClasses function removed as it's not used
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6 sm:mb-8">
         <Link href="/" className="inline-flex items-center text-sky-600 hover:text-sky-700 mb-4">
           <ArrowLeft className="w-4 h-4 mr-2" />
           {t('metrics.page.backToDashboard', language)}
         </Link>
         <div className="flex items-center gap-3 mb-4">
-          <h1 className="text-4xl font-bold text-gray-900">{t('metrics.page.title', language)}</h1>
-          <BarChart3 className="w-8 h-8 text-sky-500" />
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">{t('metrics.page.title', language)}</h1>
+          <BarChart3 className="w-6 h-6 sm:w-8 sm:h-8 text-sky-500" />
         </div>
-        <p className="text-xl text-gray-600 max-w-4xl">
+        <p className="text-lg sm:text-xl text-gray-600 max-w-4xl">
           {t('metrics.page.description', language)}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
         {/* Main Content */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6 sm:space-y-8">
           {/* Key Metrics Overview */}
           <Card className="bg-gradient-to-r from-sky-50 to-blue-50 border-sky-200">
             <CardHeader>
@@ -72,37 +72,37 @@ export default function MetricsPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-white rounded-lg border border-sky-200">
-                  <div className="text-2xl font-bold text-sky-600">{metrics.total_jobs.toLocaleString()}</div>
-                  <div className="text-sm text-gray-600">{t('metrics.totalJobs', language)}</div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                <div className="text-center p-3 sm:p-4 bg-white rounded-lg border border-sky-200">
+                  <div className="text-xl sm:text-2xl font-bold text-sky-600">{metrics.total_jobs.toLocaleString()}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">{t('metrics.totalJobs', language)}</div>
                   <div className="flex items-center justify-center mt-1">
                     {getTrendIcon('up')}
                     <span className="text-xs text-emerald-600 ml-1">+12%</span>
                   </div>
                 </div>
                 
-                <div className="text-center p-4 bg-white rounded-lg border border-yellow-200">
-                  <div className="text-2xl font-bold text-yellow-600">{metrics.unique_companies}</div>
-                  <div className="text-sm text-gray-600">{t('metrics.companies', language)}</div>
+                <div className="text-center p-3 sm:p-4 bg-white rounded-lg border border-yellow-200">
+                  <div className="text-xl sm:text-2xl font-bold text-yellow-600">{metrics.unique_companies}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">{t('metrics.companies', language)}</div>
                   <div className="flex items-center justify-center mt-1">
                     {getTrendIcon('up')}
                     <span className="text-xs text-emerald-600 ml-1">+8%</span>
                   </div>
                 </div>
                 
-                <div className="text-center p-4 bg-white rounded-lg border border-emerald-200">
-                  <div className="text-2xl font-bold text-emerald-600">{metrics.easy_apply_jobs.toLocaleString()}</div>
-                  <div className="text-sm text-gray-600">{t('metrics.easyApply', language)}</div>
+                <div className="text-center p-3 sm:p-4 bg-white rounded-lg border border-emerald-200">
+                  <div className="text-xl sm:text-2xl font-bold text-emerald-600">{metrics.easy_apply_jobs.toLocaleString()}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">{t('metrics.easyApply', language)}</div>
                   <div className="flex items-center justify-center mt-1">
                     {getTrendIcon('up')}
                     <span className="text-xs text-emerald-600 ml-1">+15%</span>
                   </div>
                 </div>
                 
-                <div className="text-center p-4 bg-white rounded-lg border border-orange-200">
-                  <div className="text-2xl font-bold text-orange-600">{metrics.recent_jobs}</div>
-                  <div className="text-sm text-gray-600">{t('metrics.recentJobs', language)}</div>
+                <div className="text-center p-3 sm:p-4 bg-white rounded-lg border border-orange-200">
+                  <div className="text-xl sm:text-2xl font-bold text-orange-600">{metrics.recent_jobs}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">{t('metrics.recentJobs', language)}</div>
                   <div className="flex items-center justify-center mt-1">
                     {getTrendIcon('neutral')}
                     <span className="text-xs text-gray-600 ml-1">0%</span>

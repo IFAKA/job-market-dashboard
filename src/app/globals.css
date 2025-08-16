@@ -143,3 +143,77 @@
     line-height: 1.75rem;
   }
 }
+
+/* Mobile responsive fixes */
+@media (max-width: 768px) {
+  /* Prevent horizontal overflow */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Ensure charts don't overflow */
+  svg {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  /* Better text wrapping for long content */
+  .break-words {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Responsive card padding */
+  .apple-watch-card {
+    @apply p-4;
+  }
+  
+  /* Responsive grid adjustments */
+  .grid {
+    gap: 1rem;
+  }
+  
+  /* Better spacing for mobile */
+  .space-y-8 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 1.5rem;
+  }
+  
+  .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 1.25rem;
+  }
+  
+  /* Responsive container padding */
+  .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+/* Chart container responsive fixes */
+.chart-container {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Ensure proper text truncation */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Better responsive flex layouts */
+@media (max-width: 640px) {
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+  
+  .flex-shrink-0 {
+    flex-shrink: 0;
+  }
+  
+  .min-w-0 {
+    min-width: 0;
+  }
+}

@@ -25,36 +25,34 @@ export function TopOpportunities({ opportunities }: TopOpportunitiesProps) {
           {opportunities.map((opportunity) => (
             <div
               key={opportunity.rank}
-              className="flex items-center justify-between p-3 rounded-xl bg-muted/50 hover:bg-muted/80 transition-colors"
+              className="flex items-start gap-3 p-3 rounded-xl bg-muted/50 hover:bg-muted/80 transition-colors"
             >
-              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-sm">
-                  {opportunity.rank}
+              <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-sm">
+                {opportunity.rank}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <Building2 className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                  <span className="font-medium text-sm truncate block">
+                    {opportunity.company}
+                  </span>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Building2 className="w-4 h-4 text-muted-foreground" />
-                    <span className="font-medium text-sm truncate">
-                      {opportunity.company}
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground truncate">
-                    {opportunity.title}
-                  </p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <Badge variant="secondary" className="text-xs">
-                      {opportunity.category}
-                    </Badge>
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <Clock className="w-3 h-3" />
-                      {opportunity.days_ago.toFixed(1)} {t('metrics.daysAgo', language)}
-                    </div>
+                <p className="text-xs text-muted-foreground break-words leading-relaxed mb-2">
+                  {opportunity.title}
+                </p>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge variant="secondary" className="text-xs flex-shrink-0">
+                    {opportunity.category}
+                  </Badge>
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground flex-shrink-0">
+                    <Clock className="w-3 h-3" />
+                    {opportunity.days_ago.toFixed(1)} {t('metrics.daysAgo', language)}
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-1 text-sm font-semibold text-primary">
+              <div className="flex items-center gap-1 text-sm font-semibold text-primary flex-shrink-0">
                 <Star className="w-4 h-4" />
-                {opportunity.score}
+                <span className="whitespace-nowrap">{opportunity.score}</span>
               </div>
             </div>
           ))}
