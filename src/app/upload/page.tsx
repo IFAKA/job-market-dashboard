@@ -293,10 +293,7 @@ export default function UploadPage() {
 
         {/* Country Selector */}
         <div>
-          <CountrySelector
-            selectedCountry={selectedCountry}
-            onCountryChange={setSelectedCountry}
-          />
+          <CountrySelector />
         </div>
 
         {/* History Section */}

@@ -5,17 +5,23 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Globe } from 'lucide-react';
 import { useLanguageContext } from '@/components/providers/language-provider';
+import { useCountry } from '@/components/providers/country-provider';
 import { t } from '@/lib/i18n';
 
 interface CountrySelectorProps {
-  selectedCountry: string;
-  onCountryChange: (country: string) => void;
+  selectedCountry?: string;
+  onCountryChange?: (country: string) => void;
   className?: string;
 }
 
 export function CountrySelector({ selectedCountry, onCountryChange, className }: CountrySelectorProps) {
   const [mounted, setMounted] = useState(false);
   const { language } = useLanguageContext();
+  const { selectedCountry: contextCountry, setSelectedCountry: setContextCountry } = useCountry();
+
+  // Use props if provided, otherwise use context
+  const currentCountry = selectedCountry || contextCountry;
+  const handleCountryChange = onCountryChange || setContextCountry;
 
   const countries = [
     { value: 'spain', label: t('country.spain', language), flag: '🇪🇸' },
@@ -42,7 +48,7 @@ export function CountrySelector({ selectedCountry, onCountryChange, className }:
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Select value={selectedCountry} onValueChange={onCountryChange}>
+        <Select value={currentCountry} onValueChange={handleCountryChange}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder={t('country.selectPlaceholder', language)} />
           </SelectTrigger>

@@ -6,10 +6,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { CountrySelector } from '@/components/ui/country-selector';
 import { categoryDetails } from '@/lib/category-details';
 import { CategoryStats } from '@/types/job';
 import { getSalaryData, formatSalary } from '@/lib/salary-data';
+import { useCountry } from '@/components/providers/country-provider';
 import { useLanguageContext } from '@/components/providers/language-provider';
 import { t } from '@/lib/i18n';
 import { 
@@ -71,9 +71,7 @@ export default function CareerPage({ params }: CareerPageProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const slug = resolvedParams.slug as string;
-  
-  // Use default country - in a real app this would come from the uploaded data context
-  const selectedCountry = 'spain'; // This should be determined from the uploaded data
+  const { selectedCountry } = useCountry();
   const { language } = useLanguageContext();
   
   // Find the career details by slug
@@ -85,11 +83,11 @@ export default function CareerPage({ params }: CareerPageProps) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('career.notFound', language)}</h1>
-          <p className="text-gray-600 mb-6">{t('career.notFoundDesc', language)}</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Career Path Not Found</h1>
+          <p className="text-gray-600 mb-6">The career path you&apos;re looking for doesn&apos;t exist.</p>
           <Button onClick={() => router.back()}>
             <ArrowLeft className="w-4 h-4 mr-2" />
-            {t('career.goBack', language)}
+            Go Back
           </Button>
         </div>
       </div>
@@ -207,15 +205,15 @@ export default function CareerPage({ params }: CareerPageProps) {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Heart className="w-5 h-5 text-red-500" />
-                Career Fit Score
+                {t('career.fitScore', language)}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between mb-4">
                 <div className="text-4xl font-bold text-sky-600">{score}%</div>
                 <div className="text-right">
-                  <div className="text-sm text-gray-600">Based on your preferences</div>
-                  <div className="text-xs text-gray-500">and market data</div>
+                  <div className="text-sm text-gray-600">{t('career.basedOnPreferences', language)}</div>
+                  <div className="text-xs text-gray-500">{t('career.andMarketData', language)}</div>
                 </div>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -234,7 +232,7 @@ export default function CareerPage({ params }: CareerPageProps) {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Target className="w-5 h-5 text-green-500" />
-                Is This Career Right for You?
+                {t('career.rightForYou', language)}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -242,7 +240,7 @@ export default function CareerPage({ params }: CareerPageProps) {
                 <div>
                   <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    You&apos;ll Love This If:
+                    {t('career.youllLoveThis', language)}:
                   </h4>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li>• You enjoy {careerDetails.whatYouDo.toLowerCase().split(',')[0]}</li>
@@ -254,7 +252,7 @@ export default function CareerPage({ params }: CareerPageProps) {
                 <div>
                   <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 text-orange-500" />
-                    Consider Another Path If:
+                    {t('career.considerAnotherPath', language)}:
                   </h4>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li>• You prefer {careerDetails.difficulty === 'Beginner' ? 'more challenging work' : 'simpler tasks'}</li>
@@ -273,7 +271,7 @@ export default function CareerPage({ params }: CareerPageProps) {
           <div>
             <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
               <Target className="w-4 h-4 text-sky-500" />
-              What You&apos;ll Do
+              {t('career.whatYoullDo', language)}
             </h4>
             <p className="text-gray-600 text-sm">{careerDetails.whatYouDo}</p>
           </div>
@@ -284,7 +282,7 @@ export default function CareerPage({ params }: CareerPageProps) {
           <div>
             <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
               <Code className="w-4 h-4 text-sky-500" />
-              Required Skills
+              {t('career.requiredSkills', language)}
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {careerDetails.requiredSkills.map((skill, index) => (
@@ -302,7 +300,7 @@ export default function CareerPage({ params }: CareerPageProps) {
           <div>
             <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
               <GraduationCap className="w-4 h-4 text-sky-500" />
-              Learning Path
+              {t('career.learningPath', language)}
             </h4>
             <div className="space-y-2">
               {careerDetails.learningPath.map((step, index) => (
@@ -323,7 +321,7 @@ export default function CareerPage({ params }: CareerPageProps) {
             <div>
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <Users className="w-4 h-4 text-sky-500" />
-                Entry Level Positions
+                {t('career.entryLevelPositions', language)}
               </h4>
               <div className="space-y-1">
                 {careerDetails.entryLevelPositions.map((position, index) => (
@@ -338,7 +336,7 @@ export default function CareerPage({ params }: CareerPageProps) {
             <div>
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-sky-500" />
-                Advanced Positions
+                {t('career.advancedPositions', language)}
               </h4>
               <div className="space-y-1">
                 {careerDetails.advancedPositions.map((position, index) => (
@@ -357,7 +355,7 @@ export default function CareerPage({ params }: CareerPageProps) {
           <div>
             <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
               <Code className="w-4 h-4 text-sky-500" />
-              Popular Technologies
+              {t('career.popularTechnologies', language)}
             </h4>
             <div className="flex flex-wrap gap-2">
               {careerDetails.popularTechnologies.map((tech, index) => (
@@ -374,12 +372,12 @@ export default function CareerPage({ params }: CareerPageProps) {
           <div>
             <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-sky-500" />
-              Learning Resources
+              {t('career.learningResources', language)}
             </h4>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <h5 className="font-medium text-gray-800 mb-2">Recommended Courses</h5>
+                <h5 className="font-medium text-gray-800 mb-2">{t('career.recommendedCourses', language)}</h5>
                 <div className="space-y-1">
                   {careerDetails.resources.courses.slice(0, 3).map((course, index) => (
                     <div key={index} className="text-sm text-gray-600 flex items-center gap-1">
@@ -391,7 +389,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               </div>
               
               <div>
-                <h5 className="font-medium text-gray-800 mb-2">Practice Platforms</h5>
+                <h5 className="font-medium text-gray-800 mb-2">{t('career.practicePlatforms', language)}</h5>
                 <div className="space-y-1">
                   {careerDetails.resources.platforms.slice(0, 3).map((platform, index) => (
                     <div key={index} className="text-sm text-gray-600 flex items-center gap-1">
@@ -403,7 +401,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               </div>
               
               <div>
-                <h5 className="font-medium text-gray-800 mb-2">Communities</h5>
+                <h5 className="font-medium text-gray-800 mb-2">{t('career.communities', language)}</h5>
                 <div className="space-y-1">
                   {careerDetails.resources.communities.slice(0, 3).map((community, index) => (
                     <div key={index} className="text-sm text-gray-600 flex items-center gap-1">
@@ -420,7 +418,7 @@ export default function CareerPage({ params }: CareerPageProps) {
           <div className="bg-sky-50 p-4 rounded-lg border border-sky-200">
             <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-sky-500" />
-              Career Prospects
+              {t('career.careerProspects', language)}
             </h4>
             <p className="text-gray-700 text-sm">{careerDetails.careerProspects}</p>
           </div>
@@ -433,14 +431,14 @@ export default function CareerPage({ params }: CareerPageProps) {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <BarChart3 className="w-5 h-5 text-sky-500" />
-                Market Overview
+                {t('career.marketOverview', language)}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between p-3 bg-sky-50 rounded-lg">
                 <div className="flex items-center gap-2">
                   <Briefcase className="w-4 h-4 text-sky-500" />
-                  <span className="text-sm text-gray-600">Total Jobs</span>
+                  <span className="text-sm text-gray-600">{t('metrics.totalJobs', language)}</span>
                 </div>
                 <span className="font-semibold text-gray-900">{mockStats.Job_Count.toLocaleString()}</span>
               </div>
@@ -448,7 +446,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
                 <div className="flex items-center gap-2">
                   <DollarSign className="w-4 h-4 text-green-500" />
-                  <span className="text-sm text-gray-600">Avg Salary</span>
+                  <span className="text-sm text-gray-600">{t('career.avgSalary', language)}</span>
                 </div>
                 <span className="font-semibold text-gray-900">
                   {salaryData ? formatSalary(mockStats.Avg_Salary, selectedCountry) : 'N/A'}
@@ -458,7 +456,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
                 <div className="flex items-center gap-2">
                   <Globe className="w-4 h-4 text-purple-500" />
-                  <span className="text-sm text-gray-600">Remote Jobs</span>
+                  <span className="text-sm text-gray-600">{t('metrics.remoteJobs', language)}</span>
                 </div>
                 <span className="font-semibold text-gray-900">{mockStats.Remote_Jobs?.toLocaleString() || 'N/A'}</span>
               </div>
@@ -466,7 +464,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-orange-500" />
-                  <span className="text-sm text-gray-600">Recent Jobs</span>
+                  <span className="text-sm text-gray-600">{t('metrics.recentJobs', language)}</span>
                 </div>
                 <span className="font-semibold text-gray-900">{mockStats.Recent_Jobs}</span>
               </div>
@@ -478,7 +476,7 @@ export default function CareerPage({ params }: CareerPageProps) {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <PieChart className="w-5 h-5 text-sky-500" />
-                Job Distribution
+                {t('career.jobDistribution', language)}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -489,7 +487,7 @@ export default function CareerPage({ params }: CareerPageProps) {
                 return (
                   <>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Remote</span>
+                      <span className="text-sm text-gray-600">{t('career.remote', language)}</span>
                       <span className="font-semibold text-gray-900">{distribution.remote}%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -500,7 +498,7 @@ export default function CareerPage({ params }: CareerPageProps) {
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">On-site</span>
+                      <span className="text-sm text-gray-600">{t('career.onsite', language)}</span>
                       <span className="font-semibold text-gray-900">{distribution.onsite}%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -511,7 +509,7 @@ export default function CareerPage({ params }: CareerPageProps) {
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Hybrid</span>
+                      <span className="text-sm text-gray-600">{t('career.hybrid', language)}</span>
                       <span className="font-semibold text-gray-900">{distribution.hybrid}%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -524,7 +522,7 @@ export default function CareerPage({ params }: CareerPageProps) {
                 );
               })() : (
                 <div className="text-center text-gray-500 py-4">
-                  No distribution data available
+                  {t('career.noDistributionData', language)}
                 </div>
               )}
             </CardContent>
@@ -535,12 +533,12 @@ export default function CareerPage({ params }: CareerPageProps) {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="w-5 h-5 text-sky-500" />
-                Experience Level
+                {t('career.experienceLevel', language)}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Entry Level</span>
+                <span className="text-sm text-gray-600">{t('career.entryLevel', language)}</span>
                 <span className="font-semibold text-gray-900">{Math.round(((mockStats.Entry_Level_Jobs || 0) / mockStats.Job_Count) * 100)}%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
@@ -551,7 +549,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Senior Level</span>
+                <span className="text-sm text-gray-600">{t('career.seniorLevel', language)}</span>
                 <span className="font-semibold text-gray-900">{Math.round(((mockStats.Senior_Level_Jobs || 0) / mockStats.Job_Count) * 100)}%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
@@ -568,7 +566,7 @@ export default function CareerPage({ params }: CareerPageProps) {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Star className="w-5 h-5 text-sky-500" />
-                Key Information
+                {t('career.keyInformation', language)}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -578,26 +576,26 @@ export default function CareerPage({ params }: CareerPageProps) {
                 </Badge>
                 <Badge className={getGrowthColor(careerDetails.growthPotential)}>
                   <TrendingUp className="w-3 h-3 mr-1" />
-                  {careerDetails.growthPotential} Growth
+                  {careerDetails.growthPotential} {t('career.growth', language)}
                 </Badge>
               </div>
               
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm">
                   <Clock className="w-4 h-4 text-orange-500" />
-                  <span className="text-gray-600">Time to Learn:</span>
+                  <span className="text-gray-600">{t('career.timeToLearn', language)}</span>
                   <span className="font-medium">{careerDetails.averageTimeToLearn}</span>
                 </div>
                 
                 <div className="flex items-center gap-2 text-sm">
                   <DollarSign className="w-4 h-4 text-green-500" />
-                  <span className="text-gray-600">Salary Range:</span>
+                  <span className="text-gray-600">{t('career.salaryRange', language)}</span>
                   <span className="font-medium">{careerDetails.salaryRange}</span>
                 </div>
                 
                 <div className="flex items-center gap-2 text-sm">
                   <Globe className="w-4 h-4 text-purple-500" />
-                  <span className="text-gray-600">Remote Work:</span>
+                  <span className="text-gray-600">{t('career.remoteWork', language)}</span>
                   <span className="font-medium">{careerDetails.remoteWorkPercentage}%</span>
                 </div>
               </div>
@@ -609,21 +607,21 @@ export default function CareerPage({ params }: CareerPageProps) {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <ExternalLink className="w-5 h-5 text-sky-500" />
-                Get Started
+                {t('career.getStarted', language)}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <Button className="w-full" size="lg">
                 <BookOpen className="w-4 h-4 mr-2" />
-                Start Learning Path
+                {t('career.startLearningPath', language)}
               </Button>
               <Button variant="outline" className="w-full">
                 <Users className="w-4 h-4 mr-2" />
-                Join Community
+                {t('career.joinCommunity', language)}
               </Button>
               <Button variant="outline" className="w-full">
                 <Briefcase className="w-4 h-4 mr-2" />
-                View Job Openings
+                {t('career.viewJobOpenings', language)}
               </Button>
             </CardContent>
           </Card>

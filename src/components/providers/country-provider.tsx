@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface CountryContextType {
   selectedCountry: string;
@@ -10,10 +10,24 @@ interface CountryContextType {
 const CountryContext = createContext<CountryContextType | undefined>(undefined);
 
 export function CountryProvider({ children }: { children: ReactNode }) {
-  const [selectedCountry, setSelectedCountry] = useState<string>('spain');
+  const [selectedCountry, setSelectedCountry] = useState<string>('argentina');
+
+  // Load country from localStorage on mount
+  useEffect(() => {
+    const savedCountry = localStorage.getItem('selected-country');
+    if (savedCountry) {
+      setSelectedCountry(savedCountry);
+    }
+  }, []);
+
+  // Save country to localStorage whenever it changes
+  const handleSetSelectedCountry = (country: string) => {
+    setSelectedCountry(country);
+    localStorage.setItem('selected-country', country);
+  };
 
   return (
-    <CountryContext.Provider value={{ selectedCountry, setSelectedCountry }}>
+    <CountryContext.Provider value={{ selectedCountry, setSelectedCountry: handleSetSelectedCountry }}>
       {children}
     </CountryContext.Provider>
   );
