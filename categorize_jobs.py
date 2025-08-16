@@ -211,24 +211,57 @@ def create_accurate_categorizer():
                 'flask developer', 'spring developer', 'express developer', 'laravel developer',
                 'rails developer', 'asp.net developer', 'html developer', 'css developer',
                 'javascript developer', 'typescript developer', 'jquery developer',
-                'desarrollador', 'desarrollador/a'
+                'desarrollador', 'desarrollador/a', 'linux kernel engineer', 'kernel engineer',
+                'ubuntu engineer', 'cryptography engineer', 'security engineer', 'silicon engineer',
+                'containerization engineer', 'virtualisation engineer', 'embedded engineer',
+                'field engineer', 'support engineer', 'system administration', 'build system',
+                'software traine', 'desarolador'
             ],
             'technologies': [
                 'react', 'angular', 'vue', 'node.js', 'nodejs', 'python', 'java', 'javascript', 
                 'typescript', 'php', 'ruby', 'go', 'golang', 'rust', 'c++', 'c#', '.net', 
                 'django', 'flask', 'spring', 'express', 'laravel', 'rails', 'asp.net', 
-                'html', 'css', 'sass', 'scss', 'bootstrap', 'tailwind', 'jquery'
+                'html', 'css', 'sass', 'scss', 'bootstrap', 'tailwind', 'jquery', 'linux',
+                'ubuntu', 'kernel', 'docker', 'kubernetes', 'revit', 'structural'
             ],
             'exclusions': [
                 'kinesiólogo', 'kinesiologo', 'attorney', 'lawyer', 'accountant', 'recruiter',
                 'assistant', 'coordinator', 'manager', 'specialist', 'analyst', 'trader',
                 'setter', 'generation', 'marketing', 'sales', 'hr', 'human resources',
-                'translator', 'paralegal', 'litigation', 'immigration', 'law', 'legal'
+                'translator', 'paralegal', 'litigation', 'immigration', 'law', 'legal',
+                'data scientist', 'machine learning', 'ai engineer', 'computer vision',
+                'research', 'clinical', 'curricular', 'annotator', 'teacher', 'instructor',
+                'founder', 'partnerships', 'consultor', 'consultoría', 'cost estimator'
             ],
             'patterns': [
                 r'\b(software|web|mobile|full.?stack|front.?end|back.?end)\s+(developer|engineer|programmer)\b',
                 r'\b(react|angular|vue|node|python|java|javascript|typescript|php|ruby|go|rust|c\+\+|c#|\.net)\s+(developer|engineer)\b',
-                r'\b(developer|engineer|programmer)\b.*\b(react|angular|vue|node|python|java|javascript|typescript|php|ruby|go|rust|c\+\+|c#|\.net)\b'
+                r'\b(developer|engineer|programmer)\b.*\b(react|angular|vue|node|python|java|javascript|typescript|php|ruby|go|rust|c\+\+|c#|\.net)\b',
+                r'\b(linux|ubuntu|kernel|cryptography|security|silicon|containerization|virtualisation|embedded|field|support)\s+(engineer)\b',
+                r'\b(system\s+administration|build\s+system)\b'
+            ]
+        },
+        'AI/ML Engineer': {
+            'primary': [
+                'ai engineer', 'artificial intelligence engineer', 'machine learning engineer', 'ml engineer',
+                'ai agent', 'ai assistant', 'computer vision engineer', 'vision engineer',
+                'applied ai engineer', 'ai data labeler', 'data labeler', 'ai training',
+                'founding data engineer', 'machine learning', 'deep learning', 'neural networks',
+                'ai/ml', 'ai agent assistant', 'ai video creator', 'ai content creator'
+            ],
+            'technologies': [
+                'tensorflow', 'pytorch', 'scikit-learn', 'scikit learn', 'keras', 'opencv',
+                'computer vision', 'neural networks', 'deep learning', 'machine learning',
+                'ai', 'artificial intelligence', 'ml', 'data labeling', 'annotation'
+            ],
+            'exclusions': [
+                'data scientist', 'data analyst', 'research', 'clinical', 'curricular',
+                'teacher', 'instructor', 'founder', 'partnerships', 'consultor', 'consultoría'
+            ],
+            'patterns': [
+                r'\b(ai|artificial\s+intelligence|machine\s+learning|ml|computer\s+vision|vision)\s+(engineer|assistant|agent|creator)\b',
+                r'\b(applied\s+ai|ai\s+agent|ai\s+assistant|ai\s+data\s+labeler|data\s+labeler)\b',
+                r'\b(computer\s+vision|vision\s+engineer|ai\s+training|ai\s+video\s+creator)\b'
             ]
         },
         'Data Science': {
@@ -278,7 +311,9 @@ def create_accurate_categorizer():
                 'sustainability', 'responsible', 'consultant', 'health', 'industry', 'public',
                 'service', 'infrastructure', 'dba', 'informix', 'consultores', 'fi',
                 'founder', 'residence', 'trainee', 'intern', 'graduate', 'quantitative',
-                'bookkeeper', 'financial', 'accounting', 'treasury', 'bookkeeping'
+                'bookkeeper', 'financial', 'accounting', 'treasury', 'bookkeeping',
+                'ai agent', 'computer vision', 'applied ai', 'data labeler', 'research',
+                'clinical', 'curricular', 'annotator', 'teacher', 'instructor', 'partnerships'
             ],
             'patterns': [
                 r'\b(data\s+scientist|data\s+analyst|machine\s+learning\s+engineer|ml\s+engineer)\b',
@@ -286,6 +321,52 @@ def create_accurate_categorizer():
                 r'\b(bi\s+analyst|business\s+intelligence\s+analyst|analytics\s+engineer)\b',
                 r'\b(data\s+engineer|research\s+scientist|quantitative\s+analyst)\b',
                 r'\b(pandas|numpy|tensorflow|pytorch|scikit|jupyter|spark|hadoop|tableau|power\s+bi)\b'
+            ]
+        },
+        'Research & Education': {
+            'primary': [
+                'market research', 'research assistant', 'research associate', 'clinical research',
+                'curricular data annotator', 'data annotator', 'annotator', 'esl teacher',
+                'teacher', 'instructor', 'data science instructor', 'peer reviewer',
+                'research scientist', 'academic', 'educational', 'teaching', 'tutoring',
+                'behavioral health coach', 'health coach', 'coach'
+            ],
+            'patterns': [
+                r'\b(market\s+research|research\s+assistant|research\s+associate|clinical\s+research)\b',
+                r'\b(curricular\s+data\s+annotator|data\s+annotator|annotator)\b',
+                r'\b(esl\s+teacher|teacher|instructor|data\s+science\s+instructor)\b',
+                r'\b(peer\s+reviewer|behavioral\s+health\s+coach|health\s+coach|coach)\b'
+            ]
+        },
+        'Consulting & Business': {
+            'primary': [
+                'consultor', 'consultoría', 'consultant', 'consulting', 'partnerships associate',
+                'partnerships', 'founder in residence', 'founder', 'residence', 'business analyst',
+                'functional analyst', 'analista funcional', 'consultores', 'consultores sap',
+                'sap consultant', 'sap fi', 'aml', 'cft', 'manuales', 'reporting', 'salesforce',
+                'qanalyst', 'qa analyst', 'cost estimator', 'estimator', 'inspections associate'
+            ],
+            'patterns': [
+                r'\b(consultor|consultoría|consultant|consulting|partnerships|founder)\b',
+                r'\b(analista\s+funcional|functional\s+analyst|business\s+analyst)\b',
+                r'\b(consultores|sap|aml|cft|manuales|reporting|salesforce)\b',
+                r'\b(qanalyst|qa\s+analyst|cost\s+estimator|estimator|inspections)\b'
+            ]
+        },
+        'Specialized Technical': {
+            'primary': [
+                'structural modeler', 'modeler', 'revit', 'metal building detailer', 'detailer',
+                'joinery', 'furniture', 'cost estimator', 'estimator', 'performance benchmarking',
+                'benchmarking engineer', 'risc-v', 'workloads', 'vector illustrator', 'illustrator',
+                'animator', 'graphics', 'visual design', 'dtp specialist', 'desktop publishing',
+                'conciliaciones bancarias', 'bancarias', 'excel specialist', 'financial specialist'
+            ],
+            'patterns': [
+                r'\b(structural\s+modeler|modeler|revit|metal\s+building\s+detailer|detailer)\b',
+                r'\b(joinery|furniture|cost\s+estimator|estimator|performance\s+benchmarking)\b',
+                r'\b(benchmarking\s+engineer|risc-v|workloads|vector\s+illustrator|illustrator)\b',
+                r'\b(animator|graphics|visual\s+design|dtp\s+specialist|desktop\s+publishing)\b',
+                r'\b(conciliaciones\s+bancarias|bancarias|excel\s+specialist|financial\s+specialist)\b'
             ]
         },
         'Legal': {
@@ -304,11 +385,13 @@ def create_accurate_categorizer():
             'primary': [
                 'translator', 'interpreter', 'translation specialist', 'language specialist',
                 'german translator', 'spanish translator', 'french translator', 'english translator',
-                'bilingual specialist', 'language coordinator', 'translation coordinator'
+                'bilingual specialist', 'language coordinator', 'translation coordinator',
+                'welsh', 'linguistic', 'latin script', 'guarani', 'sicilian'
             ],
             'patterns': [
                 r'\b(translator|interpreter|translation|language|bilingual)\b',
-                r'\b(german|spanish|french|english|portuguese|italian)\s+(translator|interpreter)\b'
+                r'\b(german|spanish|french|english|portuguese|italian|welsh|guarani|sicilian)\s+(translator|interpreter)\b',
+                r'\b(linguistic|latin\s+script)\b'
             ]
         },
         'Marketing': {
@@ -317,7 +400,8 @@ def create_accurate_categorizer():
                 'sem specialist', 'ppc specialist', 'social media specialist', 'content marketing',
                 'email marketing', 'growth marketing', 'brand marketing', 'marketing analyst',
                 'marketing coordinator', 'marketing manager', 'ads specialist', 'media buyer',
-                'seo', 'sem', 'ppc', 'google ads', 'facebook ads', 'instagram ads'
+                'seo', 'sem', 'ppc', 'google ads', 'facebook ads', 'instagram ads',
+                'marketing asistant'
             ],
             'patterns': [
                 r'\b(marketing|seo|sem|ppc|content|social|email|digital|brand|growth|ads|media)\b',
@@ -329,11 +413,12 @@ def create_accurate_categorizer():
                 'sales representative', 'sales specialist', 'account executive', 'business development',
                 'sales development representative', 'sdr', 'business development representative',
                 'bdr', 'sales manager', 'account manager', 'sales coordinator', 'lead generation',
-                'sales consultant', 'sales analyst', 'appointment setter', 'vendedor', 'prospeción',
-                'prospección', 'ventas', 'comercial'
+                'sales consultant', 'sales analyst', 'appointment setter', 'apointment seter', 'vendedor', 'prospeción',
+                'prospección', 'ventas', 'comercial', 'salesperson', 'cold caller', 'caller', 'cold caler'
             ],
             'patterns': [
-                r'\b(sales|business.?development|account|executive|representative|bdr|sdr|lead.?generation|vendedor|prospeción|prospección|ventas|comercial)\b'
+                r'\b(sales|business.?development|account|executive|representative|bdr|sdr|lead.?generation|vendedor|prospeción|prospección|ventas|comercial|salesperson|cold.?caller|caller|cold.?caler)\b',
+                r'\b(apointment\s+seter|appointment\s+setter)\b'
             ]
         },
         'Administrative': {
@@ -344,10 +429,11 @@ def create_accurate_categorizer():
                 'medical records specialist', 'records specialist', 'liability specialist',
                 'third-party liability', 'medical records', 'records management',
                 'administrative specialist', 'office specialist', 'administrative analyst',
-                'office analyst', 'administrative coordinator', 'office coordinator'
+                'office analyst', 'administrative coordinator', 'office coordinator',
+                'virtual asistant', 'executive asistant'
             ],
             'patterns': [
-                r'\b(assistant|coordinator|manager|admin|executive|virtual|office|administrative)\b',
+                r'\b(assistant|coordinator|manager|admin|executive|virtual|office|administrative|asistant)\b',
                 r'\b(medical\s+records|records\s+specialist|liability\s+specialist|third.?party\s+liability)\b'
             ]
         },
@@ -355,20 +441,21 @@ def create_accurate_categorizer():
             'primary': [
                 'hr specialist', 'human resources specialist', 'recruiter', 'talent acquisition',
                 'hr coordinator', 'hr manager', 'recruitment specialist', 'talent sourcer',
-                'hr assistant', 'people operations', 'hr analyst'
+                'hr assistant', 'people operations', 'hr analyst', 'aba recruiter'
             ],
             'patterns': [
-                r'\b(hr|human.?resources|recruiter|talent|acquisition|hiring|sourcer)\b'
+                r'\b(hr|human.?resources|recruiter|talent|acquisition|hiring|sourcer|aba\s+recruiter)\b'
             ]
         },
         'Design': {
             'primary': [
                 'ui designer', 'ux designer', 'graphic designer', 'visual designer',
                 'product designer', 'web designer', 'brand designer', 'creative designer',
-                'interaction designer', 'user experience designer', 'user interface designer'
+                'interaction designer', 'user experience designer', 'user interface designer',
+                'creative strategist'
             ],
             'patterns': [
-                r'\b(design|ui|ux|graphic|visual|creative|brand|logo|product.?design)\b'
+                r'\b(design|ui|ux|graphic|visual|creative|brand|logo|product.?design|strategist)\b'
             ]
         },
         'Content Creation': {
@@ -383,10 +470,11 @@ def create_accurate_categorizer():
         'Video/Media': {
             'primary': [
                 'video editor', 'video producer', 'video creator', 'cinematographer',
-                'video specialist', 'media producer', 'video coordinator', 'editor'
+                'video specialist', 'media producer', 'video coordinator', 'editor',
+                'ai cinematographer'
             ],
             'patterns': [
-                r'\b(video|editor|media|production|filming|editing|motion|cinematographer)\b'
+                r'\b(video|editor|media|production|filming|editing|motion|cinematographer|ai\s+cinematographer)\b'
             ]
         },
         'DevOps': {
@@ -431,10 +519,11 @@ def create_accurate_categorizer():
                 'accounting director', 'financial director', 'accounting controller',
                 'financial controller', 'accounting officer', 'financial officer',
                 'accounting executive', 'financial executive', 'accounting administrator',
-                'financial administrator'
+                'financial administrator', 'quickbooks', 'acountant', 'balancero',
+                'cobranzas asociate'
             ],
             'patterns': [
-                r'\b(accountant|bookkeeper|financial|accounting|treasury|bookkeeping)\b'
+                r'\b(accountant|bookkeeper|financial|accounting|treasury|bookkeeping|quickbooks|acountant|balancero|cobranzas)\b'
             ]
         },
         'Healthcare/Medical': {
@@ -480,6 +569,8 @@ def create_accurate_categorizer():
         title_lower = title.lower()
         title_lower = re.sub(r'[^\w\s]', ' ', title_lower)
         title_lower = re.sub(r'\s+', ' ', title_lower).strip()
+        
+
         
         # Score each category
         category_scores = defaultdict(float)
@@ -621,8 +712,8 @@ def main():
     df['category_confidence'] = confidences
     df['matched_keywords'] = keywords_list
     
-    # Step 6: Save results
-    df.to_csv('complete_categorized_jobs.csv', index=False)
+    # Step 6: Save results with proper CSV handling
+    df.to_csv('complete_categorized_jobs.csv', index=False, quoting=1)  # QUOTE_ALL to handle commas in fields
     
     # Print statistics
     print(f"✅ Complete fix and categorization finished!")

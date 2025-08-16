@@ -4,6 +4,8 @@ import { useState, useCallback } from 'react';
 import { Upload, FileText, FileSpreadsheet, X, AlertCircle } from 'lucide-react';
 import { Button } from './button';
 import { Card } from './card';
+import { useLanguageContext } from '@/components/providers/language-provider';
+import { t } from '@/lib/i18n';
 
 interface FileUploadProps {
   onFileUpload: (file: File) => void;
@@ -11,6 +13,7 @@ interface FileUploadProps {
 }
 
 export function FileUpload({ onFileUpload, isLoading = false }: FileUploadProps) {
+  const { language } = useLanguageContext();
   const [isDragOver, setIsDragOver] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -20,12 +23,12 @@ export function FileUpload({ onFileUpload, isLoading = false }: FileUploadProps)
     const maxSize = 10 * 1024 * 1024; // 10MB
 
     if (!allowedTypes.includes(file.type) && !file.name.endsWith('.txt') && !file.name.endsWith('.csv')) {
-      setError('Please upload a .txt or .csv file');
+      setError(language === 'es' ? 'Por favor sube un archivo .txt o .csv' : 'Please upload a .txt or .csv file');
       return false;
     }
 
     if (file.size > maxSize) {
-      setError('File size must be less than 10MB');
+      setError(language === 'es' ? 'El tamaño del archivo debe ser menor a 10MB' : 'File size must be less than 10MB');
       return false;
     }
 
@@ -90,10 +93,10 @@ export function FileUpload({ onFileUpload, isLoading = false }: FileUploadProps)
       <div className="space-y-4">
         <div className="text-center">
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Upload Job Data
+            {t('upload.title', language)}
           </h3>
           <p className="text-sm text-gray-600">
-            Upload a .txt or .csv file with job listings to update the dashboard
+            {t('upload.description', language)}
           </p>
         </div>
 
@@ -110,19 +113,27 @@ export function FileUpload({ onFileUpload, isLoading = false }: FileUploadProps)
           >
             <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <p className="text-sm text-gray-600 mb-2">
-              Drag and drop your file here, or{' '}
-              <label className="text-sky-600 hover:text-sky-700 cursor-pointer">
-                browse
-                <input
-                  type="file"
-                  accept=".txt,.csv"
-                  onChange={handleFileInputChange}
-                  className="hidden"
-                />
-              </label>
+              {t('upload.dragDrop', language).split('browse').map((part, index) => (
+                index === 0 ? (
+                  <span key={index}>
+                    {part}
+                    <label className="text-sky-600 hover:text-sky-700 cursor-pointer">
+                      {language === 'es' ? 'explorar' : 'browse'}
+                      <input
+                        type="file"
+                        accept=".txt,.csv"
+                        onChange={handleFileInputChange}
+                        className="hidden"
+                      />
+                    </label>
+                  </span>
+                ) : (
+                  <span key={index}>{part}</span>
+                )
+              ))}
             </p>
             <p className="text-xs text-gray-500">
-              Supports .txt and .csv files up to 10MB
+              {language === 'es' ? 'Soporta archivos .txt y .csv hasta 10MB' : 'Supports .txt and .csv files up to 10MB'}
             </p>
           </div>
         ) : (
@@ -165,12 +176,12 @@ export function FileUpload({ onFileUpload, isLoading = false }: FileUploadProps)
             {isLoading ? (
               <>
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                Processing...
+                {t('upload.uploading', language)}
               </>
             ) : (
               <>
                 <Upload className="w-4 h-4 mr-2" />
-                Upload and Update Dashboard
+                {language === 'es' ? 'Subir y Actualizar Panel' : 'Upload and Update Dashboard'}
               </>
             )}
           </Button>

@@ -82,9 +82,9 @@
 /* Apple Watch Style Guidelines */
 @layer components {
   .apple-watch-card {
-    @apply rounded-3xl shadow-lg backdrop-blur-sm;
+    @apply rounded-3xl shadow-lg;
     background-color: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.5);
+    border: 1px solid hsl(var(--border));
   }
   
   .apple-watch-button {

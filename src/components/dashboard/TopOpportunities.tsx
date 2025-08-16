@@ -2,18 +2,22 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TopOpportunity } from '@/types/job';
 import { Trophy, Building2, Clock, Star } from 'lucide-react';
+import { useLanguageContext } from '@/components/providers/language-provider';
+import { t } from '@/lib/i18n';
 
 interface TopOpportunitiesProps {
   opportunities: TopOpportunity[];
 }
 
 export function TopOpportunities({ opportunities }: TopOpportunitiesProps) {
+  const { language } = useLanguageContext();
+  
   return (
     <Card className="apple-watch-card">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Trophy className="w-5 h-5 text-yellow-500" />
-          Top Opportunities
+          {t('opportunities.title', language)}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -43,7 +47,7 @@ export function TopOpportunities({ opportunities }: TopOpportunitiesProps) {
                     </Badge>
                     <div className="flex items-center gap-1 text-xs text-muted-foreground">
                       <Clock className="w-3 h-3" />
-                      {opportunity.days_ago.toFixed(1)} days ago
+                      {opportunity.days_ago.toFixed(1)} {t('metrics.daysAgo', language)}
                     </div>
                   </div>
                 </div>

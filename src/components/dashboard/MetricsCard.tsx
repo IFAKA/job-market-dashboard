@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TrendingUp, Building2, Zap, Clock, Briefcase } from 'lucide-react';
 import { JobMetrics } from '@/types/job';
+import { useLanguageContext } from '@/components/providers/language-provider';
+import { t } from '@/lib/i18n';
 
 interface MetricsCardProps {
   title: string;
@@ -60,34 +62,36 @@ export function MetricsCard({
 }
 
 export function MetricsGrid({ metrics }: { metrics: JobMetrics }) {
+  const { language } = useLanguageContext();
+  
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       <MetricsCard
-        title="Total Jobs"
+        title={t('metrics.totalJobs', language)}
         value={metrics.total_jobs}
         icon={<Briefcase className="w-4 h-4" />}
-        description="Available positions"
+        description={t('metrics.availablePositions', language)}
         color="primary"
       />
       <MetricsCard
-        title="Companies"
+        title={t('metrics.companies', language)}
         value={metrics.unique_companies}
         icon={<Building2 className="w-4 h-4" />}
-        description="Hiring companies"
+        description={t('metrics.hiringCompanies', language)}
         color="secondary"
       />
       <MetricsCard
-        title="Easy Apply"
+        title={t('metrics.easyApply', language)}
         value={metrics.easy_apply_jobs}
         icon={<Zap className="w-4 h-4" />}
-        description="Quick applications"
+        description={t('metrics.quickApplications', language)}
         color="success"
       />
       <MetricsCard
-        title="Recent Jobs"
+        title={t('metrics.recentJobs', language)}
         value={metrics.recent_jobs}
         icon={<Clock className="w-4 h-4" />}
-        description="Last 7 days"
+        description={t('metrics.last7Days', language)}
         color="warning"
       />
     </div>

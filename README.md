@@ -1,6 +1,6 @@
 # Job Market Dashboard
 
-A modern React dashboard for analyzing remote job opportunities in Argentina, built with the latest web technologies and featuring Apple Watch-inspired design guidelines.
+A modern React dashboard for analyzing remote job opportunities in Argentina, built with the latest web technologies and featuring Apple Watch-inspired design guidelines. Now with file upload capabilities and history management!
 
 ## 🚀 Features
 
@@ -10,6 +10,9 @@ A modern React dashboard for analyzing remote job opportunities in Argentina, bu
 - **Responsive Design**: Works perfectly on all devices
 - **Real-time Data**: Live job market analysis
 - **AI-Powered Insights**: Smart recommendations and categorization
+- **File Upload System**: Support for .txt and .csv files with smart parsing
+- **History Management**: Track and switch between uploaded datasets
+- **Data Persistence**: Browser localStorage for data persistence
 
 ## 🎨 Design System
 
@@ -78,6 +81,26 @@ This script:
 - Categorizes jobs using AI-powered algorithms
 - Generates the `complete_categorized_jobs.csv` file
 
+### File Upload System
+The dashboard now supports direct file uploads:
+
+#### Supported Formats
+- **LinkedIn Job Format (.txt)**: Raw job listings from LinkedIn
+- **CSV Format (.csv)**: Structured job data with headers
+
+#### Upload Process
+1. Navigate to `/upload` or click "Upload New Data"
+2. Drag & drop or browse for your file
+3. System automatically parses and categorizes the data
+4. Dashboard updates with new data
+5. File is saved to history for future use
+
+#### Data Parsing Features
+- **Automatic Categorization**: Jobs categorized by title keywords
+- **Salary Extraction**: Parses salary ranges from various formats
+- **Time Analysis**: Converts posting times to days ago
+- **Location Detection**: Identifies remote and location-specific jobs
+
 ### Data Structure
 The dashboard expects a CSV file with the following columns:
 - `company`: Company name
@@ -115,6 +138,13 @@ The dashboard expects a CSV file with the following columns:
 - Ranked job opportunities
 - Opportunity scoring system
 - Company and category information
+
+### 5. File Upload & History
+- **Upload Interface**: Drag & drop or browse for files
+- **Format Support**: .txt (LinkedIn format) and .csv files
+- **Smart Parsing**: Automatic data extraction and categorization
+- **History Management**: Switch between uploaded datasets
+- **Data Persistence**: Uploads saved in browser storage
 
 ## 🎨 Customization
 

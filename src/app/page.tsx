@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { MetricsGrid } from '@/components/dashboard/MetricsCard';
 import { TopOpportunities } from '@/components/dashboard/TopOpportunities';
 import { Recommendations } from '@/components/dashboard/Recommendations';
+import { CategoryExplorer } from '@/components/dashboard/CategoryExplorer';
 import { BarChart } from '@/components/charts/BarChart';
 import { PieChart } from '@/components/charts/PieChart';
 import { Job, JobMarketData } from '@/types/job';
@@ -15,32 +17,91 @@ import {
   generateRecommendations, 
   prepareChartData 
 } from '@/lib/data-utils';
-import { BarChart3, PieChart as PieChartIcon, Code, Globe } from 'lucide-react';
+import { BarChart3, PieChart as PieChartIcon, Code, Globe, Upload, RefreshCw } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useLanguageContext } from '@/components/providers/language-provider';
+import { LanguageSwitcher } from '@/components/ui/language-switcher';
+import { ExportButton } from '@/components/ui/export-button';
+
+import { t } from '@/lib/i18n';
+import { 
+  initializeDefaultData, 
+  getCurrentDataId, 
+  getDataById,
+  ensureCurrentDataInHistory
+} from '@/lib/default-data';
 
 export default function Dashboard() {
+  const router = useRouter();
+  const { language } = useLanguageContext();
   const [data, setData] = useState<JobMarketData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [currentDataId, setCurrentDataId] = useState<string | null>(null);
+
+  // Restore scroll position when component mounts (for when user navigates back from career pages)
+  useEffect(() => {
+    const restoreScrollPosition = () => {
+      const savedScrollPosition = sessionStorage.getItem('dashboardScrollPosition');
+      console.log('Checking for saved scroll position:', savedScrollPosition); // Debug log
+      
+      if (savedScrollPosition) {
+        // Clear the stored position
+        sessionStorage.removeItem('dashboardScrollPosition');
+        console.log('Restoring scroll position to:', savedScrollPosition); // Debug log
+        
+        const scrollY = parseInt(savedScrollPosition);
+        
+        // Use requestAnimationFrame for smooth scrolling
+        requestAnimationFrame(() => {
+          window.scrollTo({
+            top: scrollY,
+            behavior: 'instant' // Use instant to avoid animation
+          });
+          console.log('Scroll restoration completed to position:', scrollY); // Debug log
+        });
+      }
+    };
+
+    // Only restore scroll position after data is loaded and not loading
+    if (!loading && data) {
+      // Try to restore immediately
+      restoreScrollPosition();
+      
+      // Also try after a short delay to ensure DOM is ready
+      const timeoutId = setTimeout(restoreScrollPosition, 100);
+      
+      // Cleanup timeout
+      return () => clearTimeout(timeoutId);
+    }
+  }, [loading, data]);
 
   useEffect(() => {
     const loadData = async () => {
       try {
+        // Always load API data first to ensure default data is available
         const response = await fetch('/api/jobs');
-        const jobs: Job[] = await response.json();
+        const jobMarketData: JobMarketData = await response.json();
         
-        const metrics = calculateMetrics(jobs);
-        const categoryStats = calculateCategoryStats(jobs);
-        const topOpportunities = calculateTopOpportunities(jobs);
-        const technologyInsights = calculateTechnologyInsights(jobs);
-        const recommendations = generateRecommendations(metrics, categoryStats);
-
-        setData({
-          jobs,
-          metrics,
-          categoryStats,
-          topOpportunities,
-          technologyInsights,
-          recommendations
-        });
+        // Initialize default data in history (this ensures it's always available)
+        initializeDefaultData(jobMarketData);
+        
+        // Then try to load from localStorage (uploaded data)
+        const currentDataId = getCurrentDataId();
+        setCurrentDataId(currentDataId);
+        if (currentDataId) {
+          const savedData = getDataById(currentDataId);
+          if (savedData) {
+            setData(savedData);
+            setLoading(false);
+            return;
+          }
+        }
+        
+        // If no current data or current data not found, use default data
+        setData(jobMarketData);
+        
+        // Ensure current data is properly marked in history
+        ensureCurrentDataInHistory();
       } catch (error) {
         console.error('Error loading data:', error);
       } finally {
@@ -54,23 +115,40 @@ export default function Dashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-sky-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-sky-400 mx-auto"></div>
-          <p className="mt-4 text-lg text-gray-600">Loading job market data...</p>
-        </div>
+                  <div className="text-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-sky-400 mx-auto"></div>
+            <p className="mt-4 text-lg text-gray-600">{t('loading.text', language)}</p>
+          </div>
       </div>
     );
   }
 
   if (!data) {
     return (
-      <div className="min-h-screen bg-sky-50 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-lg text-gray-600">No data available</p>
+              <div className="min-h-screen bg-sky-50 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-lg text-gray-600">{t('no.data', language)}</p>
+          </div>
         </div>
-      </div>
     );
   }
+
+  // Temporary test function for scroll position
+  const testScrollPosition = () => {
+    const currentScroll = window.scrollY;
+    console.log('Current scroll position:', currentScroll);
+    sessionStorage.setItem('dashboardScrollPosition', currentScroll.toString());
+    console.log('Stored scroll position for testing');
+  };
+
+  const testRestoreScroll = () => {
+    const saved = sessionStorage.getItem('dashboardScrollPosition');
+    console.log('Testing restore - saved position:', saved);
+    if (saved) {
+      window.scrollTo(0, parseInt(saved));
+      console.log('Test scroll restoration completed');
+    }
+  };
 
   // Prepare chart data
   const categoryChartData = prepareChartData(
@@ -90,14 +168,50 @@ export default function Dashboard() {
       {/* Header */}
       <div className="mb-8 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
-          <Globe className="w-8 h-8 text-sky-500" />
-          <h1 className="text-4xl md:text-5xl font-bold text-sky-600">
-            Job Market Dashboard
-          </h1>
-        </div>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Real-time insights into remote job opportunities in Argentina with AI-powered analysis
-        </p>
+                      <Globe className="w-8 h-8 text-sky-500" />
+            <h1 className="text-4xl md:text-5xl font-bold text-sky-600">
+              {t('dashboard.title', language)}
+            </h1>
+          </div>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            {t('dashboard.subtitle', language)}
+          </p>
+          {currentDataId && (
+            <p className="text-sm text-sky-600 mt-2">
+              {t('using.uploadedData', language)} • {data?.jobs.length || 0} {t('jobs.loaded', language)}
+            </p>
+          )}
+          <div className="mt-6 flex gap-3 justify-center items-center">
+            <Button
+              onClick={() => router.push('/upload')}
+              className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700"
+            >
+              <Upload className="w-4 h-4" />
+              {t('upload.newData', language)}
+            </Button>
+            <ExportButton jobs={data.jobs} />
+            <LanguageSwitcher />
+          </div>
+          
+          {/* Temporary test buttons for scroll position debugging */}
+          <div className="mt-4 flex gap-2 justify-center">
+            <Button
+              onClick={testScrollPosition}
+              variant="outline"
+              size="sm"
+              className="text-xs"
+            >
+              Test Save Scroll
+            </Button>
+            <Button
+              onClick={testRestoreScroll}
+              variant="outline"
+              size="sm"
+              className="text-xs"
+            >
+              Test Restore Scroll
+            </Button>
+          </div>
       </div>
 
       {/* Metrics Grid */}
@@ -108,11 +222,11 @@ export default function Dashboard() {
         <div className="space-y-4">
           <div className="flex items-center gap-2 text-lg font-semibold text-gray-800">
             <BarChart3 className="w-5 h-5 text-sky-500" />
-            <span>Top Job Categories</span>
+            <span>{t('charts.topCategories', language)}</span>
           </div>
           <BarChart
             data={categoryChartData}
-            title="Top Job Categories"
+            title={t('charts.topCategories', language)}
             height={400}
             width={500}
           />
@@ -120,11 +234,11 @@ export default function Dashboard() {
         <div className="space-y-4">
           <div className="flex items-center gap-2 text-lg font-semibold text-gray-800">
             <PieChartIcon className="w-5 h-5 text-sky-500" />
-            <span>Category Distribution</span>
+            <span>{t('charts.categoryDistribution', language)}</span>
           </div>
           <PieChart
             data={categoryChartData}
-            title="Category Distribution"
+            title={t('charts.categoryDistribution', language)}
             height={400}
             width={500}
           />
@@ -135,14 +249,19 @@ export default function Dashboard() {
       <div className="mb-8">
         <div className="flex items-center gap-2 text-lg font-semibold text-gray-800 mb-4">
           <Code className="w-5 h-5 text-sky-500" />
-          <span>Most In-Demand Technologies</span>
+          <span>{t('charts.technologies', language)}</span>
         </div>
         <BarChart
           data={technologyChartData}
-          title="Most In-Demand Technologies"
+          title={t('charts.technologies', language)}
           height={400}
           width={800}
         />
+      </div>
+
+      {/* Category Explorer */}
+      <div className="mb-8">
+        <CategoryExplorer categoryStats={data.categoryStats} />
       </div>
 
       {/* Bottom Section */}
@@ -153,7 +272,7 @@ export default function Dashboard() {
 
       {/* Footer */}
       <div className="mt-12 text-center text-sm text-gray-500">
-        <p>Data updated in real-time • Argentine Job Market Analysis</p>
+        <p>{t('footer.updated', language)} • {t('footer.analysis', language)}</p>
       </div>
     </div>
   );
