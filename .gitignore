@@ -1,0 +1,11 @@
+/DEPLOYMENT.md
+/QUICK_DEPLOY.md
+/__pycache__
+/complete_categorized_jobs.csv
+/complete_fix.py
+/fixed_remote-trainee-jobs.txt
+/job_market_dashboard.html
+/remote-trainee-jobs.txt
+/runtime.txt
+/venv
+/vercel.json

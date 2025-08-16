@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Trainee Jobs - Argentina</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        // Force responsive chart layout on mobile
+        function makeChartsResponsive() {
+            const charts = document.querySelectorAll('.js-plotly-plot');
+            charts.forEach(chart => {
+                if (window.innerWidth <= 768) {
+                    // Force single column layout on mobile
+                    const subplots = chart.querySelectorAll('.subplot');
+                    subplots.forEach((subplot, index) => {
+                        subplot.style.width = '100%';
+                        subplot.style.height = '300px';
+                        subplot.style.marginBottom = index < subplots.length - 1 ? '2rem' : '0';
+                        subplot.style.display = 'block';
+                    });
+                    
+                    // Override Plotly's grid layout
+                    const plotlyContainer = chart.querySelector('.plotly');
+                    if (plotlyContainer) {
+                        plotlyContainer.style.display = 'flex';
+                        plotlyContainer.style.flexDirection = 'column';
+                        plotlyContainer.style.width = '100%';
+                    }
+                }
+            });
+        }
+        
+        // Run on load and resize
+        window.addEventListener('load', makeChartsResponsive);
+        window.addEventListener('resize', makeChartsResponsive);
+        
+        // Also run after a short delay to ensure Plotly has rendered
+        setTimeout(makeChartsResponsive, 500);
+        
+        // File upload functionality
+        function handleFileUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Please select a file');
+                return;
+            }
+            
+            if (!file.name.endsWith('.csv')) {
+                alert('Please select a CSV file');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            })
+            .catch(error => {
+                alert('Error uploading file: ' + error);
+            });
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #1C1C1E;
+            color: #FFFFFF;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .header {
+            background: #007AFF;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .upload-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .upload-section h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #007AFF;
+        }
+        
+        .upload-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .file-input {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .btn {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #007AFF;
+        }
+        
+        .metric-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+        
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Mobile Charts (Single Column) */
+        .mobile-charts {
+            display: block;
+        }
+        
+        .mobile-charts .js-plotly-plot {
+            margin-bottom: 2rem;
+        }
+        
+        .mobile-charts .js-plotly-plot:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Desktop Chart (2x2 Grid) */
+        .desktop-chart {
+            display: none;
+        }
+        
+        .chart-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #007AFF;
+        }
+        
+        .opportunities-table {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .opportunities-table h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #007AFF;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        
+        th, td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        th {
+            font-weight: 600;
+            color: #007AFF;
+        }
+        
+        .recommendations {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .recommendations h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #007AFF;
+        }
+        
+        .recommendations ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .recommendations li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .metric-card {
+                padding: 0.75rem;
+            }
+            
+            .metric-value {
+                font-size: 1.25rem;
+            }
+            
+            .upload-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            /* Show mobile charts, hide desktop chart */
+            .mobile-charts {
+                display: block;
+            }
+            
+            .desktop-chart {
+                display: none;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            /* Show desktop chart, hide mobile charts */
+            .mobile-charts {
+                display: none;
+            }
+            
+            .desktop-chart {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Remote Trainee Jobs - Argentina</h1>
+            <p>Comprehensive job market analysis for remote opportunities</p>
+        </div>
+        
+        <div class="upload-section">
+            <h3>📁 Upload Your Data</h3>
+            <div class="upload-controls">
+                <input type="file" id="fileInput" class="file-input" accept=".csv">
+                <button class="btn" onclick="handleFileUpload()">Upload & Analyze</button>
+                <a href="/download-sample" class="btn">Download Sample Data</a>
+            </div>
+        </div>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value">{{ metrics.total_jobs | default(0) | int | format_number }}</div>
+                <div class="metric-label">Total Jobs</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">{{ metrics.unique_companies | default(0) | int | format_number }}</div>
+                <div class="metric-label">Companies</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">{{ metrics.easy_apply_jobs | default(0) | int | format_number }}</div>
+                <div class="metric-label">Easy Apply</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">{{ metrics.recent_jobs | default(0) | int | format_number }}</div>
+                <div class="metric-label">Recent (≤7 days)</div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">📊 Job Market Overview</div>
+            
+            <!-- Mobile Charts (Single Column) -->
+            <div class="mobile-charts">
+                <div id="overview-mobile1"></div>
+                <div id="overview-mobile2"></div>
+                <div id="overview-mobile3"></div>
+            </div>
+            
+            <!-- Desktop Chart (2x2 Grid) -->
+            <div class="desktop-chart">
+                <div id="overview-desktop"></div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">🎯 Category Analysis</div>
+            
+            <!-- Mobile Charts (Single Column) -->
+            <div class="mobile-charts">
+                <div id="category-mobile1"></div>
+                <div id="category-mobile2"></div>
+                <div id="category-mobile3"></div>
+                <div id="category-mobile4"></div>
+            </div>
+            
+            <!-- Desktop Chart (2x2 Grid) -->
+            <div class="desktop-chart">
+                <div id="category-desktop"></div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">💻 Technology Insights</div>
+            <div id="technology-chart"></div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">⭐ Opportunity Ranking</div>
+            <div id="opportunity-chart"></div>
+        </div>
+        
+        <div class="opportunities-table">
+            <h3>🏆 Best Opportunities (Ranked by Score)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Company</th>
+                        <th>Position</th>
+                        <th>Category</th>
+                        <th>Score</th>
+                        <th>Days Ago</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for opportunity in top_opportunities %}
+                    <tr>
+                        <td>{{ opportunity.rank }}</td>
+                        <td>{{ opportunity.company }}</td>
+                        <td>{{ opportunity.title }}</td>
+                        <td>{{ opportunity.category }}</td>
+                        <td>{{ opportunity.score }}</td>
+                        <td>{{ opportunity.days_ago }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="recommendations">
+            <h3>💡 Strategic Recommendations</h3>
+            <ul>
+                {% for recommendation in recommendations %}
+                <li>{{ recommendation }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>📊 {{ metrics.total_jobs | default(0) | int | format_number }} remote trainee jobs analyzed - {{ moment().format('MMMM D, YYYY') }}</p>
+        </div>
+    </div>
+    
+    <script>
+        // Load charts data from Flask
+        const chartsData = {{ charts_data | tojson | safe }};
+        
+        // Render charts
+        Plotly.newPlot('overview-desktop', JSON.parse(chartsData.overview).data, JSON.parse(chartsData.overview).layout);
+        Plotly.newPlot('overview-mobile1', JSON.parse(chartsData.overview_mobile1).data, JSON.parse(chartsData.overview_mobile1).layout);
+        Plotly.newPlot('overview-mobile2', JSON.parse(chartsData.overview_mobile2).data, JSON.parse(chartsData.overview_mobile2).layout);
+        Plotly.newPlot('overview-mobile3', JSON.parse(chartsData.overview_mobile3).data, JSON.parse(chartsData.overview_mobile3).layout);
+        
+        Plotly.newPlot('category-desktop', JSON.parse(chartsData.category).data, JSON.parse(chartsData.category).layout);
+        Plotly.newPlot('category-mobile1', JSON.parse(chartsData.category_mobile1).data, JSON.parse(chartsData.category_mobile1).layout);
+        Plotly.newPlot('category-mobile2', JSON.parse(chartsData.category_mobile2).data, JSON.parse(chartsData.category_mobile2).layout);
+        Plotly.newPlot('category-mobile3', JSON.parse(chartsData.category_mobile3).data, JSON.parse(chartsData.category_mobile3).layout);
+        Plotly.newPlot('category-mobile4', JSON.parse(chartsData.category_mobile4).data, JSON.parse(chartsData.category_mobile4).layout);
+        
+        Plotly.newPlot('technology-chart', JSON.parse(chartsData.technology).data, JSON.parse(chartsData.technology).layout);
+        Plotly.newPlot('opportunity-chart', JSON.parse(chartsData.opportunity).data, JSON.parse(chartsData.opportunity).layout);
+    </script>
+</body>
+</html>
