@@ -82,9 +82,14 @@ export default function SubcategoryPage() {
           </p>
           <Button onClick={() => router.push(`/career/${categorySlug}`)}>
             <ArrowLeft className="w-4 h-4 mr-2" />
-            {t('career.backToCategory', language).replace('{category}', 
+            {(typeof t('career.backToCategory', language) === 'string' 
+              ? t('career.backToCategory', language) as string 
+              : (t('career.backToCategory', language) as string[])[0]
+            ).replace('{category}', 
               typeof categoryDetails.name === 'string' && categoryDetails.name.startsWith('career.') 
-                ? t(categoryDetails.name, language) 
+                ? (typeof t(categoryDetails.name, language) === 'string' 
+                    ? t(categoryDetails.name, language) as string 
+                    : (t(categoryDetails.name, language) as string[])[0])
                 : categoryDetails.name
             )}
           </Button>
@@ -187,9 +192,14 @@ export default function SubcategoryPage() {
           className="inline-flex items-center text-sky-600 hover:text-sky-700 mb-4 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          {t('career.backToCategory', language).replace('{category}', 
+          {(typeof t('career.backToCategory', language) === 'string' 
+            ? t('career.backToCategory', language) as string 
+            : (t('career.backToCategory', language) as string[])[0]
+          ).replace('{category}', 
             typeof categoryDetails.name === 'string' && categoryDetails.name.startsWith('career.') 
-              ? t(categoryDetails.name, language) 
+              ? (typeof t(categoryDetails.name, language) === 'string' 
+                  ? t(categoryDetails.name, language) as string 
+                  : (t(categoryDetails.name, language) as string[])[0])
               : categoryDetails.name
           )}
         </button>
@@ -297,7 +307,10 @@ export default function SubcategoryPage() {
               {t('career.requiredSkills', language)}
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {currentSubcategoryDetails.requiredSkills.map((skill: string, index: number) => (
+              {(Array.isArray(currentSubcategoryDetails.requiredSkills) 
+                ? currentSubcategoryDetails.requiredSkills 
+                : [currentSubcategoryDetails.requiredSkills]
+              ).map((skill: string, index: number) => (
                 <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
                   <div className="w-1.5 h-1.5 bg-sky-400 rounded-full"></div>
                   {skill}
@@ -315,7 +328,10 @@ export default function SubcategoryPage() {
               {t('career.learningPath', language)}
             </h4>
             <div className="space-y-2">
-              {currentSubcategoryDetails.learningPath.map((step: string, index: number) => (
+              {(Array.isArray(currentSubcategoryDetails.learningPath) 
+                ? currentSubcategoryDetails.learningPath 
+                : [currentSubcategoryDetails.learningPath]
+              ).map((step: string, index: number) => (
                 <div key={index} className="flex items-start gap-3 text-sm">
                   <div className="flex-shrink-0 w-6 h-6 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-xs font-medium">
                     {index + 1}
@@ -370,7 +386,10 @@ export default function SubcategoryPage() {
               {t('career.popularTechnologies', language)}
             </h4>
             <div className="flex flex-wrap gap-2">
-              {currentSubcategoryDetails.popularTechnologies.map((tech: string, index: number) => (
+              {(Array.isArray(currentSubcategoryDetails.popularTechnologies) 
+                ? currentSubcategoryDetails.popularTechnologies 
+                : [currentSubcategoryDetails.popularTechnologies]
+              ).map((tech: string, index: number) => (
                 <Badge key={index} variant="secondary" className="text-xs">
                   {tech}
                 </Badge>

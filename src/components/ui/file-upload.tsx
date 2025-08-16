@@ -24,12 +24,18 @@ export function FileUpload({ onFileUpload, isLoading = false }: FileUploadProps)
       const maxSize = 10 * 1024 * 1024; // 10MB
 
       if (!allowedTypes.includes(file.type) && !file.name.endsWith('.txt') && !file.name.endsWith('.csv')) {
-        setError(t('upload.validation.fileType', language));
+        setError(typeof t('upload.validation.fileType', language) === 'string' 
+          ? t('upload.validation.fileType', language) as string 
+          : (t('upload.validation.fileType', language) as string[])[0]
+        );
         return false;
       }
 
       if (file.size > maxSize) {
-        setError(t('upload.validation.fileSize', language));
+        setError(typeof t('upload.validation.fileSize', language) === 'string' 
+          ? t('upload.validation.fileSize', language) as string 
+          : (t('upload.validation.fileSize', language) as string[])[0]
+        );
         return false;
       }
 
@@ -113,12 +119,18 @@ export function FileUpload({ onFileUpload, isLoading = false }: FileUploadProps)
           >
             <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <p className="text-sm text-gray-600 mb-2">
-              {t('upload.dragDrop', language).split('browse').map((part, index) => (
+              {(typeof t('upload.dragDrop', language) === 'string' 
+                ? t('upload.dragDrop', language) as string 
+                : (t('upload.dragDrop', language) as string[])[0]
+              ).split('browse').map((part: string, index: number) => (
                 index === 0 ? (
                   <span key={index}>
                     {part}
                     <label className="text-sky-600 hover:text-sky-700 cursor-pointer">
-                      {t('upload.browse', language)}
+                      {typeof t('upload.browse', language) === 'string' 
+                        ? t('upload.browse', language) as string 
+                        : (t('upload.browse', language) as string[])[0]
+                      }
                       <input
                         type="file"
                         accept=".txt,.csv"

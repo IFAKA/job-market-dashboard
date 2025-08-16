@@ -129,7 +129,10 @@ export function CategoryExplorer({ categoryStats }: CategoryExplorerProps) {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
-              placeholder={t('category.searchPlaceholder', language)}
+              placeholder={typeof t('category.searchPlaceholder', language) === 'string' 
+                ? t('category.searchPlaceholder', language) as string 
+                : (t('category.searchPlaceholder', language) as string[])[0]
+              }
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"

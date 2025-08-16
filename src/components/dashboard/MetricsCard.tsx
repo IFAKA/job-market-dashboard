@@ -67,31 +67,55 @@ export function MetricsGrid({ metrics }: { metrics: JobMetrics }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       <MetricsCard
-        title={t('metrics.totalJobs', language)}
+        title={typeof t('metrics.totalJobs', language) === 'string' 
+          ? t('metrics.totalJobs', language) as string 
+          : (t('metrics.totalJobs', language) as string[])[0]
+        }
         value={metrics.total_jobs}
         icon={<Briefcase className="w-4 h-4" />}
-        description={t('metrics.availablePositions', language)}
+        description={typeof t('metrics.availablePositions', language) === 'string' 
+          ? t('metrics.availablePositions', language) as string 
+          : (t('metrics.availablePositions', language) as string[])[0]
+        }
         color="primary"
       />
       <MetricsCard
-        title={t('metrics.companies', language)}
+        title={typeof t('metrics.companies', language) === 'string' 
+          ? t('metrics.companies', language) as string 
+          : (t('metrics.companies', language) as string[])[0]
+        }
         value={metrics.unique_companies}
         icon={<Building2 className="w-4 h-4" />}
-        description={t('metrics.hiringCompanies', language)}
+        description={typeof t('metrics.hiringCompanies', language) === 'string' 
+          ? t('metrics.hiringCompanies', language) as string 
+          : (t('metrics.hiringCompanies', language) as string[])[0]
+        }
         color="secondary"
       />
       <MetricsCard
-        title={t('metrics.easyApply', language)}
+        title={typeof t('metrics.easyApply', language) === 'string' 
+          ? t('metrics.easyApply', language) as string 
+          : (t('metrics.easyApply', language) as string[])[0]
+        }
         value={metrics.easy_apply_jobs}
         icon={<Zap className="w-4 h-4" />}
-        description={t('metrics.quickApplications', language)}
+        description={typeof t('metrics.quickApplications', language) === 'string' 
+          ? t('metrics.quickApplications', language) as string 
+          : (t('metrics.quickApplications', language) as string[])[0]
+        }
         color="success"
       />
       <MetricsCard
-        title={t('metrics.recentJobs', language)}
+        title={typeof t('metrics.recentJobs', language) === 'string' 
+          ? t('metrics.recentJobs', language) as string 
+          : (t('metrics.recentJobs', language) as string[])[0]
+        }
         value={metrics.recent_jobs}
         icon={<Clock className="w-4 h-4" />}
-        description={t('metrics.last7Days', language)}
+        description={typeof t('metrics.last7Days', language) === 'string' 
+          ? t('metrics.last7Days', language) as string 
+          : (t('metrics.last7Days', language) as string[])[0]
+        }
         color="warning"
       />
     </div>

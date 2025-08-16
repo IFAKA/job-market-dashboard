@@ -92,6 +92,212 @@ export const translations: Translations = {
     es: 'días atrás'
   },
 
+  // Metrics Page
+  'metrics.page.backToDashboard': {
+    en: 'Back to Dashboard',
+    es: 'Volver al Panel'
+  },
+  'metrics.page.title': {
+    en: 'Detailed Metrics & Analytics',
+    es: 'Métricas y Análisis Detallados'
+  },
+  'metrics.page.description': {
+    en: 'Comprehensive analysis of job market trends and performance indicators',
+    es: 'Análisis integral de tendencias del mercado laboral e indicadores de rendimiento'
+  },
+  'metrics.page.keyIndicators': {
+    en: 'Key Indicators',
+    es: 'Indicadores Clave'
+  },
+  'metrics.page.marketTrends': {
+    en: 'Market Trends',
+    es: 'Tendencias del Mercado'
+  },
+  'metrics.page.jobGrowth': {
+    en: 'Job Growth',
+    es: 'Crecimiento de Empleos'
+  },
+  'metrics.page.monthlyTrends': {
+    en: 'Monthly Trends',
+    es: 'Tendencias Mensuales'
+  },
+  'metrics.page.vsLastMonth': {
+    en: 'vs Last Month',
+    es: 'vs Mes Anterior'
+  },
+  'metrics.page.companyActivity': {
+    en: 'Company Activity',
+    es: 'Actividad de Empresas'
+  },
+  'metrics.page.newCompanies': {
+    en: 'New Companies',
+    es: 'Nuevas Empresas'
+  },
+  'metrics.page.easyApplyJobs': {
+    en: 'Easy Apply Jobs',
+    es: 'Trabajos de Aplicación Fácil'
+  },
+  'metrics.page.simplifiedApplication': {
+    en: 'Simplified Application',
+    es: 'Aplicación Simplificada'
+  },
+  'metrics.page.detailedAnalysis': {
+    en: 'Detailed Analysis',
+    es: 'Análisis Detallado'
+  },
+  'metrics.page.jobDistribution': {
+    en: 'Job Distribution',
+    es: 'Distribución de Trabajos'
+  },
+  'metrics.page.remoteJobs': {
+    en: 'Remote Jobs',
+    es: 'Trabajos Remotos'
+  },
+  'metrics.page.hybridJobs': {
+    en: 'Hybrid Jobs',
+    es: 'Trabajos Híbridos'
+  },
+  'metrics.page.onsiteJobs': {
+    en: 'On-site Jobs',
+    es: 'Trabajos Presenciales'
+  },
+  'metrics.page.experienceLevel': {
+    en: 'Experience Level',
+    es: 'Nivel de Experiencia'
+  },
+  'metrics.page.entryLevel': {
+    en: 'Entry Level',
+    es: 'Nivel de Entrada'
+  },
+  'metrics.page.midLevel': {
+    en: 'Mid Level',
+    es: 'Nivel Intermedio'
+  },
+  'metrics.page.seniorLevel': {
+    en: 'Senior Level',
+    es: 'Nivel Senior'
+  },
+  'metrics.page.marketInsights': {
+    en: 'Market Insights',
+    es: 'Perspectivas del Mercado'
+  },
+  'metrics.page.growingDemand': {
+    en: 'Growing Demand',
+    es: 'Demanda Creciente'
+  },
+  'metrics.page.growingDemandDesc': {
+    en: 'Job postings increased by 15% this month',
+    es: 'Las ofertas de trabajo aumentaron un 15% este mes'
+  },
+  'metrics.page.remoteWorkDominance': {
+    en: 'Remote Work Dominance',
+    es: 'Dominancia del Trabajo Remoto'
+  },
+  'metrics.page.remoteWorkDominanceDesc': {
+    en: '70% of new positions offer remote work options',
+    es: 'El 70% de las nuevas posiciones ofrecen opciones de trabajo remoto'
+  },
+  'metrics.page.easyApplyTrend': {
+    en: 'Easy Apply Trend',
+    es: 'Tendencia de Aplicación Fácil'
+  },
+  'metrics.page.easyApplyTrendDesc': {
+    en: 'Companies are simplifying their application processes',
+    es: 'Las empresas están simplificando sus procesos de aplicación'
+  },
+  'metrics.page.quickStats': {
+    en: 'Quick Stats',
+    es: 'Estadísticas Rápidas'
+  },
+  'metrics.page.growthIndicators': {
+    en: 'Growth Indicators',
+    es: 'Indicadores de Crecimiento'
+  },
+  'metrics.page.actions': {
+    en: 'Actions',
+    es: 'Acciones'
+  },
+  'metrics.page.exportReport': {
+    en: 'Export Report',
+    es: 'Exportar Reporte'
+  },
+  'metrics.page.viewTrends': {
+    en: 'View Trends',
+    es: 'Ver Tendencias'
+  },
+  'metrics.page.scheduleUpdate': {
+    en: 'Schedule Update',
+    es: 'Programar Actualización'
+  },
+
+  // Upload
+  'upload.title': {
+    en: 'Upload Job Data',
+    es: 'Subir Datos de Trabajo'
+  },
+  'upload.description': {
+    en: 'Upload your job market data to get personalized insights and analysis',
+    es: 'Sube tus datos del mercado laboral para obtener análisis e información personalizada'
+  },
+  'upload.backToDashboard': {
+    en: 'Back to Dashboard',
+    es: 'Volver al Panel'
+  },
+  'upload.uploadNewFile': {
+    en: 'Upload New File',
+    es: 'Subir Nuevo Archivo'
+  },
+  'upload.uploadHistory': {
+    en: 'Upload History',
+    es: 'Historial de Subidas'
+  },
+  'upload.supportedFormatsFooter': {
+    en: 'Supported formats: TXT, CSV',
+    es: 'Formatos soportados: TXT, CSV'
+  },
+  'upload.dragDrop': {
+    en: 'Drag and drop your file here, or browse to select',
+    es: 'Arrastra y suelta tu archivo aquí, o navega para seleccionar'
+  },
+  'upload.browse': {
+    en: 'browse',
+    es: 'navegar'
+  },
+  'upload.supportedFormats': {
+    en: 'Supported formats: TXT, CSV (max 10MB)',
+    es: 'Formatos soportados: TXT, CSV (máx 10MB)'
+  },
+  'upload.validation.fileType': {
+    en: 'Please upload a TXT or CSV file',
+    es: 'Por favor sube un archivo TXT o CSV'
+  },
+  'upload.validation.fileSize': {
+    en: 'File size must be less than 10MB',
+    es: 'El tamaño del archivo debe ser menor a 10MB'
+  },
+  'upload.error': {
+    en: 'Upload failed. Please try again.',
+    es: 'La subida falló. Por favor intenta de nuevo.'
+  },
+  'upload.uploading': {
+    en: 'Uploading...',
+    es: 'Subiendo...'
+  },
+  'upload.uploadAndUpdate': {
+    en: 'Upload & Update Dashboard',
+    es: 'Subir y Actualizar Panel'
+  },
+
+  // Country
+  'country.spain': {
+    en: 'Spain',
+    es: 'España'
+  },
+  'country.argentina': {
+    en: 'Argentina',
+    es: 'Argentina'
+  },
+
   // Charts
   'charts.topCategories': {
     en: 'Top Job Categories',

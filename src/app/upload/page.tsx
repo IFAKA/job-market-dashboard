@@ -145,7 +145,11 @@ export default function UploadPage() {
 
     } catch (error) {
       console.error('Upload error:', error);
-      setUploadError(error instanceof Error ? error.message : t('upload.error', language));
+      setUploadError(error instanceof Error ? error.message : (
+        typeof t('upload.error', language) === 'string' 
+          ? t('upload.error', language) as string 
+          : (t('upload.error', language) as string[])[0]
+      ));
     } finally {
       setIsUploading(false);
     }

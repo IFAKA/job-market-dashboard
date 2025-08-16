@@ -61,7 +61,7 @@ export interface JobMarketData {
   categoryStats: Record<string, CategoryStats>;
   topOpportunities: TopOpportunity[];
   technologyInsights: TechnologyInsight[];
-  recommendations: Array<{key: string, params: Record<string, any>}>;
+  recommendations: Array<{key: string, params: Record<string, string | number>}>;
 }
 
 export interface CategoryDetails {

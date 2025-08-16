@@ -24,7 +24,8 @@ export function useLanguage() {
   };
 
   const translate = (key: string): string => {
-    return t(key, language);
+    const result = t(key, language);
+    return typeof result === 'string' ? result : result[0];
   };
 
   return {

@@ -145,8 +145,8 @@ export function calculateTechnologyInsights(jobs: Job[]): TechnologyInsight[] {
 export function generateRecommendations(
   metrics: JobMetrics, 
   categoryStats: Record<string, CategoryStats>
-): Array<{key: string, params: Record<string, any>}> {
-  const recommendations: Array<{key: string, params: Record<string, any>}> = [];
+): Array<{key: string, params: Record<string, string | number>}> {
+  const recommendations: Array<{key: string, params: Record<string, string | number>}> = [];
   
   // Top categories recommendations
   const topCategories = Object.entries(categoryStats)

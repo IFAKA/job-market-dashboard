@@ -4,20 +4,20 @@ import { useLanguageContext } from '@/components/providers/language-provider';
 import { t } from '@/lib/i18n';
 
 interface RecommendationsProps {
-  recommendations: Array<{key: string, params: Record<string, any>}>;
+  recommendations: Array<{key: string, params: Record<string, string | number>}>;
 }
 
 export function Recommendations({ recommendations }: RecommendationsProps) {
   const { language } = useLanguageContext();
   
-  const getIcon = (recommendation: {key: string, params: Record<string, any>}) => {
+  const getIcon = (recommendation: {key: string, params: Record<string, string | number>}) => {
     if (recommendation.key.includes('focusOnCategory')) return <TrendingUp className="w-4 h-4" />;
     if (recommendation.key.includes('useEasyApply')) return <Zap className="w-4 h-4" />;
     if (recommendation.key.includes('prioritizeRecentJobs')) return <Clock className="w-4 h-4" />;
     return <Lightbulb className="w-4 h-4" />;
   };
 
-  const getColor = (recommendation: {key: string, params: Record<string, any>}) => {
+  const getColor = (recommendation: {key: string, params: Record<string, string | number>}) => {
     if (recommendation.key.includes('focusOnCategory')) return 'bg-blue-500/10 text-blue-600 border-blue-500/20';
     if (recommendation.key.includes('useEasyApply')) return 'bg-green-500/10 text-green-600 border-green-500/20';
     if (recommendation.key.includes('prioritizeRecentJobs')) return 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20';

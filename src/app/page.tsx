@@ -185,7 +185,10 @@ export default function Dashboard() {
           </div>
           <BarChart
             data={categoryChartData}
-            title={t('charts.topCategories', language)}
+            title={typeof t('charts.topCategories', language) === 'string' 
+              ? t('charts.topCategories', language) as string 
+              : (t('charts.topCategories', language) as string[])[0]
+            }
             height={400}
             width={500}
           />
@@ -197,7 +200,10 @@ export default function Dashboard() {
           </div>
           <PieChart
             data={categoryChartData}
-            title={t('charts.categoryDistribution', language)}
+            title={typeof t('charts.categoryDistribution', language) === 'string' 
+              ? t('charts.categoryDistribution', language) as string 
+              : (t('charts.categoryDistribution', language) as string[])[0]
+            }
             height={400}
             width={500}
           />
@@ -212,7 +218,10 @@ export default function Dashboard() {
         </div>
         <BarChart
           data={technologyChartData}
-          title={t('charts.technologies', language)}
+          title={typeof t('charts.technologies', language) === 'string' 
+            ? t('charts.technologies', language) as string 
+            : (t('charts.technologies', language) as string[])[0]
+          }
           height={400}
           width={800}
         />

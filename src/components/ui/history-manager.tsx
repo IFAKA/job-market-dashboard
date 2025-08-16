@@ -133,7 +133,10 @@ export function HistoryManager({ history, onSwitchToHistory, onDeleteHistory, on
                   size="sm"
                   onClick={() => onExportHistory(item)}
                   className="text-green-600 hover:text-green-700"
-                  title={t('ui.exportToCSV', language)}
+                  title={typeof t('ui.exportToCSV', language) === 'string' 
+                    ? t('ui.exportToCSV', language) as string 
+                    : (t('ui.exportToCSV', language) as string[])[0]
+                  }
                 >
                   <Download className="w-4 h-4" />
                 </Button>
@@ -154,10 +157,22 @@ export function HistoryManager({ history, onSwitchToHistory, onDeleteHistory, on
       
       <ConfirmationModal
         isOpen={deletingItem !== null}
-        title={t('history.deleteConfirm', language)}
-        message={t('history.deleteMessage', language).replace('{fileName}', deletingItem?.fileName || '')}
-        confirmText={t('history.delete', language)}
-        cancelText={t('history.cancel', language)}
+        title={typeof t('history.deleteConfirm', language) === 'string' 
+          ? t('history.deleteConfirm', language) as string 
+          : (t('history.deleteConfirm', language) as string[])[0]
+        }
+        message={(typeof t('history.deleteMessage', language) === 'string' 
+          ? t('history.deleteMessage', language) as string 
+          : (t('history.deleteMessage', language) as string[])[0]
+        ).replace('{fileName}', deletingItem?.fileName || '')}
+        confirmText={typeof t('history.delete', language) === 'string' 
+          ? t('history.delete', language) as string 
+          : (t('history.delete', language) as string[])[0]
+        }
+        cancelText={typeof t('history.cancel', language) === 'string' 
+          ? t('history.cancel', language) as string 
+          : (t('history.cancel', language) as string[])[0]
+        }
         onConfirm={confirmDelete}
         onCancel={cancelDelete}
         variant="danger"
