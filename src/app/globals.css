@@ -9,8 +9,8 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%; /* White */
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 210 100% 75%; /* Argentine Celeste (Light Blue) */
-    --primary-foreground: 210 40% 20%; /* Dark text on light blue */
+    --primary: 210 100% 50%; /* Argentine Celeste (Medium Blue) - Better contrast */
+    --primary-foreground: 0 0% 100%; /* White text for better contrast */
     --secondary: 45 100% 50%; /* Argentine Yellow (Sun) */
     --secondary-foreground: 45 40% 20%; /* Dark text on yellow */
     --muted: 210 40% 96.1%;
@@ -42,8 +42,8 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 100% 75%; /* Argentine Celeste */
-    --primary-foreground: 210 40% 20%;
+    --primary: 210 100% 60%; /* Argentine Celeste - Slightly lighter for dark mode */
+    --primary-foreground: 0 0% 100%; /* White text for better contrast */
     --secondary: 45 100% 50%; /* Argentine Yellow */
     --secondary-foreground: 45 40% 20%;
     --muted: 217.2 32.6% 17.5%;

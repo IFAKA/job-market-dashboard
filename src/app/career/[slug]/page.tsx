@@ -10,6 +10,8 @@ import { CountrySelector } from '@/components/ui/country-selector';
 import { categoryDetails } from '@/lib/category-details';
 import { CategoryStats } from '@/types/job';
 import { getSalaryData, formatSalary } from '@/lib/salary-data';
+import { useLanguageContext } from '@/components/providers/language-provider';
+import { t } from '@/lib/i18n';
 import { 
   BookOpen, 
   Clock, 
@@ -51,12 +53,28 @@ const getCareerSlug = (careerName: string) => {
     .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
 };
 
+// Helper function to parse remote distribution string
+const parseRemoteDistribution = (distributionString: string) => {
+  const remoteMatch = distributionString.match(/Remoto:\s*(\d+)/);
+  const onsiteMatch = distributionString.match(/Sitio:\s*(\d+)/);
+  const hybridMatch = distributionString.match(/Híbrido:\s*(\d+)/);
+  
+  return {
+    remote: remoteMatch ? parseInt(remoteMatch[1]) : 0,
+    onsite: onsiteMatch ? parseInt(onsiteMatch[1]) : 0,
+    hybrid: hybridMatch ? parseInt(hybridMatch[1]) : 0
+  };
+};
+
 export default function CareerPage({ params }: CareerPageProps) {
   const resolvedParams = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
   const slug = resolvedParams.slug as string;
-  const [selectedCountry, setSelectedCountry] = useState<string>('spain');
+  
+  // Use default country - in a real app this would come from the uploaded data context
+  const selectedCountry = 'spain'; // This should be determined from the uploaded data
+  const { language } = useLanguageContext();
   
   // Find the career details by slug
   const careerKey = Object.keys(categoryDetails).find(
@@ -67,11 +85,11 @@ export default function CareerPage({ params }: CareerPageProps) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Career Path Not Found</h1>
-          <p className="text-gray-600 mb-6">The career path you&apos;re looking for doesn&apos;t exist.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('career.notFound', language)}</h1>
+          <p className="text-gray-600 mb-6">{t('career.notFoundDesc', language)}</p>
           <Button onClick={() => router.back()}>
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Go Back
+            {t('career.goBack', language)}
           </Button>
         </div>
       </div>
@@ -80,16 +98,19 @@ export default function CareerPage({ params }: CareerPageProps) {
 
   const careerDetails = categoryDetails[careerKey];
   
-  // Mock data for visualizations - in real app this would come from API
+  // Get actual salary data
+  const salaryData = getSalaryData(selectedCountry, careerKey);
+  
+  // Mock data for other stats - in real app this would come from API
   const mockStats: CategoryStats = {
     Job_Count: 1250,
-    Avg_Salary: 85000,
+    Avg_Salary: salaryData ? Math.round((salaryData.traineeSalary + salaryData.juniorSalary) / 2) : 85000,
     Avg_Max_Salary: 95000,
     Recent_Jobs: 45,
     Easy_Apply_Count: 800,
     Median_Salary: 82000,
-    Remote_Jobs: 1125,
-    Onsite_Jobs: 125,
+    Remote_Jobs: salaryData ? parseRemoteDistribution(salaryData.remoteDistribution).remote * 10 : 1125,
+    Onsite_Jobs: salaryData ? parseRemoteDistribution(salaryData.remoteDistribution).onsite * 10 : 125,
     Easy_Apply_Jobs: 800,
     Senior_Level_Jobs: 300,
     Entry_Level_Jobs: 950
@@ -119,27 +140,27 @@ export default function CareerPage({ params }: CareerPageProps) {
     
     if (careerDetails.difficulty === 'Beginner') {
       score += 25;
-      reasons.push('Great for newcomers');
+      reasons.push(t('career.greatForNewcomers', language));
     }
     
     if (careerDetails.growthPotential === 'High') {
       score += 25;
-      reasons.push('High growth potential');
+      reasons.push(t('career.highGrowthPotential', language));
     }
     
     if (careerDetails.remoteWorkPercentage >= 80) {
       score += 20;
-      reasons.push('Remote-friendly');
+      reasons.push(t('career.remoteFriendly', language));
     }
     
     if (mockStats.Job_Count > 50) {
       score += 15;
-      reasons.push('High job demand');
+      reasons.push(t('career.highJobDemand', language));
     }
     
     if (mockStats.Avg_Salary > 80000) {
       score += 15;
-      reasons.push('Competitive salary');
+      reasons.push(t('career.competitiveSalary', language));
     }
     
     return { score, reasons };
@@ -169,7 +190,7 @@ export default function CareerPage({ params }: CareerPageProps) {
           className="inline-flex items-center text-sky-600 hover:text-sky-700 mb-4 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Career Paths
+          {t('career.backToPaths', language)}
         </button>
         <div className="flex items-center gap-3 mb-4">
           <h1 className="text-4xl font-bold text-gray-900">{careerDetails.name}</h1>
@@ -205,64 +226,6 @@ export default function CareerPage({ params }: CareerPageProps) {
                   </Badge>
                 ))}
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Salary Information */}
-          <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <DollarSign className="w-5 h-5 text-green-500" />
-                Salarios Promedio – Trainee y Junior
-              </CardTitle>
-              <CardDescription>
-                {selectedCountry === 'spain' ? 'España (EUR/mes)' : 'Argentina (ARS/mes)'}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {(() => {
-                const salaryData = getSalaryData(selectedCountry, careerKey);
-                if (!salaryData) {
-                  return (
-                    <div className="text-center text-gray-500 py-4">
-                      No hay datos de salario disponibles para esta carrera en {selectedCountry === 'spain' ? 'España' : 'Argentina'}
-                    </div>
-                  );
-                }
-                
-                return (
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="bg-white p-4 rounded-lg border">
-                        <h4 className="font-semibold text-gray-800 mb-2">Trainee</h4>
-                        <div className="text-2xl font-bold text-green-600 mb-1">
-                          {formatSalary(salaryData.traineeSalary, selectedCountry)}
-                        </div>
-                        <div className="text-sm text-gray-600">
-                          Rango: {salaryData.traineeRange}
-                        </div>
-                      </div>
-                      
-                      <div className="bg-white p-4 rounded-lg border">
-                        <h4 className="font-semibold text-gray-800 mb-2">Junior</h4>
-                        <div className="text-2xl font-bold text-green-600 mb-1">
-                          {formatSalary(salaryData.juniorSalary, selectedCountry)}
-                        </div>
-                        <div className="text-sm text-gray-600">
-                          Rango: {salaryData.juniorRange}
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-white p-4 rounded-lg border">
-                      <h4 className="font-semibold text-gray-800 mb-2">Distribución Remoto/Sitio/Híbrido</h4>
-                      <div className="text-sm text-gray-600">
-                        {salaryData.remoteDistribution}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })()}
             </CardContent>
           </Card>
 
@@ -465,12 +428,6 @@ export default function CareerPage({ params }: CareerPageProps) {
 
         {/* Sidebar */}
         <div className="space-y-6">
-          {/* Country Selector */}
-          <CountrySelector
-            selectedCountry={selectedCountry}
-            onCountryChange={setSelectedCountry}
-          />
-
           {/* Quick Stats */}
           <Card>
             <CardHeader>
@@ -493,7 +450,9 @@ export default function CareerPage({ params }: CareerPageProps) {
                   <DollarSign className="w-4 h-4 text-green-500" />
                   <span className="text-sm text-gray-600">Avg Salary</span>
                 </div>
-                <span className="font-semibold text-gray-900">${mockStats.Avg_Salary.toLocaleString()}/yr</span>
+                <span className="font-semibold text-gray-900">
+                  {salaryData ? formatSalary(mockStats.Avg_Salary, selectedCountry) : 'N/A'}
+                </span>
               </div>
               
               <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
@@ -523,27 +482,51 @@ export default function CareerPage({ params }: CareerPageProps) {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Remote</span>
-                <span className="font-semibold text-gray-900">{Math.round(((mockStats.Remote_Jobs || 0) / mockStats.Job_Count) * 100)}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-purple-500 h-2 rounded-full" 
-                  style={{ width: `${((mockStats.Remote_Jobs || 0) / mockStats.Job_Count) * 100}%` }}
-                ></div>
-              </div>
-              
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">On-site</span>
-                <span className="font-semibold text-gray-900">{Math.round(((mockStats.Onsite_Jobs || 0) / mockStats.Job_Count) * 100)}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-blue-500 h-2 rounded-full" 
-                  style={{ width: `${((mockStats.Onsite_Jobs || 0) / mockStats.Job_Count) * 100}%` }}
-                ></div>
-              </div>
+              {salaryData ? (() => {
+                const distribution = parseRemoteDistribution(salaryData.remoteDistribution);
+                const total = distribution.remote + distribution.onsite + distribution.hybrid;
+                
+                return (
+                  <>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Remote</span>
+                      <span className="font-semibold text-gray-900">{distribution.remote}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div 
+                        className="bg-purple-500 h-2 rounded-full" 
+                        style={{ width: `${distribution.remote}%` }}
+                      ></div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">On-site</span>
+                      <span className="font-semibold text-gray-900">{distribution.onsite}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div 
+                        className="bg-blue-500 h-2 rounded-full" 
+                        style={{ width: `${distribution.onsite}%` }}
+                      ></div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Hybrid</span>
+                      <span className="font-semibold text-gray-900">{distribution.hybrid}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div 
+                        className="bg-green-500 h-2 rounded-full" 
+                        style={{ width: `${distribution.hybrid}%` }}
+                      ></div>
+                    </div>
+                  </>
+                );
+              })() : (
+                <div className="text-center text-gray-500 py-4">
+                  No distribution data available
+                </div>
+              )}
             </CardContent>
           </Card>
 

@@ -129,6 +129,10 @@ export const translations: Translations = {
     en: 'Spanish',
     es: 'Español'
   },
+  'language.languages': {
+    en: 'Languages',
+    es: 'Idiomas'
+  },
 
   // Upload page
   'upload.title': {
@@ -162,6 +166,30 @@ export const translations: Translations = {
   'upload.backToDashboard': {
     en: 'Back to Dashboard',
     es: 'Volver al Panel'
+  },
+  'upload.browse': {
+    en: 'browse',
+    es: 'explorar'
+  },
+  'upload.supportedFormats': {
+    en: 'Supports .txt and .csv files up to 10MB',
+    es: 'Soporta archivos .txt y .csv hasta 10MB'
+  },
+  'upload.uploadAndUpdate': {
+    en: 'Upload and Update Dashboard',
+    es: 'Subir y Actualizar Panel'
+  },
+  'upload.uploadNewFile': {
+    en: 'Upload New File',
+    es: 'Subir Nuevo Archivo'
+  },
+  'upload.uploadHistory': {
+    en: 'Upload History',
+    es: 'Historial de Subidas'
+  },
+  'upload.supportedFormatsFooter': {
+    en: 'Supported formats: .txt (LinkedIn job format) and .csv files up to 10MB',
+    es: 'Formatos soportados: .txt (formato de trabajo de LinkedIn) y archivos .csv hasta 10MB'
   },
 
   // Additional metrics
@@ -252,6 +280,446 @@ export const translations: Translations = {
   'history.cancel': {
     en: 'Cancel',
     es: 'Cancelar'
+  },
+
+  // Country selector
+  'country.title': {
+    en: 'Country',
+    es: 'País'
+  },
+  'country.description': {
+    en: 'Select your country to see specific salaries',
+    es: 'Selecciona tu país para ver salarios específicos'
+  },
+  'country.selectPlaceholder': {
+    en: 'Select a country',
+    es: 'Selecciona un país'
+  },
+  'country.spain': {
+    en: 'Spain',
+    es: 'España'
+  },
+  'country.argentina': {
+    en: 'Argentina',
+    es: 'Argentina'
+  },
+
+  // Category explorer
+  'category.exploreTitle': {
+    en: 'Explore Career Paths',
+    es: 'Explorar Rutas de Carrera'
+  },
+  'category.exploreDescription': {
+    en: 'Discover detailed information about each job category to help you make informed decisions about your learning journey. Find the perfect career path that matches your skills, interests, and goals.',
+    es: 'Descubre información detallada sobre cada categoría de trabajo para ayudarte a tomar decisiones informadas sobre tu viaje de aprendizaje. Encuentra la ruta de carrera perfecta que coincida con tus habilidades, intereses y objetivos.'
+  },
+  'category.searchPlaceholder': {
+    en: 'Search categories...',
+    es: 'Buscar categorías...'
+  },
+  'category.allLevels': {
+    en: 'All Levels',
+    es: 'Todos los Niveles'
+  },
+  'category.beginner': {
+    en: 'Beginner',
+    es: 'Principiante'
+  },
+  'category.intermediate': {
+    en: 'Intermediate',
+    es: 'Intermedio'
+  },
+  'category.advanced': {
+    en: 'Advanced',
+    es: 'Avanzado'
+  },
+  'category.sortByJobs': {
+    en: 'Sort by Jobs',
+    es: 'Ordenar por Trabajos'
+  },
+  'category.sortBySalary': {
+    en: 'Sort by Salary',
+    es: 'Ordenar por Salario'
+  },
+  'category.sortByRecent': {
+    en: 'Sort by Recent',
+    es: 'Ordenar por Recientes'
+  },
+  'category.sortByName': {
+    en: 'Sort by Name',
+    es: 'Ordenar por Nombre'
+  },
+  'category.viewDetails': {
+    en: 'View Details',
+    es: 'Ver Detalles'
+  },
+  'category.timeToLearn': {
+    en: 'Time to Learn:',
+    es: 'Tiempo para Aprender:'
+  },
+  'category.noResults': {
+    en: 'No categories found matching your criteria.',
+    es: 'No se encontraron categorías que coincidan con tus criterios.'
+  },
+  'category.clearFilters': {
+    en: 'Clear Filters',
+    es: 'Limpiar Filtros'
+  },
+  'category.greatForNewcomers': {
+    en: 'Great for newcomers',
+    es: 'Excelente para principiantes'
+  },
+  'category.highGrowthPotential': {
+    en: 'High growth potential',
+    es: 'Alto potencial de crecimiento'
+  },
+  'category.remoteFriendly': {
+    en: 'Remote-friendly',
+    es: 'Amigable para trabajo remoto'
+  },
+  'category.highEarningPotential': {
+    en: 'High earning potential',
+    es: 'Alto potencial de ingresos'
+  },
+
+  // Metrics page
+  'metrics.page.backToDashboard': {
+    en: 'Back to Dashboard',
+    es: 'Volver al Panel'
+  },
+  'metrics.page.title': {
+    en: 'Market Metrics',
+    es: 'Métricas del Mercado'
+  },
+  'metrics.page.description': {
+    en: 'Comprehensive analysis of the job market with detailed metrics, trends, and insights.',
+    es: 'Análisis integral del mercado laboral con métricas detalladas, tendencias e información.'
+  },
+  'metrics.page.keyIndicators': {
+    en: 'Key Market Indicators',
+    es: 'Indicadores Clave del Mercado'
+  },
+  'metrics.page.marketTrends': {
+    en: 'Market Trends',
+    es: 'Tendencias del Mercado'
+  },
+  'metrics.page.detailedAnalysis': {
+    en: 'Detailed Analysis',
+    es: 'Análisis Detallado'
+  },
+  'metrics.page.marketInsights': {
+    en: 'Market Insights',
+    es: 'Perspectivas del Mercado'
+  },
+  'metrics.page.quickStats': {
+    en: 'Quick Stats',
+    es: 'Estadísticas Rápidas'
+  },
+  'metrics.page.growthIndicators': {
+    en: 'Growth Indicators',
+    es: 'Indicadores de Crecimiento'
+  },
+  'metrics.page.actions': {
+    en: 'Actions',
+    es: 'Acciones'
+  },
+  'metrics.page.jobGrowth': {
+    en: 'Job Growth',
+    es: 'Crecimiento de Trabajos'
+  },
+  'metrics.page.monthlyTrends': {
+    en: 'Monthly job posting trends',
+    es: 'Tendencias mensuales de publicaciones de trabajo'
+  },
+  'metrics.page.companyActivity': {
+    en: 'Company Activity',
+    es: 'Actividad de Empresas'
+  },
+  'metrics.page.newCompanies': {
+    en: 'New companies entering market',
+    es: 'Nuevas empresas entrando al mercado'
+  },
+  'metrics.page.easyApplyJobs': {
+    en: 'Easy Apply Jobs',
+    es: 'Trabajos de Aplicación Fácil'
+  },
+  'metrics.page.simplifiedApplication': {
+    en: 'Jobs with simplified application',
+    es: 'Trabajos con aplicación simplificada'
+  },
+  'metrics.page.vsLastMonth': {
+    en: 'vs last month',
+    es: 'vs el mes pasado'
+  },
+  'metrics.page.jobDistribution': {
+    en: 'Job Distribution',
+    es: 'Distribución de Trabajos'
+  },
+  'metrics.page.remoteJobs': {
+    en: 'Remote Jobs',
+    es: 'Trabajos Remotos'
+  },
+  'metrics.page.hybridJobs': {
+    en: 'Hybrid Jobs',
+    es: 'Trabajos Híbridos'
+  },
+  'metrics.page.onsiteJobs': {
+    en: 'On-site Jobs',
+    es: 'Trabajos Presenciales'
+  },
+  'metrics.page.experienceLevel': {
+    en: 'Experience Level',
+    es: 'Nivel de Experiencia'
+  },
+  'metrics.page.entryLevel': {
+    en: 'Entry Level',
+    es: 'Nivel de Entrada'
+  },
+  'metrics.page.midLevel': {
+    en: 'Mid Level',
+    es: 'Nivel Intermedio'
+  },
+  'metrics.page.seniorLevel': {
+    en: 'Senior Level',
+    es: 'Nivel Senior'
+  },
+  'metrics.page.growingDemand': {
+    en: 'Growing Demand',
+    es: 'Demanda Creciente'
+  },
+  'metrics.page.growingDemandDesc': {
+    en: 'The job market is showing strong growth with a 12% increase in job postings compared to last month.',
+    es: 'El mercado laboral está mostrando un fuerte crecimiento con un aumento del 12% en las publicaciones de trabajo en comparación con el mes pasado.'
+  },
+  'metrics.page.remoteWorkDominance': {
+    en: 'Remote Work Dominance',
+    es: 'Dominancia del Trabajo Remoto'
+  },
+  'metrics.page.remoteWorkDominanceDesc': {
+    en: '64% of jobs are remote, indicating a strong preference for flexible work arrangements.',
+    es: 'El 64% de los trabajos son remotos, indicando una fuerte preferencia por arreglos de trabajo flexibles.'
+  },
+  'metrics.page.easyApplyTrend': {
+    en: 'Easy Apply Trend',
+    es: 'Tendencia de Aplicación Fácil'
+  },
+  'metrics.page.easyApplyTrendDesc': {
+    en: '64% of jobs offer easy apply options, making the application process more accessible.',
+    es: 'El 64% de los trabajos ofrecen opciones de aplicación fácil, haciendo el proceso de aplicación más accesible.'
+  },
+  'metrics.page.exportReport': {
+    en: 'Export Report',
+    es: 'Exportar Reporte'
+  },
+  'metrics.page.viewTrends': {
+    en: 'View Trends',
+    es: 'Ver Tendencias'
+  },
+  'metrics.page.scheduleUpdate': {
+    en: 'Schedule Update',
+    es: 'Programar Actualización'
+  },
+
+  // File upload validation messages
+  'upload.validation.fileType': {
+    en: 'Please upload a .txt or .csv file',
+    es: 'Por favor sube un archivo .txt o .csv'
+  },
+  'upload.validation.fileSize': {
+    en: 'File size must be less than 10MB',
+    es: 'El tamaño del archivo debe ser menor a 10MB'
+  },
+
+  // Test buttons (temporary)
+  'test.saveScroll': {
+    en: 'Test Save Scroll',
+    es: 'Probar Guardar Scroll'
+  },
+  'test.restoreScroll': {
+    en: 'Test Restore Scroll',
+    es: 'Probar Restaurar Scroll'
+  },
+
+  // Career page
+  'career.notFound': {
+    en: 'Career Path Not Found',
+    es: 'Ruta de Carrera No Encontrada'
+  },
+  'career.notFoundDesc': {
+    en: 'The career path you\'re looking for doesn\'t exist.',
+    es: 'La ruta de carrera que buscas no existe.'
+  },
+  'career.goBack': {
+    en: 'Go Back',
+    es: 'Volver'
+  },
+  'career.backToPaths': {
+    en: 'Back to Career Paths',
+    es: 'Volver a Rutas de Carrera'
+  },
+  'career.fitScore': {
+    en: 'Career Fit Score',
+    es: 'Puntuación de Ajuste de Carrera'
+  },
+  'career.basedOnPreferences': {
+    en: 'Based on your preferences',
+    es: 'Basado en tus preferencias'
+  },
+  'career.andMarketData': {
+    en: 'and market data',
+    es: 'y datos del mercado'
+  },
+  'career.greatForNewcomers': {
+    en: 'Great for newcomers',
+    es: 'Excelente para principiantes'
+  },
+  'career.highGrowthPotential': {
+    en: 'High growth potential',
+    es: 'Alto potencial de crecimiento'
+  },
+  'career.remoteFriendly': {
+    en: 'Remote-friendly',
+    es: 'Amigable para trabajo remoto'
+  },
+  'career.highJobDemand': {
+    en: 'High job demand',
+    es: 'Alta demanda de trabajo'
+  },
+  'career.competitiveSalary': {
+    en: 'Competitive salary',
+    es: 'Salario competitivo'
+  },
+  'career.rightForYou': {
+    en: 'Is This Career Right for You?',
+    es: '¿Es Esta Carrera Adecuada para Ti?'
+  },
+  'career.youllLoveThis': {
+    en: 'You\'ll Love This If:',
+    es: 'Te Encantará Esto Si:'
+  },
+  'career.considerAnotherPath': {
+    en: 'Consider Another Path If:',
+    es: 'Considera Otra Ruta Si:'
+  },
+  'career.whatYoullDo': {
+    en: 'What You\'ll Do',
+    es: 'Lo Que Harás'
+  },
+  'career.requiredSkills': {
+    en: 'Required Skills',
+    es: 'Habilidades Requeridas'
+  },
+  'career.learningPath': {
+    en: 'Learning Path',
+    es: 'Ruta de Aprendizaje'
+  },
+  'career.entryLevelPositions': {
+    en: 'Entry Level Positions',
+    es: 'Posiciones de Nivel de Entrada'
+  },
+  'career.advancedPositions': {
+    en: 'Advanced Positions',
+    es: 'Posiciones Avanzadas'
+  },
+  'career.popularTechnologies': {
+    en: 'Popular Technologies',
+    es: 'Tecnologías Populares'
+  },
+  'career.learningResources': {
+    en: 'Learning Resources',
+    es: 'Recursos de Aprendizaje'
+  },
+  'career.recommendedCourses': {
+    en: 'Recommended Courses',
+    es: 'Cursos Recomendados'
+  },
+  'career.practicePlatforms': {
+    en: 'Practice Platforms',
+    es: 'Plataformas de Práctica'
+  },
+  'career.communities': {
+    en: 'Communities',
+    es: 'Comunidades'
+  },
+  'career.careerProspects': {
+    en: 'Career Prospects',
+    es: 'Perspectivas de Carrera'
+  },
+  'career.marketOverview': {
+    en: 'Market Overview',
+    es: 'Resumen del Mercado'
+  },
+  'career.avgSalary': {
+    en: 'Avg Salary',
+    es: 'Salario Promedio'
+  },
+  'career.jobDistribution': {
+    en: 'Job Distribution',
+    es: 'Distribución de Trabajos'
+  },
+  'career.remote': {
+    en: 'Remote',
+    es: 'Remoto'
+  },
+  'career.onsite': {
+    en: 'On-site',
+    es: 'Presencial'
+  },
+  'career.hybrid': {
+    en: 'Hybrid',
+    es: 'Híbrido'
+  },
+  'career.experienceLevel': {
+    en: 'Experience Level',
+    es: 'Nivel de Experiencia'
+  },
+  'career.entryLevel': {
+    en: 'Entry Level',
+    es: 'Nivel de Entrada'
+  },
+  'career.seniorLevel': {
+    en: 'Senior Level',
+    es: 'Nivel Senior'
+  },
+  'career.keyInformation': {
+    en: 'Key Information',
+    es: 'Información Clave'
+  },
+  'career.timeToLearn': {
+    en: 'Time to Learn:',
+    es: 'Tiempo para Aprender:'
+  },
+  'career.salaryRange': {
+    en: 'Salary Range:',
+    es: 'Rango Salarial:'
+  },
+  'career.remoteWork': {
+    en: 'Remote Work:',
+    es: 'Trabajo Remoto:'
+  },
+  'career.getStarted': {
+    en: 'Get Started',
+    es: 'Comenzar'
+  },
+  'career.startLearningPath': {
+    en: 'Start Learning Path',
+    es: 'Comenzar Ruta de Aprendizaje'
+  },
+  'career.joinCommunity': {
+    en: 'Join Community',
+    es: 'Unirse a la Comunidad'
+  },
+  'career.viewJobOpenings': {
+    en: 'View Job Openings',
+    es: 'Ver Ofertas de Trabajo'
+  },
+  'career.noDistributionData': {
+    en: 'No distribution data available',
+    es: 'No hay datos de distribución disponibles'
+  },
+  'career.growth': {
+    en: 'Growth',
+    es: 'Crecimiento'
   }
 };
 

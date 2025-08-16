@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { JobMetrics } from '@/types/job';
+import { useLanguageContext } from '@/components/providers/language-provider';
+import { t } from '@/lib/i18n';
 import { 
   TrendingUp, 
   Building2, 
@@ -28,6 +30,8 @@ interface MetricsPageProps {
 }
 
 export default function MetricsPage() {
+  const { language } = useLanguageContext();
+  
   // Mock data - in real app this would come from props or API
   const metrics: JobMetrics = {
     total_jobs: 1250,
@@ -59,14 +63,14 @@ export default function MetricsPage() {
       <div className="mb-8">
         <Link href="/" className="inline-flex items-center text-sky-600 hover:text-sky-700 mb-4">
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Dashboard
+          {t('metrics.page.backToDashboard', language)}
         </Link>
         <div className="flex items-center gap-3 mb-4">
-          <h1 className="text-4xl font-bold text-gray-900">Market Metrics</h1>
+          <h1 className="text-4xl font-bold text-gray-900">{t('metrics.page.title', language)}</h1>
           <BarChart3 className="w-8 h-8 text-sky-500" />
         </div>
         <p className="text-xl text-gray-600 max-w-4xl">
-          Comprehensive analysis of the job market with detailed metrics, trends, and insights.
+          {t('metrics.page.description', language)}
         </p>
       </div>
 
@@ -78,14 +82,14 @@ export default function MetricsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Target className="w-5 h-5 text-sky-500" />
-                Key Market Indicators
+                {t('metrics.page.keyIndicators', language)}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="text-center p-4 bg-white rounded-lg border border-sky-200">
                   <div className="text-2xl font-bold text-sky-600">{metrics.total_jobs.toLocaleString()}</div>
-                  <div className="text-sm text-gray-600">Total Jobs</div>
+                  <div className="text-sm text-gray-600">{t('metrics.totalJobs', language)}</div>
                   <div className="flex items-center justify-center mt-1">
                     {getTrendIcon('up')}
                     <span className="text-xs text-emerald-600 ml-1">+12%</span>
@@ -94,7 +98,7 @@ export default function MetricsPage() {
                 
                 <div className="text-center p-4 bg-white rounded-lg border border-yellow-200">
                   <div className="text-2xl font-bold text-yellow-600">{metrics.unique_companies}</div>
-                  <div className="text-sm text-gray-600">Companies</div>
+                  <div className="text-sm text-gray-600">{t('metrics.companies', language)}</div>
                   <div className="flex items-center justify-center mt-1">
                     {getTrendIcon('up')}
                     <span className="text-xs text-emerald-600 ml-1">+8%</span>
@@ -103,7 +107,7 @@ export default function MetricsPage() {
                 
                 <div className="text-center p-4 bg-white rounded-lg border border-emerald-200">
                   <div className="text-2xl font-bold text-emerald-600">{metrics.easy_apply_jobs.toLocaleString()}</div>
-                  <div className="text-sm text-gray-600">Easy Apply</div>
+                  <div className="text-sm text-gray-600">{t('metrics.easyApply', language)}</div>
                   <div className="flex items-center justify-center mt-1">
                     {getTrendIcon('up')}
                     <span className="text-xs text-emerald-600 ml-1">+15%</span>
@@ -112,7 +116,7 @@ export default function MetricsPage() {
                 
                 <div className="text-center p-4 bg-white rounded-lg border border-orange-200">
                   <div className="text-2xl font-bold text-orange-600">{metrics.recent_jobs}</div>
-                  <div className="text-sm text-gray-600">Recent Jobs</div>
+                  <div className="text-sm text-gray-600">{t('metrics.recentJobs', language)}</div>
                   <div className="flex items-center justify-center mt-1">
                     {getTrendIcon('neutral')}
                     <span className="text-xs text-gray-600 ml-1">0%</span>
@@ -127,7 +131,7 @@ export default function MetricsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-sky-500" />
-                Market Trends
+                {t('metrics.page.marketTrends', language)}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -138,13 +142,13 @@ export default function MetricsPage() {
                       <Briefcase className="w-5 h-5 text-sky-600" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">Job Growth</h4>
-                      <p className="text-sm text-gray-600">Monthly job posting trends</p>
+                      <h4 className="font-semibold text-gray-900">{t('metrics.page.jobGrowth', language)}</h4>
+                      <p className="text-sm text-gray-600">{t('metrics.page.monthlyTrends', language)}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-emerald-600">+12%</div>
-                    <div className="text-sm text-gray-500">vs last month</div>
+                    <div className="text-sm text-gray-500">{t('metrics.page.vsLastMonth', language)}</div>
                   </div>
                 </div>
 
@@ -154,13 +158,13 @@ export default function MetricsPage() {
                       <Building2 className="w-5 h-5 text-yellow-600" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">Company Activity</h4>
-                      <p className="text-sm text-gray-600">New companies entering market</p>
+                      <h4 className="font-semibold text-gray-900">{t('metrics.page.companyActivity', language)}</h4>
+                      <p className="text-sm text-gray-600">{t('metrics.page.newCompanies', language)}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-emerald-600">+8%</div>
-                    <div className="text-sm text-gray-500">vs last month</div>
+                    <div className="text-sm text-gray-500">{t('metrics.page.vsLastMonth', language)}</div>
                   </div>
                 </div>
 
@@ -170,13 +174,13 @@ export default function MetricsPage() {
                       <Zap className="w-5 h-5 text-emerald-600" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">Easy Apply Jobs</h4>
-                      <p className="text-sm text-gray-600">Jobs with simplified application</p>
+                      <h4 className="font-semibold text-gray-900">{t('metrics.page.easyApplyJobs', language)}</h4>
+                      <p className="text-sm text-gray-600">{t('metrics.page.simplifiedApplication', language)}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-emerald-600">+15%</div>
-                    <div className="text-sm text-gray-500">vs last month</div>
+                    <div className="text-sm text-gray-500">{t('metrics.page.vsLastMonth', language)}</div>
                   </div>
                 </div>
               </div>
@@ -188,16 +192,16 @@ export default function MetricsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <BarChart3 className="w-5 h-5 text-sky-500" />
-                Detailed Analysis
+                {t('metrics.page.detailedAnalysis', language)}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-3">Job Distribution</h4>
+                  <h4 className="font-semibold text-gray-900 mb-3">{t('metrics.page.jobDistribution', language)}</h4>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Remote Jobs</span>
+                      <span className="text-sm text-gray-600">{t('metrics.page.remoteJobs', language)}</span>
                       <span className="font-semibold text-gray-900">64%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -205,7 +209,7 @@ export default function MetricsPage() {
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Hybrid Jobs</span>
+                      <span className="text-sm text-gray-600">{t('metrics.page.hybridJobs', language)}</span>
                       <span className="font-semibold text-gray-900">28%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -213,7 +217,7 @@ export default function MetricsPage() {
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">On-site Jobs</span>
+                      <span className="text-sm text-gray-600">{t('metrics.page.onsiteJobs', language)}</span>
                       <span className="font-semibold text-gray-900">8%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -223,10 +227,10 @@ export default function MetricsPage() {
                 </div>
                 
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-3">Experience Level</h4>
+                  <h4 className="font-semibold text-gray-900 mb-3">{t('metrics.page.experienceLevel', language)}</h4>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Entry Level</span>
+                      <span className="text-sm text-gray-600">{t('metrics.page.entryLevel', language)}</span>
                       <span className="font-semibold text-gray-900">45%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -234,7 +238,7 @@ export default function MetricsPage() {
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Mid Level</span>
+                      <span className="text-sm text-gray-600">{t('metrics.page.midLevel', language)}</span>
                       <span className="font-semibold text-gray-900">35%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -242,7 +246,7 @@ export default function MetricsPage() {
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Senior Level</span>
+                      <span className="text-sm text-gray-600">{t('metrics.page.seniorLevel', language)}</span>
                       <span className="font-semibold text-gray-900">20%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -259,7 +263,7 @@ export default function MetricsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Target className="w-5 h-5 text-green-500" />
-                Market Insights
+                {t('metrics.page.marketInsights', language)}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -269,9 +273,9 @@ export default function MetricsPage() {
                     <TrendingUp className="w-4 h-4 text-green-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Growing Demand</h4>
+                    <h4 className="font-semibold text-gray-900">{t('metrics.page.growingDemand', language)}</h4>
                     <p className="text-sm text-gray-600">
-                      The job market is showing strong growth with a 12% increase in job postings compared to last month.
+                      {t('metrics.page.growingDemandDesc', language)}
                     </p>
                   </div>
                 </div>
@@ -281,9 +285,9 @@ export default function MetricsPage() {
                     <Globe className="w-4 h-4 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Remote Work Dominance</h4>
+                    <h4 className="font-semibold text-gray-900">{t('metrics.page.remoteWorkDominance', language)}</h4>
                     <p className="text-sm text-gray-600">
-                      64% of jobs are remote, indicating a strong preference for flexible work arrangements.
+                      {t('metrics.page.remoteWorkDominanceDesc', language)}
                     </p>
                   </div>
                 </div>
@@ -293,9 +297,9 @@ export default function MetricsPage() {
                     <Zap className="w-4 h-4 text-yellow-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Easy Apply Trend</h4>
+                    <h4 className="font-semibold text-gray-900">{t('metrics.page.easyApplyTrend', language)}</h4>
                     <p className="text-sm text-gray-600">
-                      64% of jobs offer easy apply options, making the application process more accessible.
+                      {t('metrics.page.easyApplyTrendDesc', language)}
                     </p>
                   </div>
                 </div>
@@ -311,14 +315,14 @@ export default function MetricsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <BarChart3 className="w-5 h-5 text-sky-500" />
-                Quick Stats
+                {t('metrics.page.quickStats', language)}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between p-3 bg-sky-50 rounded-lg">
                 <div className="flex items-center gap-2">
                   <Briefcase className="w-4 h-4 text-sky-500" />
-                  <span className="text-sm text-gray-600">Total Jobs</span>
+                  <span className="text-sm text-gray-600">{t('metrics.totalJobs', language)}</span>
                 </div>
                 <span className="font-semibold text-gray-900">{metrics.total_jobs.toLocaleString()}</span>
               </div>
@@ -326,7 +330,7 @@ export default function MetricsPage() {
               <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
                 <div className="flex items-center gap-2">
                   <Building2 className="w-4 h-4 text-yellow-500" />
-                  <span className="text-sm text-gray-600">Companies</span>
+                  <span className="text-sm text-gray-600">{t('metrics.companies', language)}</span>
                 </div>
                 <span className="font-semibold text-gray-900">{metrics.unique_companies}</span>
               </div>
@@ -334,7 +338,7 @@ export default function MetricsPage() {
               <div className="flex items-center justify-between p-3 bg-emerald-50 rounded-lg">
                 <div className="flex items-center gap-2">
                   <Zap className="w-4 h-4 text-emerald-500" />
-                  <span className="text-sm text-gray-600">Easy Apply</span>
+                  <span className="text-sm text-gray-600">{t('metrics.easyApply', language)}</span>
                 </div>
                 <span className="font-semibold text-gray-900">{metrics.easy_apply_jobs.toLocaleString()}</span>
               </div>
@@ -342,7 +346,7 @@ export default function MetricsPage() {
               <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-orange-500" />
-                  <span className="text-sm text-gray-600">Recent Jobs</span>
+                  <span className="text-sm text-gray-600">{t('metrics.recentJobs', language)}</span>
                 </div>
                 <span className="font-semibold text-gray-900">{metrics.recent_jobs}</span>
               </div>
@@ -354,12 +358,12 @@ export default function MetricsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-sky-500" />
-                Growth Indicators
+                {t('metrics.page.growthIndicators', language)}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Job Postings</span>
+                <span className="text-sm text-gray-600">{t('metrics.totalJobs', language)}</span>
                 <div className="flex items-center gap-1">
                   <TrendingUp className="w-4 h-4 text-emerald-600" />
                   <span className="font-semibold text-emerald-600">+12%</span>
@@ -370,7 +374,7 @@ export default function MetricsPage() {
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Companies</span>
+                <span className="text-sm text-gray-600">{t('metrics.companies', language)}</span>
                 <div className="flex items-center gap-1">
                   <TrendingUp className="w-4 h-4 text-emerald-600" />
                   <span className="font-semibold text-emerald-600">+8%</span>
@@ -381,7 +385,7 @@ export default function MetricsPage() {
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Easy Apply</span>
+                <span className="text-sm text-gray-600">{t('metrics.easyApply', language)}</span>
                 <div className="flex items-center gap-1">
                   <TrendingUp className="w-4 h-4 text-emerald-600" />
                   <span className="font-semibold text-emerald-600">+15%</span>
@@ -398,21 +402,21 @@ export default function MetricsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Target className="w-5 h-5 text-sky-500" />
-                Actions
+                {t('metrics.page.actions', language)}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <Button className="w-full" size="lg">
                 <BarChart3 className="w-4 h-4 mr-2" />
-                Export Report
+                {t('metrics.page.exportReport', language)}
               </Button>
               <Button variant="outline" className="w-full">
                 <TrendingUp className="w-4 h-4 mr-2" />
-                View Trends
+                {t('metrics.page.viewTrends', language)}
               </Button>
               <Button variant="outline" className="w-full">
                 <Calendar className="w-4 h-4 mr-2" />
-                Schedule Update
+                {t('metrics.page.scheduleUpdate', language)}
               </Button>
             </CardContent>
           </Card>

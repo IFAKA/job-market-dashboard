@@ -16,6 +16,7 @@ import { Upload, History, ArrowRight, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useLanguageContext } from '@/components/providers/language-provider';
+import { useCountry } from '@/components/providers/country-provider';
 import { LanguageSwitcher } from '@/components/ui/language-switcher';
 import { CountrySelector } from '@/components/ui/country-selector';
 import { t } from '@/lib/i18n';
@@ -36,11 +37,11 @@ import {
 export default function UploadPage() {
   const router = useRouter();
   const { language } = useLanguageContext();
+  const { selectedCountry, setSelectedCountry } = useCountry();
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploadSuccess, setUploadSuccess] = useState<string | null>(null);
-  const [selectedCountry, setSelectedCountry] = useState<string>('argentina');
 
   // Load history from localStorage on component mount and ensure default data is available
   useEffect(() => {
@@ -280,10 +281,10 @@ export default function UploadPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {/* File Upload Section */}
         <div className="lg:col-span-2">
-          <div className="flex items-center gap-2 mb-4">
-            <Upload className="w-5 h-5 text-sky-500" />
-            <h2 className="text-xl font-semibold text-gray-900">Upload New File</h2>
-          </div>
+                  <div className="flex items-center gap-2 mb-4">
+          <Upload className="w-5 h-5 text-sky-500" />
+          <h2 className="text-xl font-semibold text-gray-900">{t('upload.uploadNewFile', language)}</h2>
+        </div>
           <FileUpload 
             onFileUpload={handleFileUpload} 
             isLoading={isUploading}
@@ -300,10 +301,10 @@ export default function UploadPage() {
 
         {/* History Section */}
         <div className="lg:col-span-3">
-          <div className="flex items-center gap-2 mb-4">
-            <History className="w-5 h-5 text-sky-500" />
-            <h2 className="text-xl font-semibold text-gray-900">Upload History</h2>
-          </div>
+                  <div className="flex items-center gap-2 mb-4">
+          <History className="w-5 h-5 text-sky-500" />
+          <h2 className="text-xl font-semibold text-gray-900">{t('upload.uploadHistory', language)}</h2>
+        </div>
           <HistoryManager
             history={history}
             onSwitchToHistory={handleSwitchToHistory}
@@ -315,7 +316,7 @@ export default function UploadPage() {
 
       {/* Footer */}
       <div className="mt-12 text-center text-sm text-gray-500">
-        <p>Supported formats: .txt (LinkedIn job format) and .csv files up to 10MB</p>
+        <p>{t('upload.supportedFormatsFooter', language)}</p>
       </div>
     </div>
   );

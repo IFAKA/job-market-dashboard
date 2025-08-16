@@ -23,12 +23,12 @@ export function FileUpload({ onFileUpload, isLoading = false }: FileUploadProps)
     const maxSize = 10 * 1024 * 1024; // 10MB
 
     if (!allowedTypes.includes(file.type) && !file.name.endsWith('.txt') && !file.name.endsWith('.csv')) {
-      setError(language === 'es' ? 'Por favor sube un archivo .txt o .csv' : 'Please upload a .txt or .csv file');
+      setError(t('upload.validation.fileType', language));
       return false;
     }
 
     if (file.size > maxSize) {
-      setError(language === 'es' ? 'El tamaño del archivo debe ser menor a 10MB' : 'File size must be less than 10MB');
+      setError(t('upload.validation.fileSize', language));
       return false;
     }
 
@@ -118,7 +118,7 @@ export function FileUpload({ onFileUpload, isLoading = false }: FileUploadProps)
                   <span key={index}>
                     {part}
                     <label className="text-sky-600 hover:text-sky-700 cursor-pointer">
-                      {language === 'es' ? 'explorar' : 'browse'}
+                      {t('upload.browse', language)}
                       <input
                         type="file"
                         accept=".txt,.csv"
@@ -133,7 +133,7 @@ export function FileUpload({ onFileUpload, isLoading = false }: FileUploadProps)
               ))}
             </p>
             <p className="text-xs text-gray-500">
-              {language === 'es' ? 'Soporta archivos .txt y .csv hasta 10MB' : 'Supports .txt and .csv files up to 10MB'}
+              {t('upload.supportedFormats', language)}
             </p>
           </div>
         ) : (
@@ -181,7 +181,7 @@ export function FileUpload({ onFileUpload, isLoading = false }: FileUploadProps)
             ) : (
               <>
                 <Upload className="w-4 h-4 mr-2" />
-                {language === 'es' ? 'Subir y Actualizar Panel' : 'Upload and Update Dashboard'}
+                {t('upload.uploadAndUpdate', language)}
               </>
             )}
           </Button>

@@ -42,12 +42,10 @@ export default function Dashboard() {
   useEffect(() => {
     const restoreScrollPosition = () => {
       const savedScrollPosition = sessionStorage.getItem('dashboardScrollPosition');
-      console.log('Checking for saved scroll position:', savedScrollPosition); // Debug log
       
       if (savedScrollPosition) {
         // Clear the stored position
         sessionStorage.removeItem('dashboardScrollPosition');
-        console.log('Restoring scroll position to:', savedScrollPosition); // Debug log
         
         const scrollY = parseInt(savedScrollPosition);
         
@@ -57,7 +55,6 @@ export default function Dashboard() {
             top: scrollY,
             behavior: 'instant' // Use instant to avoid animation
           });
-          console.log('Scroll restoration completed to position:', scrollY); // Debug log
         });
       }
     };
@@ -133,22 +130,7 @@ export default function Dashboard() {
     );
   }
 
-  // Temporary test function for scroll position
-  const testScrollPosition = () => {
-    const currentScroll = window.scrollY;
-    console.log('Current scroll position:', currentScroll);
-    sessionStorage.setItem('dashboardScrollPosition', currentScroll.toString());
-    console.log('Stored scroll position for testing');
-  };
 
-  const testRestoreScroll = () => {
-    const saved = sessionStorage.getItem('dashboardScrollPosition');
-    console.log('Testing restore - saved position:', saved);
-    if (saved) {
-      window.scrollTo(0, parseInt(saved));
-      console.log('Test scroll restoration completed');
-    }
-  };
 
   // Prepare chart data
   const categoryChartData = prepareChartData(
@@ -193,25 +175,7 @@ export default function Dashboard() {
             <LanguageSwitcher />
           </div>
           
-          {/* Temporary test buttons for scroll position debugging */}
-          <div className="mt-4 flex gap-2 justify-center">
-            <Button
-              onClick={testScrollPosition}
-              variant="outline"
-              size="sm"
-              className="text-xs"
-            >
-              Test Save Scroll
-            </Button>
-            <Button
-              onClick={testRestoreScroll}
-              variant="outline"
-              size="sm"
-              className="text-xs"
-            >
-              Test Restore Scroll
-            </Button>
-          </div>
+
       </div>
 
       {/* Metrics Grid */}

@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Globe } from 'lucide-react';
+import { useLanguageContext } from '@/components/providers/language-provider';
+import { t } from '@/lib/i18n';
 
 interface CountrySelectorProps {
   selectedCountry: string;
@@ -11,13 +13,14 @@ interface CountrySelectorProps {
   className?: string;
 }
 
-const countries = [
-  { value: 'spain', label: 'España', flag: '🇪🇸' },
-  { value: 'argentina', label: 'Argentina', flag: '🇦🇷' }
-];
-
 export function CountrySelector({ selectedCountry, onCountryChange, className }: CountrySelectorProps) {
   const [mounted, setMounted] = useState(false);
+  const { language } = useLanguageContext();
+
+  const countries = [
+    { value: 'spain', label: t('country.spain', language), flag: '🇪🇸' },
+    { value: 'argentina', label: t('country.argentina', language), flag: '🇦🇷' }
+  ];
 
   useEffect(() => {
     setMounted(true);
@@ -32,16 +35,16 @@ export function CountrySelector({ selectedCountry, onCountryChange, className }:
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2 text-lg">
           <Globe className="w-5 h-5 text-sky-500" />
-          País / Country
+          {t('country.title', language)}
         </CardTitle>
         <CardDescription>
-          Selecciona tu país para ver salarios específicos
+          {t('country.description', language)}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Select value={selectedCountry} onValueChange={onCountryChange}>
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Selecciona un país" />
+            <SelectValue placeholder={t('country.selectPlaceholder', language)} />
           </SelectTrigger>
           <SelectContent>
             {countries.map((country) => (

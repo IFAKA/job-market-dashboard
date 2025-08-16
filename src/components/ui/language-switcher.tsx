@@ -33,7 +33,7 @@ export function LanguageSwitcher() {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Languages</SelectLabel>
+          <SelectLabel>{t('language.languages', language)}</SelectLabel>
           <SelectItem value="en">🇺🇸 {t('language.english', 'en')}</SelectItem>
           <SelectItem value="es">🇪🇸 {t('language.spanish', 'es')}</SelectItem>
         </SelectGroup>
