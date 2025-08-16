@@ -32,14 +32,14 @@ export function calculateCategoryStats(jobs: Job[]): Record<string, CategoryStat
   Object.entries(categoryGroups).forEach(([category, categoryJobs]) => {
     const salaries = categoryJobs
       .map(job => job.salary_min)
-      .filter(salary => salary && salary > 0);
+      .filter((salary): salary is number => salary !== undefined && salary !== null && salary > 0);
     
     const avgSalary = salaries.length > 0 
-      ? salaries.reduce((sum, salary) => sum + salary!, 0) / salaries.length 
+      ? salaries.reduce((sum, salary) => sum + salary, 0) / salaries.length 
       : 0;
     
     const medianSalary = salaries.length > 0
-      ? salaries.sort((a, b) => a! - b!)[Math.floor(salaries.length / 2)]!
+      ? salaries.sort((a, b) => a - b)[Math.floor(salaries.length / 2)]
       : 0;
 
     const recentJobs = categoryJobs.filter(job => job.days_ago && job.days_ago <= 7).length;
@@ -192,9 +192,9 @@ export function prepareChartData(
       'hsl(var(--chart-3))',
       'hsl(var(--chart-4))',
       'hsl(var(--chart-5))',
-      'hsl(var(--primary))',
-      'hsl(var(--secondary))',
-      'hsl(var(--accent))'
+      'hsl(var(--chart-6))',
+      'hsl(var(--chart-7))',
+      'hsl(var(--chart-8))'
     ]
   };
 }

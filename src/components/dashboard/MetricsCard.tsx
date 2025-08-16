@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { TrendingUp, Building2, Zap, Clock } from 'lucide-react';
+import { TrendingUp, Building2, Zap, Clock, Briefcase } from 'lucide-react';
+import { JobMetrics } from '@/types/job';
 
 interface MetricsCardProps {
   title: string;
@@ -20,22 +20,22 @@ export function MetricsCard({
   color = 'primary' 
 }: MetricsCardProps) {
   const colorClasses = {
-    primary: 'bg-primary/10 text-primary border-primary/20',
-    secondary: 'bg-secondary/10 text-secondary border-secondary/20',
-    success: 'bg-green-500/10 text-green-600 border-green-500/20',
-    warning: 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20'
+    primary: 'bg-sky-100 text-sky-600 border-sky-200',
+    secondary: 'bg-yellow-100 text-yellow-600 border-yellow-200',
+    success: 'bg-emerald-100 text-emerald-600 border-emerald-200',
+    warning: 'bg-orange-100 text-orange-600 border-orange-200'
   };
 
   const trendIcons = {
-    up: <TrendingUp className="w-4 h-4 text-green-600" />,
-    down: <TrendingUp className="w-4 h-4 text-red-600 rotate-180" />,
+    up: <TrendingUp className="w-4 h-4 text-emerald-600" />,
+    down: <TrendingUp className="w-4 h-4 text-orange-600 rotate-180" />,
     neutral: null
   };
 
   return (
     <Card className="apple-watch-card hover:scale-105 transition-transform duration-200">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-muted-foreground">
+        <CardTitle className="text-sm font-medium text-gray-600">
           {title}
         </CardTitle>
         <div className={`p-2 rounded-full border ${colorClasses[color]}`}>
@@ -44,13 +44,13 @@ export function MetricsCard({
       </CardHeader>
       <CardContent>
         <div className="flex items-center justify-between">
-          <div className="text-2xl font-bold apple-watch-text-gradient">
+          <div className="text-2xl font-bold text-sky-600">
             {value.toLocaleString()}
           </div>
           {trendIcons[trend]}
         </div>
         {description && (
-          <p className="text-xs text-muted-foreground mt-1">
+          <p className="text-xs text-gray-500 mt-1">
             {description}
           </p>
         )}
@@ -59,13 +59,13 @@ export function MetricsCard({
   );
 }
 
-export function MetricsGrid({ metrics }: { metrics: any }) {
+export function MetricsGrid({ metrics }: { metrics: JobMetrics }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       <MetricsCard
         title="Total Jobs"
         value={metrics.total_jobs}
-        icon={<Building2 className="w-4 h-4" />}
+        icon={<Briefcase className="w-4 h-4" />}
         description="Available positions"
         color="primary"
       />

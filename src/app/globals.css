@@ -1,19 +1,18 @@
-@import "tailwindcss/preflight";
-@import "tailwindcss/utilities";
+@import "tailwindcss";
 
 @layer base {
   :root {
     /* Argentine Flag Colors */
-    --background: 0 0% 100%;
+    --background: 0 0% 100%; /* White */
     --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
+    --card: 0 0% 100%; /* White */
     --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
+    --popover: 0 0% 100%; /* White */
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 210 100% 50%; /* Argentine Blue */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 0 100% 50%; /* Argentine Red */
-    --secondary-foreground: 222.2 84% 4.9%;
+    --primary: 210 100% 75%; /* Argentine Celeste (Light Blue) */
+    --primary-foreground: 210 40% 20%; /* Dark text on light blue */
+    --secondary: 45 100% 50%; /* Argentine Yellow (Sun) */
+    --secondary-foreground: 45 40% 20%; /* Dark text on yellow */
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
     --accent: 210 40% 96.1%;
@@ -22,13 +21,18 @@
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 210 100% 50%;
+    --ring: 210 100% 75%; /* Argentine Celeste */
     --radius: 0.5rem;
-    --chart-1: 210 100% 50%; /* Argentine Blue */
-    --chart-2: 0 100% 50%; /* Argentine Red */
-    --chart-3: 45 100% 50%; /* Golden Yellow */
-    --chart-4: 120 100% 40%; /* Green */
-    --chart-5: 280 100% 60%; /* Purple */
+    
+    /* Diverse Chart Colors for Good Contrast */
+    --chart-1: 210 100% 75%; /* Argentine Celeste */
+    --chart-2: 45 100% 50%; /* Argentine Yellow */
+    --chart-3: 120 100% 40%; /* Green */
+    --chart-4: 280 100% 60%; /* Purple */
+    --chart-5: 30 100% 50%; /* Orange */
+    --chart-6: 0 100% 50%; /* Red */
+    --chart-7: 180 100% 40%; /* Cyan */
+    --chart-8: 300 100% 50%; /* Magenta */
   }
 
   .dark {
@@ -38,10 +42,10 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 100% 50%;
-    --primary-foreground: 222.2 84% 4.9%;
-    --secondary: 0 100% 50%;
-    --secondary-foreground: 210 40% 98%;
+    --primary: 210 100% 75%; /* Argentine Celeste */
+    --primary-foreground: 210 40% 20%;
+    --secondary: 45 100% 50%; /* Argentine Yellow */
+    --secondary-foreground: 45 40% 20%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     --accent: 217.2 32.6% 17.5%;
@@ -50,21 +54,27 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 210 100% 50%;
-    --chart-1: 210 100% 50%;
-    --chart-2: 0 100% 50%;
-    --chart-3: 45 100% 50%;
-    --chart-4: 120 100% 40%;
-    --chart-5: 280 100% 60%;
+    --ring: 210 100% 75%; /* Argentine Celeste */
+    
+    /* Dark mode diverse chart colors */
+    --chart-1: 210 100% 75%; /* Argentine Celeste */
+    --chart-2: 45 100% 50%; /* Argentine Yellow */
+    --chart-3: 120 100% 50%; /* Green */
+    --chart-4: 280 100% 70%; /* Purple */
+    --chart-5: 30 100% 60%; /* Orange */
+    --chart-6: 0 100% 60%; /* Red */
+    --chart-7: 180 100% 50%; /* Cyan */
+    --chart-8: 300 100% 60%; /* Magenta */
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
@@ -72,30 +82,23 @@
 /* Apple Watch Style Guidelines */
 @layer components {
   .apple-watch-card {
-    @apply rounded-3xl bg-card border border-border/50 shadow-lg backdrop-blur-sm;
+    @apply rounded-3xl shadow-lg backdrop-blur-sm;
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border) / 0.5);
   }
   
   .apple-watch-button {
-    @apply rounded-full bg-primary text-primary-foreground px-6 py-3 font-medium transition-all duration-200 hover:scale-105 active:scale-95;
+    @apply rounded-full px-6 py-3 font-medium transition-all duration-200 hover:scale-105 active:scale-95;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
   }
   
   .apple-watch-badge {
     @apply rounded-full px-3 py-1 text-xs font-medium;
   }
   
-  .apple-watch-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
-  }
-  
   .apple-watch-glow {
-    box-shadow: 0 0 20px rgba(0, 100, 255, 0.3);
-  }
-  
-  .apple-watch-text-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    box-shadow: 0 0 20px rgba(128, 191, 255, 0.3); /* Argentine Celeste glow */
   }
 }
 

@@ -17,20 +17,22 @@ export async function GET() {
       .filter(line => line.trim())
       .map(line => {
         const values = line.split(',').map(v => v.trim().replace(/"/g, ''));
-        const job: any = {};
+        const job: Record<string, string | number | null> = {};
         
         headers.forEach((header, index) => {
-          let value = values[index] || '';
+          let value: string | number | null = values[index] || '';
           
           // Convert numeric fields
-          if (['salary_min', 'salary_max', 'days_ago', 'category_confidence'].includes(header)) {
-            value = value ? parseFloat(value) : null;
+          if (['salary_min', 'salary_max', 'days_ago'].includes(header)) {
+            value = value ? parseFloat(value as string) : null;
+          } else if (header === 'category_confidence') {
+            value = value ? parseFloat(value as string) : 0; // Default to 0 instead of null
           }
           
           job[header] = value;
         });
         
-        return job as Job;
+        return job as unknown as Job;
       });
     
     return NextResponse.json(jobs);
