@@ -61,15 +61,15 @@ export interface JobMarketData {
   categoryStats: Record<string, CategoryStats>;
   topOpportunities: TopOpportunity[];
   technologyInsights: TechnologyInsight[];
-  recommendations: string[];
+  recommendations: Array<{key: string, params: Record<string, any>}>;
 }
 
 export interface CategoryDetails {
   name: string;
   description: string;
   whatYouDo: string;
-  requiredSkills: string[];
-  learningPath: string[];
+  requiredSkills: string[] | string;
+  learningPath: string[] | string;
   careerProspects: string;
   averageTimeToLearn: string;
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
@@ -78,7 +78,7 @@ export interface CategoryDetails {
   growthPotential: 'High' | 'Medium' | 'Low';
   entryLevelPositions: string[];
   advancedPositions: string[];
-  popularTechnologies: string[];
+  popularTechnologies: string[] | string;
   resources: {
     courses: string[];
     platforms: string[];

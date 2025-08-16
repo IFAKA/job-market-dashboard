@@ -187,7 +187,7 @@ export function CategoryExplorer({ categoryStats }: CategoryExplorerProps) {
           {filteredCategories.map(([categoryName, details]) => {
             const stats = categoryStats[categoryName] || { Job_Count: 0, Avg_Salary: 0, Recent_Jobs: 0 };
             const careerFitIndicators = getCareerFitIndicator(details);
-            const careerSlug = getCareerSlug(details.name);
+            const careerSlug = getCareerSlug(categoryName);
             
             return (
               <Card 
@@ -197,11 +197,19 @@ export function CategoryExplorer({ categoryStats }: CategoryExplorerProps) {
               >
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold text-gray-900 flex items-center justify-between group-hover:text-sky-600 transition-colors">
-                    {details.name}
+                    {typeof details.name === 'string' && details.name.startsWith('career.') 
+                      ? t(details.name, language) 
+                      : details.name}
                     <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-sky-500 group-hover:translate-x-1 transition-all" />
                   </CardTitle>
                   <CardDescription className="text-sm text-gray-600 line-clamp-2">
-                    {details.description}
+                    {(() => {
+                      if (typeof details.description === 'string' && details.description.startsWith('career.')) {
+                        const translation = t(details.description, language);
+                        return Array.isArray(translation) ? translation.join(' ') : (translation as string);
+                      }
+                      return details.description || '';
+                    })()}
                   </CardDescription>
                 </CardHeader>
                 
@@ -267,7 +275,7 @@ export function CategoryExplorer({ categoryStats }: CategoryExplorerProps) {
           {filteredCategories.map(([categoryName, details]) => {
             const stats = categoryStats[categoryName] || { Job_Count: 0, Avg_Salary: 0, Recent_Jobs: 0 };
             const careerFitIndicators = getCareerFitIndicator(details);
-            const careerSlug = getCareerSlug(details.name);
+            const careerSlug = getCareerSlug(categoryName);
             
             return (
               <Card 
@@ -280,18 +288,24 @@ export function CategoryExplorer({ categoryStats }: CategoryExplorerProps) {
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="text-lg font-semibold text-gray-900 group-hover:text-sky-600 transition-colors">
-                          {details.name}
+                          {typeof details.name === 'string' && details.name.startsWith('career.') 
+                            ? t(details.name, language) 
+                            : details.name}
                         </h3>
                         <Badge className={getDifficultyColor(details.difficulty)}>
                           {details.difficulty}
                         </Badge>
                         <Badge className={getGrowthColor(details.growthPotential)}>
                           <TrendingUp className="w-3 h-3 mr-1" />
-                          {details.growthPotential} Growth
+                          {details.growthPotential} {t('career.growth', language)}
                         </Badge>
                       </div>
                       
-                      <p className="text-gray-600 mb-3">{details.description}</p>
+                      <p className="text-gray-600 mb-3">
+                        {typeof details.description === 'string' && details.description.startsWith('career.') 
+                          ? t(details.description, language) 
+                          : details.description}
+                      </p>
                       
                       {/* Career Fit Indicators */}
                       <div className="flex flex-wrap gap-3 mb-3">
@@ -306,7 +320,7 @@ export function CategoryExplorer({ categoryStats }: CategoryExplorerProps) {
                       <div className="flex items-center gap-6 text-sm text-gray-500">
                         <div className="flex items-center gap-1">
                           <Users className="w-4 h-4" />
-                          <span>{stats.Job_Count} jobs</span>
+                          <span>{stats.Job_Count} {t('history.jobs', language)}</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <DollarSign className="w-4 h-4" />
@@ -314,10 +328,10 @@ export function CategoryExplorer({ categoryStats }: CategoryExplorerProps) {
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock className="w-4 h-4" />
-                          <span>{stats.Recent_Jobs} recent</span>
+                          <span>{stats.Recent_Jobs} {(t('metrics.recentJobs', language) as string).toLowerCase()}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                          <span>{details.remoteWorkPercentage}% remote</span>
+                          <span>{details.remoteWorkPercentage}% {t('career.remote', language)}</span>
                         </div>
                       </div>
 

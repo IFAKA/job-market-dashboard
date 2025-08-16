@@ -67,7 +67,7 @@ export default function SubcategoryPage() {
   
   // Find the subcategory details by slug
   const subcategoryKey = Object.keys(subcategories).find(
-    key => getCareerSlug(subcategories[key].name) === subcategorySlug
+    key => getCareerSlug(key) === subcategorySlug
   );
   
   if (!subcategoryKey) {
@@ -75,17 +75,18 @@ export default function SubcategoryPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
-            {language === 'es' ? 'Especialización No Encontrada' : 'Specialization Not Found'}
+            {t('career.specializationNotFound', language)}
           </h1>
           <p className="text-gray-600 mb-6">
-            {language === 'es' 
-              ? 'La especialización que buscas no existe.' 
-              : 'The specialization you\'re looking for doesn\'t exist.'
-            }
+            {t('career.specializationNotFoundDesc', language)}
           </p>
           <Button onClick={() => router.push(`/career/${categorySlug}`)}>
             <ArrowLeft className="w-4 h-4 mr-2" />
-            {language === 'es' ? `Volver a ${categoryDetails.name}` : `Back to ${categoryDetails.name}`}
+            {t('career.backToCategory', language).replace('{category}', 
+              typeof categoryDetails.name === 'string' && categoryDetails.name.startsWith('career.') 
+                ? t(categoryDetails.name, language) 
+                : categoryDetails.name
+            )}
           </Button>
         </div>
       </div>
@@ -186,7 +187,11 @@ export default function SubcategoryPage() {
           className="inline-flex items-center text-sky-600 hover:text-sky-700 mb-4 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          {language === 'es' ? `Volver a ${categoryDetails.name}` : `Back to ${categoryDetails.name}`}
+          {t('career.backToCategory', language).replace('{category}', 
+            typeof categoryDetails.name === 'string' && categoryDetails.name.startsWith('career.') 
+              ? t(categoryDetails.name, language) 
+              : categoryDetails.name
+          )}
         </button>
         <div className="flex items-center gap-3 mb-4">
           <h1 className="text-4xl font-bold text-gray-900">{currentSubcategoryDetails.name}</h1>
@@ -250,10 +255,10 @@ export default function SubcategoryPage() {
                     {t('career.youllLoveThis', language)}:
                   </h4>
                   <ul className="space-y-2 text-sm text-gray-600">
-                    <li>• {language === 'es' ? 'Te gusta' : 'You enjoy'} {currentSubcategoryDetails.whatYouDo.toLowerCase().split(',')[0]}</li>
-                    <li>• {language === 'es' ? 'Quieres trabajar' : 'You want to work'} {currentSubcategoryDetails.remoteWorkPercentage >= 80 ? (language === 'es' ? 'remotamente' : 'remotely') : (language === 'es' ? 'en un entorno colaborativo' : 'in a collaborative environment')}</li>
-                    <li>• {language === 'es' ? 'Buscas oportunidades de crecimiento' : 'You\'re looking for'} {currentSubcategoryDetails.growthPotential.toLowerCase()} {language === 'es' ? '' : 'growth opportunities'}</li>
-                    <li>• {language === 'es' ? 'Puedes comprometerte' : 'You can commit'} {currentSubcategoryDetails.averageTimeToLearn} {language === 'es' ? 'al aprendizaje' : 'to learning'}</li>
+                    <li>• {t('career.youEnjoy', language)} {currentSubcategoryDetails.whatYouDo.toLowerCase().split(',')[0]}</li>
+                    <li>• {t('career.youWantToWork', language)} {currentSubcategoryDetails.remoteWorkPercentage >= 80 ? t('career.remotely', language) : t('career.inCollaborativeEnvironment', language)}</li>
+                    <li>• {t('career.youreLookingFor', language)} {currentSubcategoryDetails.growthPotential.toLowerCase()} {t('career.growthOpportunities', language)}</li>
+                    <li>• {t('career.youCanCommit', language)} {currentSubcategoryDetails.averageTimeToLearn} {t('career.toLearning', language)}</li>
                   </ul>
                 </div>
                 <div>
@@ -262,10 +267,10 @@ export default function SubcategoryPage() {
                     {t('career.considerAnotherPath', language)}:
                   </h4>
                   <ul className="space-y-2 text-sm text-gray-600">
-                    <li>• {language === 'es' ? 'Prefieres' : 'You prefer'} {currentSubcategoryDetails.difficulty === 'Beginner' ? (language === 'es' ? 'trabajo más desafiante' : 'more challenging work') : (language === 'es' ? 'tareas más simples' : 'simpler tasks')}</li>
-                    <li>• {language === 'es' ? 'Necesitas ingresos altos inmediatos (los salarios de nivel inicial son más bajos)' : 'You need immediate high income (entry-level salaries are lower)'}</li>
-                    <li>• {language === 'es' ? 'No disfrutas del aprendizaje continuo' : 'You don\'t enjoy continuous learning'}</li>
-                    <li>• {language === 'es' ? 'Prefieres' : 'You prefer'} {currentSubcategoryDetails.remoteWorkPercentage >= 80 ? (language === 'es' ? 'entornos de oficina' : 'office environments') : (language === 'es' ? 'trabajo remoto' : 'remote work')}</li>
+                    <li>• {t('career.youPrefer', language)} {currentSubcategoryDetails.difficulty === 'Beginner' ? t('career.moreChallengingWork', language) : t('career.simplerTasks', language)}</li>
+                    <li>• {t('career.needImmediateHighIncome', language)}</li>
+                    <li>• {t('career.dontEnjoyContinuousLearning', language)}</li>
+                    <li>• {t('career.youPrefer', language)} {currentSubcategoryDetails.remoteWorkPercentage >= 80 ? t('career.officeEnvironments', language) : t('career.remoteWork', language)}</li>
                   </ul>
                 </div>
               </div>

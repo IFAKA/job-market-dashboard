@@ -126,10 +126,18 @@ export default function CategoryPage() {
           {t('career.backToPaths', language)}
         </button>
         <div className="flex items-center gap-3 mb-4">
-          <h1 className="text-4xl font-bold text-gray-900">{categoryDetails.name}</h1>
+          <h1 className="text-4xl font-bold text-gray-900">
+            {typeof categoryDetails.name === 'string' && categoryDetails.name.startsWith('career.') 
+              ? t(categoryDetails.name, language) 
+              : categoryDetails.name}
+          </h1>
           <Star className="w-8 h-8 text-yellow-500" />
         </div>
-        <p className="text-xl text-gray-600 max-w-4xl">{categoryDetails.description}</p>
+        <p className="text-xl text-gray-600 max-w-4xl">
+          {typeof categoryDetails.description === 'string' && categoryDetails.description.startsWith('career.') 
+            ? t(categoryDetails.description, language) 
+            : categoryDetails.description}
+        </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -150,14 +158,22 @@ export default function CategoryPage() {
                     <CheckCircle className="w-4 h-4 text-green-500" />
                     {t('career.whatYoullDo', language)}:
                   </h4>
-                  <p className="text-sm text-gray-600">{categoryDetails.whatYouDo}</p>
+                  <p className="text-sm text-gray-600">
+                    {typeof categoryDetails.whatYouDo === 'string' && categoryDetails.whatYouDo.startsWith('career.') 
+                      ? t(categoryDetails.whatYouDo, language) 
+                      : categoryDetails.whatYouDo}
+                  </p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-emerald-500" />
                     {t('career.careerProspects', language)}:
                   </h4>
-                  <p className="text-sm text-gray-600">{categoryDetails.careerProspects}</p>
+                  <p className="text-sm text-gray-600">
+                    {typeof categoryDetails.careerProspects === 'string' && categoryDetails.careerProspects.startsWith('career.') 
+                      ? t(categoryDetails.careerProspects, language) 
+                      : categoryDetails.careerProspects}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -175,7 +191,7 @@ export default function CategoryPage() {
             {Object.keys(subcategories).length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {Object.entries(subcategories).map(([subcategoryKey, subcategoryDetails]) => {
-                  const subcategorySlug = getCareerSlug(subcategoryDetails.name);
+                  const subcategorySlug = getCareerSlug(subcategoryKey);
                   
                   return (
                     <Card 
@@ -185,11 +201,15 @@ export default function CategoryPage() {
                     >
                       <CardHeader>
                         <CardTitle className="text-lg font-semibold text-gray-900 flex items-center justify-between group-hover:text-sky-600 transition-colors">
-                          {subcategoryDetails.name}
+                          {typeof subcategoryDetails.name === 'string' && subcategoryDetails.name.startsWith('career.') 
+                            ? t(subcategoryDetails.name, language) 
+                            : subcategoryDetails.name}
                           <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-sky-500 group-hover:translate-x-1 transition-all" />
                         </CardTitle>
                         <CardDescription className="text-sm text-gray-600">
-                          {subcategoryDetails.description}
+                          {typeof subcategoryDetails.description === 'string' && subcategoryDetails.description.startsWith('career.') 
+                            ? t(subcategoryDetails.description, language) 
+                            : subcategoryDetails.description}
                         </CardDescription>
                       </CardHeader>
                       
@@ -271,12 +291,17 @@ export default function CategoryPage() {
               {t('career.requiredSkills', language)}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {categoryDetails.requiredSkills.map((skill: string, index: number) => (
-                <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
-                  <div className="w-1.5 h-1.5 bg-sky-400 rounded-full"></div>
-                  {skill}
-                </div>
-              ))}
+              {(() => {
+                const skills = typeof categoryDetails.requiredSkills === 'string' && categoryDetails.requiredSkills.startsWith('career.') 
+                  ? (t(categoryDetails.requiredSkills, language) as string[]) 
+                  : categoryDetails.requiredSkills;
+                return Array.isArray(skills) ? skills.map((skill: string, index: number) => (
+                  <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
+                    <div className="w-1.5 h-1.5 bg-sky-400 rounded-full"></div>
+                    {skill}
+                  </div>
+                )) : null;
+              })()}
             </div>
           </div>
 
@@ -289,14 +314,19 @@ export default function CategoryPage() {
               {t('career.learningPath', language)}
             </h3>
             <div className="space-y-2">
-              {categoryDetails.learningPath.map((step: string, index: number) => (
-                <div key={index} className="flex items-start gap-3 text-sm">
-                  <div className="flex-shrink-0 w-6 h-6 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-xs font-medium">
-                    {index + 1}
+              {(() => {
+                const steps = typeof categoryDetails.learningPath === 'string' && categoryDetails.learningPath.startsWith('career.') 
+                  ? (t(categoryDetails.learningPath, language) as string[]) 
+                  : categoryDetails.learningPath;
+                return Array.isArray(steps) ? steps.map((step: string, index: number) => (
+                  <div key={index} className="flex items-start gap-3 text-sm">
+                    <div className="flex-shrink-0 w-6 h-6 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-xs font-medium">
+                      {index + 1}
+                    </div>
+                    <span className="text-gray-600">{step}</span>
                   </div>
-                  <span className="text-gray-600">{step}</span>
-                </div>
-              ))}
+                )) : null;
+              })()}
             </div>
           </div>
 
@@ -309,11 +339,16 @@ export default function CategoryPage() {
               {t('career.popularTechnologies', language)}
             </h3>
             <div className="flex flex-wrap gap-2">
-              {categoryDetails.popularTechnologies.map((tech: string, index: number) => (
-                <Badge key={index} variant="secondary" className="text-xs">
-                  {tech}
-                </Badge>
-              ))}
+              {(() => {
+                const technologies = typeof categoryDetails.popularTechnologies === 'string' && categoryDetails.popularTechnologies.startsWith('career.') 
+                  ? (t(categoryDetails.popularTechnologies, language) as string[]) 
+                  : categoryDetails.popularTechnologies;
+                return Array.isArray(technologies) ? technologies.map((tech: string, index: number) => (
+                  <Badge key={index} variant="secondary" className="text-xs">
+                    {tech}
+                  </Badge>
+                )) : null;
+              })()}
             </div>
           </div>
         </div>

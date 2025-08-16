@@ -133,7 +133,7 @@ export function HistoryManager({ history, onSwitchToHistory, onDeleteHistory, on
                   size="sm"
                   onClick={() => onExportHistory(item)}
                   className="text-green-600 hover:text-green-700"
-                  title="Export to CSV"
+                  title={t('ui.exportToCSV', language)}
                 >
                   <Download className="w-4 h-4" />
                 </Button>

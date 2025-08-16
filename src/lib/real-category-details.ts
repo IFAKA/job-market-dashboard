@@ -12,27 +12,12 @@ export const getCareerSlug = (careerName: string) => {
 
 export const realCategoryDetails: Record<string, CategoryDetails> = {
   'Software Engineer': {
-    name: 'Software Engineer',
-    description: 'Design, develop, and maintain software applications and systems. Perfect for logical thinkers who enjoy building solutions through code.',
-    whatYouDo: 'Write code, debug issues, collaborate with teams, design software architecture, and deploy applications. You\'ll spend most of your time solving problems through code.',
-    requiredSkills: [
-      'Programming languages (JavaScript, Python, Java, C#, etc.)',
-      'Problem-solving and logical thinking',
-      'Version control (Git)',
-      'Database knowledge (SQL/NoSQL)',
-      'Understanding of algorithms and data structures',
-      'Software development methodologies (Agile, Scrum)'
-    ],
-    learningPath: [
-      'Learn a programming language (JavaScript or Python recommended)',
-      'Master basic algorithms and data structures',
-      'Learn version control with Git',
-      'Build small projects to practice',
-      'Learn a framework (React, Node.js, Django, etc.)',
-      'Study system design and architecture',
-      'Contribute to open source projects'
-    ],
-    careerProspects: 'Excellent - High demand across all industries with strong salary growth potential.',
+    name: 'career.softwareEngineer.name',
+    description: 'career.softwareEngineer.description',
+    whatYouDo: 'career.softwareEngineer.whatYouDo',
+    requiredSkills: 'career.softwareEngineer.requiredSkills',
+    learningPath: 'career.softwareEngineer.learningPath',
+    careerProspects: 'career.softwareEngineer.careerProspects',
     averageTimeToLearn: '6-12 months for entry level, 2-3 years for intermediate',
     difficulty: 'Intermediate',
     salaryRange: '€22,000 - €30,000 (Spain) / AR$400,000 - AR$600,000 (Argentina)',
@@ -52,16 +37,7 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
       'Engineering Manager',
       'CTO'
     ],
-    popularTechnologies: [
-      'JavaScript/TypeScript',
-      'React',
-      'Node.js',
-      'Python',
-      'Java',
-      'C#',
-      'Docker',
-      'AWS/Azure'
-    ],
+    popularTechnologies: 'career.softwareEngineer.popularTechnologies',
     resources: {
       courses: [
         'freeCodeCamp - Full Stack Development',
@@ -86,27 +62,12 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'AI/ML Engineer': {
-    name: 'AI/ML Engineer',
-    description: 'Build and deploy machine learning models and artificial intelligence systems. Ideal for those who love working with data and cutting-edge technology.',
-    whatYouDo: 'Develop machine learning models, implement AI algorithms, optimize model performance, deploy AI systems, and collaborate with data scientists.',
-    requiredSkills: [
-      'Python programming',
-      'Machine learning frameworks (TensorFlow, PyTorch)',
-      'Deep learning algorithms',
-      'Data preprocessing and feature engineering',
-      'Model deployment and MLOps',
-      'Mathematics and statistics'
-    ],
-    learningPath: [
-      'Learn Python fundamentals',
-      'Study mathematics and statistics',
-      'Learn machine learning basics',
-      'Master deep learning frameworks',
-      'Practice with real datasets',
-      'Learn model deployment',
-      'Build AI applications'
-    ],
-    careerProspects: 'Excellent - Rapidly growing field with high demand and competitive salaries.',
+    name: 'career.aiMlEngineer.name',
+    description: 'career.aiMlEngineer.description',
+    whatYouDo: 'career.aiMlEngineer.whatYouDo',
+    requiredSkills: 'career.aiMlEngineer.requiredSkills',
+    learningPath: 'career.aiMlEngineer.learningPath',
+    careerProspects: 'career.aiMlEngineer.careerProspects',
     averageTimeToLearn: '12-18 months for entry level, 2-4 years for advanced',
     difficulty: 'Advanced',
     salaryRange: '€24,000 - €34,000 (Spain) / AR$480,000 - AR$700,000 (Argentina)',
@@ -124,16 +85,7 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
       'MLOps Engineer',
       'AI Research Engineer'
     ],
-    popularTechnologies: [
-      'Python',
-      'TensorFlow',
-      'PyTorch',
-      'Scikit-learn',
-      'Docker',
-      'Kubernetes',
-      'AWS SageMaker',
-      'Google Cloud AI'
-    ],
+    popularTechnologies: 'career.aiMlEngineer.popularTechnologies',
     resources: {
       courses: [
         'Coursera - Machine Learning by Andrew Ng',
@@ -157,27 +109,12 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'Data Science': {
-    name: 'Data Science',
-    description: 'Extract insights from data to help organizations make data-driven decisions. Perfect for analytical minds who love finding patterns.',
-    whatYouDo: 'Collect and clean data, perform statistical analysis, build predictive models, create visualizations, and communicate findings to stakeholders.',
-    requiredSkills: [
-      'Python or R programming',
-      'Statistics and mathematics',
-      'Machine learning algorithms',
-      'Data visualization',
-      'SQL and database knowledge',
-      'Business acumen and communication'
-    ],
-    learningPath: [
-      'Learn Python fundamentals',
-      'Master data manipulation (Pandas, NumPy)',
-      'Study statistics and probability',
-      'Learn machine learning basics',
-      'Practice with real datasets',
-      'Learn visualization tools',
-      'Build a portfolio of projects'
-    ],
-    careerProspects: 'Excellent - High demand across industries as companies become more data-driven.',
+    name: 'career.dataScience.name',
+    description: 'career.dataScience.description',
+    whatYouDo: 'career.dataScience.whatYouDo',
+    requiredSkills: 'career.dataScience.requiredSkills',
+    learningPath: 'career.dataScience.learningPath',
+    careerProspects: 'career.dataScience.careerProspects',
     averageTimeToLearn: '8-18 months for entry level, 2-4 years for advanced',
     difficulty: 'Advanced',
     salaryRange: '€25,000 - €33,000 (Spain) / AR$500,000 - AR$650,000 (Argentina)',
@@ -195,16 +132,7 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
       'Data Science Manager',
       'Chief Data Officer'
     ],
-    popularTechnologies: [
-      'Python',
-      'R',
-      'SQL',
-      'Pandas',
-      'NumPy',
-      'Scikit-learn',
-      'Tableau',
-      'Power BI'
-    ],
+    popularTechnologies: 'career.dataScience.popularTechnologies',
     resources: {
       courses: [
         'Coursera - Data Science Specialization',
@@ -228,27 +156,12 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'DevOps': {
-    name: 'DevOps',
-    description: 'Bridge development and operations to improve software delivery and infrastructure management. Perfect for automation enthusiasts.',
-    whatYouDo: 'Automate deployment processes, manage cloud infrastructure, monitor system performance, ensure security, and optimize CI/CD pipelines.',
-    requiredSkills: [
-      'Linux system administration',
-      'Scripting languages (Bash, Python)',
-      'Cloud platforms (AWS, Azure, GCP)',
-      'Containerization (Docker, Kubernetes)',
-      'Infrastructure as Code',
-      'Monitoring and logging tools'
-    ],
-    learningPath: [
-      'Learn Linux fundamentals',
-      'Master a scripting language',
-      'Learn version control with Git',
-      'Study cloud computing basics',
-      'Learn Docker and containerization',
-      'Master CI/CD tools',
-      'Study Kubernetes and orchestration'
-    ],
-    careerProspects: 'Very Good - High demand as companies modernize their infrastructure.',
+    name: 'career.devOps.name',
+    description: 'career.devOps.description',
+    whatYouDo: 'career.devOps.whatYouDo',
+    requiredSkills: 'career.devOps.requiredSkills',
+    learningPath: 'career.devOps.learningPath',
+    careerProspects: 'career.devOps.careerProspects',
     averageTimeToLearn: '6-12 months for entry level, 2-3 years for advanced',
     difficulty: 'Intermediate',
     salaryRange: '€24,000 - €32,000 (Spain) / AR$550,000 - AR$800,000 (Argentina)',
@@ -266,16 +179,7 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
       'Platform Engineer',
       'Infrastructure Manager'
     ],
-    popularTechnologies: [
-      'Docker',
-      'Kubernetes',
-      'AWS/Azure/GCP',
-      'Jenkins',
-      'Terraform',
-      'Ansible',
-      'Prometheus',
-      'ELK Stack'
-    ],
+    popularTechnologies: 'career.devOps.popularTechnologies',
     resources: {
       courses: [
         'Linux Academy',
@@ -299,8 +203,8 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'Design': {
-    name: 'Design',
-    description: 'Create user interfaces and experiences that are intuitive, accessible, and enjoyable to use. Perfect for creative minds.',
+    name: 'career.design.name',
+    description: 'career.design.description',
     whatYouDo: 'Research user needs, create wireframes and prototypes, design visual interfaces, conduct user testing, and iterate based on feedback.',
     requiredSkills: [
       'Design principles and theory',
@@ -370,8 +274,8 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'QA/Testing': {
-    name: 'QA/Testing',
-    description: 'Ensure software quality by designing and executing test plans to identify bugs and verify functionality. Perfect for detail-oriented people.',
+    name: 'career.qaTesting.name',
+    description: 'career.qaTesting.description',
     whatYouDo: 'Create test cases, execute manual and automated tests, report bugs, ensure quality standards, and collaborate with development teams.',
     requiredSkills: [
       'Testing methodologies',
@@ -441,8 +345,8 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'Marketing': {
-    name: 'Marketing',
-    description: 'Develop and execute marketing strategies to promote products and services. Perfect for creative and analytical minds.',
+    name: 'career.marketing.name',
+    description: 'career.marketing.description',
     whatYouDo: 'Create marketing campaigns, analyze market trends, manage social media, conduct market research, and measure campaign performance.',
     requiredSkills: [
       'Digital marketing tools',
@@ -512,8 +416,8 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'Sales': {
-    name: 'Sales',
-    description: 'Build relationships with customers and drive revenue through effective sales strategies. Perfect for people-oriented individuals.',
+    name: 'career.sales.name',
+    description: 'career.sales.description',
     whatYouDo: 'Prospect new customers, conduct sales presentations, negotiate deals, maintain customer relationships, and achieve sales targets.',
     requiredSkills: [
       'Communication and persuasion',
@@ -583,8 +487,8 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'Administrative': {
-    name: 'Administrative',
-    description: 'Support business operations through administrative tasks and office management. Perfect for organized and detail-oriented individuals.',
+    name: 'career.administrative.name',
+    description: 'career.administrative.description',
     whatYouDo: 'Manage schedules, coordinate meetings, handle correspondence, maintain records, and support team operations.',
     requiredSkills: [
       'Organization and time management',
@@ -654,8 +558,8 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'Customer Support': {
-    name: 'Customer Support',
-    description: 'Help customers resolve issues and provide excellent service experiences. Perfect for patient and empathetic individuals.',
+    name: 'career.customerSupport.name',
+    description: 'career.customerSupport.description',
     whatYouDo: 'Respond to customer inquiries, troubleshoot problems, provide product guidance, maintain customer satisfaction, and escalate complex issues.',
     requiredSkills: [
       'Communication skills',
@@ -725,8 +629,8 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'Consulting & Business': {
-    name: 'Consulting & Business',
-    description: 'Provide strategic advice and solutions to help businesses improve their operations and achieve goals.',
+    name: 'career.consultingBusiness.name',
+    description: 'career.consultingBusiness.description',
     whatYouDo: 'Analyze business problems, develop strategic recommendations, implement solutions, and guide organizational change.',
     requiredSkills: [
       'Business analysis',
@@ -796,8 +700,8 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'Finance/Accounting': {
-    name: 'Finance/Accounting',
-    description: 'Manage financial records, analyze financial data, and provide financial guidance to organizations.',
+    name: 'career.financeAccounting.name',
+    description: 'career.financeAccounting.description',
     whatYouDo: 'Prepare financial statements, analyze budgets, manage accounts, ensure compliance, and provide financial insights.',
     requiredSkills: [
       'Financial analysis',
@@ -867,8 +771,8 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'Human Resources': {
-    name: 'Human Resources',
-    description: 'Manage employee relations, recruitment, and organizational development to support business success.',
+    name: 'career.humanResources.name',
+    description: 'career.humanResources.description',
     whatYouDo: 'Recruit talent, manage employee benefits, handle workplace issues, develop HR policies, and support organizational growth.',
     requiredSkills: [
       'Communication skills',
@@ -938,27 +842,12 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
   },
 
   'Content Creation': {
-    name: 'Content Creation',
-    description: 'Create engaging content for various platforms to inform, entertain, and connect with audiences.',
-    whatYouDo: 'Write articles, create videos, design graphics, manage social media content, and develop content strategies.',
-    requiredSkills: [
-      'Writing and editing',
-      'Content strategy',
-      'Social media platforms',
-      'Creative tools',
-      'SEO knowledge',
-      'Audience engagement'
-    ],
-    learningPath: [
-      'Develop writing skills',
-      'Learn content creation tools',
-      'Study content strategy',
-      'Practice social media',
-      'Learn SEO basics',
-      'Build audience engagement',
-      'Create content portfolio'
-    ],
-    careerProspects: 'Good - Growing demand for quality content.',
+    name: 'career.contentCreation.name',
+    description: 'career.contentCreation.description',
+    whatYouDo: 'career.contentCreation.whatYouDo',
+    requiredSkills: 'career.contentCreation.requiredSkills',
+    learningPath: 'career.contentCreation.learningPath',
+    careerProspects: 'career.contentCreation.careerProspects',
     averageTimeToLearn: '3-6 months for entry level, 1-2 years for advanced',
     difficulty: 'Beginner',
     salaryRange: '€17,000 - €24,000 (Spain) / AR$270,000 - AR$400,000 (Argentina)',
@@ -976,16 +865,7 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
       'Creative Director',
       'Content Strategy Lead'
     ],
-    popularTechnologies: [
-      'Canva',
-      'Adobe Creative Suite',
-      'WordPress',
-      'Hootsuite',
-      'Buffer',
-      'Mailchimp',
-      'Grammarly',
-      'Trello'
-    ],
+    popularTechnologies: 'career.contentCreation.popularTechnologies',
     resources: {
       courses: [
         'Content Marketing Institute',
@@ -1012,9 +892,9 @@ export const realCategoryDetails: Record<string, CategoryDetails> = {
 // Subcategories for more specific career paths
 export const subcategoryDetails: Record<string, Record<string, CategoryDetails>> = {
   'Software Engineer': {
-    'Frontend Engineer': {
-      name: 'Frontend Engineer',
-      description: 'Specialize in building user interfaces and client-side applications that users interact with directly.',
+      'Frontend Engineer': {
+    name: 'career.frontendEngineer.name',
+    description: 'career.frontendEngineer.description',
       whatYouDo: 'Build responsive websites, implement user interfaces, optimize performance, ensure accessibility, and collaborate with designers.',
       requiredSkills: [
         'HTML, CSS, JavaScript',
@@ -1082,9 +962,9 @@ export const subcategoryDetails: Record<string, Record<string, CategoryDetails>>
         ]
       }
     },
-    'Backend Engineer': {
-      name: 'Backend Engineer',
-      description: 'Build server-side logic, databases, and APIs that power web applications and handle business logic.',
+      'Backend Engineer': {
+    name: 'career.backendEngineer.name',
+    description: 'career.backendEngineer.description',
       whatYouDo: 'Design APIs, manage databases, implement business logic, ensure security, optimize performance, and handle server infrastructure.',
       requiredSkills: [
         'Server-side programming languages',
@@ -1152,9 +1032,9 @@ export const subcategoryDetails: Record<string, Record<string, CategoryDetails>>
         ]
       }
     },
-    'Full Stack Engineer': {
-      name: 'Full Stack Engineer',
-      description: 'Develop both frontend and backend components of web applications, handling the complete development stack.',
+      'Full Stack Engineer': {
+    name: 'career.fullStackEngineer.name',
+    description: 'career.fullStackEngineer.description',
       whatYouDo: 'Build complete web applications, work on both client and server sides, integrate databases, and deploy applications.',
       requiredSkills: [
         'Frontend and backend technologies',
@@ -1224,9 +1104,9 @@ export const subcategoryDetails: Record<string, Record<string, CategoryDetails>>
     }
   },
   'AI/ML Engineer': {
-    'Machine Learning Engineer': {
-      name: 'Machine Learning Engineer',
-      description: 'Focus specifically on building and deploying machine learning models and systems.',
+      'Machine Learning Engineer': {
+    name: 'career.machineLearningEngineer.name',
+    description: 'career.machineLearningEngineer.description',
       whatYouDo: 'Develop ML models, optimize algorithms, deploy models to production, monitor performance, and maintain ML pipelines.',
       requiredSkills: [
         'Machine learning algorithms',
@@ -1294,9 +1174,9 @@ export const subcategoryDetails: Record<string, Record<string, CategoryDetails>>
         ]
       }
     },
-    'Deep Learning Engineer': {
-      name: 'Deep Learning Engineer',
-      description: 'Specialize in neural networks and deep learning systems for complex AI applications.',
+      'Deep Learning Engineer': {
+    name: 'career.deepLearningEngineer.name',
+    description: 'career.deepLearningEngineer.description',
       whatYouDo: 'Design neural networks, implement deep learning models, optimize performance, and deploy AI systems.',
       requiredSkills: [
         'Deep learning frameworks',

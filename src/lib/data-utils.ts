@@ -145,8 +145,8 @@ export function calculateTechnologyInsights(jobs: Job[]): TechnologyInsight[] {
 export function generateRecommendations(
   metrics: JobMetrics, 
   categoryStats: Record<string, CategoryStats>
-): string[] {
-  const recommendations: string[] = [];
+): Array<{key: string, params: Record<string, any>}> {
+  const recommendations: Array<{key: string, params: Record<string, any>}> = [];
   
   // Top categories recommendations
   const topCategories = Object.entries(categoryStats)
@@ -155,22 +155,35 @@ export function generateRecommendations(
   
   topCategories.forEach(([category, stats]) => {
     if (stats.Avg_Salary > 0) {
-      recommendations.push(
-        `Focus on ${category} - ${stats.Job_Count} positions available (Avg: $${stats.Avg_Salary.toLocaleString()}/yr, Median: $${stats.Median_Salary.toLocaleString()}/yr)`
-      );
+      recommendations.push({
+        key: 'recommendations.focusOnCategoryWithSalary',
+        params: {
+          category,
+          count: stats.Job_Count,
+          avg: stats.Avg_Salary.toLocaleString(),
+          median: stats.Median_Salary.toLocaleString()
+        }
+      });
     } else {
-      recommendations.push(
-        `Focus on ${category} - ${stats.Job_Count} positions available`
-      );
+      recommendations.push({
+        key: 'recommendations.focusOnCategory',
+        params: {
+          category,
+          count: stats.Job_Count
+        }
+      });
     }
   });
   
-  recommendations.push(
-    `Prioritize Recent Jobs - ${metrics.recent_jobs} jobs posted in the last 7 days`
-  );
-  recommendations.push(
-    `Use Easy Apply - ${metrics.easy_apply_jobs} jobs with simplified application process`
-  );
+  recommendations.push({
+    key: 'recommendations.prioritizeRecentJobs',
+    params: { count: metrics.recent_jobs }
+  });
+  
+  recommendations.push({
+    key: 'recommendations.useEasyApply',
+    params: { count: metrics.easy_apply_jobs }
+  });
   
   return recommendations;
 }
