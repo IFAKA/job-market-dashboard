@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
     const csvRows = [headers.join(',')];
 
-    jobs.forEach((job: any) => {
+    jobs.forEach((job: Record<string, unknown>) => {
       const row = headers.map(header => {
         const value = job[header];
         // Escape quotes and wrap in quotes if contains comma or newline

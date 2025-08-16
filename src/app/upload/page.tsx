@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { FileUpload } from '@/components/ui/file-upload';
 import { HistoryManager } from '@/components/ui/history-manager';
-import { Job, JobMarketData } from '@/types/job';
+import { JobMarketData } from '@/types/job';
 import { 
   calculateMetrics, 
   calculateCategoryStats, 
@@ -37,7 +37,7 @@ import {
 export default function UploadPage() {
   const router = useRouter();
   const { language } = useLanguageContext();
-  const { selectedCountry, setSelectedCountry } = useCountry();
+  const { selectedCountry } = useCountry();
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -89,7 +89,7 @@ export default function UploadPage() {
       }
 
       const result = await response.json();
-      const { jobs, fileName, fileType, jobCount, country } = result;
+      const { jobs, fileName, fileType, jobCount } = result;
 
       // Validate that we got some jobs
       if (!jobs || jobs.length === 0) {

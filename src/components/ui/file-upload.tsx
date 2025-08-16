@@ -18,30 +18,30 @@ export function FileUpload({ onFileUpload, isLoading = false }: FileUploadProps)
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const validateFile = (file: File): boolean => {
-    const allowedTypes = ['text/plain', 'text/csv'];
-    const maxSize = 10 * 1024 * 1024; // 10MB
-
-    if (!allowedTypes.includes(file.type) && !file.name.endsWith('.txt') && !file.name.endsWith('.csv')) {
-      setError(t('upload.validation.fileType', language));
-      return false;
-    }
-
-    if (file.size > maxSize) {
-      setError(t('upload.validation.fileSize', language));
-      return false;
-    }
-
-    setError(null);
-    return true;
-  };
-
   const handleFileSelect = useCallback((file: File) => {
+    const validateFile = (file: File): boolean => {
+      const allowedTypes = ['text/plain', 'text/csv'];
+      const maxSize = 10 * 1024 * 1024; // 10MB
+
+      if (!allowedTypes.includes(file.type) && !file.name.endsWith('.txt') && !file.name.endsWith('.csv')) {
+        setError(t('upload.validation.fileType', language));
+        return false;
+      }
+
+      if (file.size > maxSize) {
+        setError(t('upload.validation.fileSize', language));
+        return false;
+      }
+
+      setError(null);
+      return true;
+    };
+
     if (validateFile(file)) {
       setSelectedFile(file);
       setError(null);
     }
-  }, []);
+  }, [language]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();

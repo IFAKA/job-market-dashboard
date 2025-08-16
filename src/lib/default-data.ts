@@ -81,10 +81,10 @@ export function getHistory(): HistoryItem[] {
     const parsedHistory = JSON.parse(history);
     
     // Convert uploadDate strings back to Date objects
-    return parsedHistory.map((item: any) => {
+    return parsedHistory.map((item: Record<string, unknown>) => {
       let uploadDate: Date;
       try {
-        uploadDate = new Date(item.uploadDate);
+        uploadDate = new Date(item.uploadDate as string);
         // If the date is invalid, use current date as fallback
         if (isNaN(uploadDate.getTime())) {
           uploadDate = new Date();

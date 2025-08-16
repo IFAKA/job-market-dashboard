@@ -1,117 +1,115 @@
 'use client';
 
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { categoryDetails } from '@/lib/category-details';
+import { realCategoryDetails, subcategoryDetails, getCareerSlug } from '@/lib/real-category-details';
+import { CategoryDetails } from '@/types/job';
 import { CategoryStats } from '@/types/job';
 import { getSalaryData, formatSalary } from '@/lib/salary-data';
 import { useCountry } from '@/components/providers/country-provider';
 import { useLanguageContext } from '@/components/providers/language-provider';
 import { t } from '@/lib/i18n';
 import { 
-  BookOpen, 
-  Clock, 
-  DollarSign, 
-  TrendingUp, 
-  Users, 
-  Code, 
-  Briefcase,
-  GraduationCap,
-  Globe,
-  Target,
-  ChevronDown,
-  ChevronUp,
-  ExternalLink,
+  ArrowLeft,
+  Users,
+  DollarSign,
+  Clock,
+  TrendingUp,
   CheckCircle,
   AlertCircle,
   Star,
+  Code,
+  Briefcase,
+  Globe,
+  Target,
+  BookOpen,
+  ExternalLink,
   Heart,
   BarChart3,
-  PieChart,
   Calendar,
-  MapPin,
-  Building2,
-  ArrowLeft
+  GraduationCap
 } from 'lucide-react';
-import Link from 'next/link';
 
-interface CareerPageProps {
-  params: Promise<{ slug: string }>;
-}
-
-// Helper function to generate slugs consistently
-const getCareerSlug = (careerName: string) => {
-  return careerName
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
-    .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
-};
-
-// Helper function to parse remote distribution string
-const parseRemoteDistribution = (distributionString: string) => {
-  const remoteMatch = distributionString.match(/Remoto:\s*(\d+)/);
-  const onsiteMatch = distributionString.match(/Sitio:\s*(\d+)/);
-  const hybridMatch = distributionString.match(/Híbrido:\s*(\d+)/);
-  
-  return {
-    remote: remoteMatch ? parseInt(remoteMatch[1]) : 0,
-    onsite: onsiteMatch ? parseInt(onsiteMatch[1]) : 0,
-    hybrid: hybridMatch ? parseInt(hybridMatch[1]) : 0
-  };
-};
-
-export default function CareerPage({ params }: CareerPageProps) {
+export default function SubcategoryPage() {
   const resolvedParams = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const slug = resolvedParams.slug as string;
+  const categorySlug = resolvedParams.category as string;
+  const subcategorySlug = resolvedParams.subcategory as string;
   const { selectedCountry } = useCountry();
   const { language } = useLanguageContext();
   
-  // Find the career details by slug
-  const careerKey = Object.keys(categoryDetails).find(
-    key => getCareerSlug(key) === slug
+  // Find the category details by slug
+  const categoryKey = Object.keys(realCategoryDetails).find(
+    key => getCareerSlug(key) === categorySlug
   );
   
-  if (!careerKey) {
+  if (!categoryKey) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Career Path Not Found</h1>
-          <p className="text-gray-600 mb-6">The career path you&apos;re looking for doesn&apos;t exist.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('career.notFound', language)}</h1>
+          <p className="text-gray-600 mb-6">{t('career.notFoundDesc', language)}</p>
           <Button onClick={() => router.back()}>
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Go Back
+            {t('career.goBack', language)}
           </Button>
         </div>
       </div>
     );
   }
 
-  const careerDetails = categoryDetails[careerKey];
+  const categoryDetails = realCategoryDetails[categoryKey];
+  const subcategories: Record<string, CategoryDetails> = subcategoryDetails[categoryKey] || {};
+  
+  // Find the subcategory details by slug
+  const subcategoryKey = Object.keys(subcategories).find(
+    key => getCareerSlug(subcategories[key].name) === subcategorySlug
+  );
+  
+  if (!subcategoryKey) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            {language === 'es' ? 'Especialización No Encontrada' : 'Specialization Not Found'}
+          </h1>
+          <p className="text-gray-600 mb-6">
+            {language === 'es' 
+              ? 'La especialización que buscas no existe.' 
+              : 'The specialization you\'re looking for doesn\'t exist.'
+            }
+          </p>
+          <Button onClick={() => router.push(`/career/${categorySlug}`)}>
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            {language === 'es' ? `Volver a ${categoryDetails.name}` : `Back to ${categoryDetails.name}`}
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  const currentSubcategoryDetails = subcategories[subcategoryKey];
   
   // Get actual salary data
-  const salaryData = getSalaryData(selectedCountry, careerKey);
+  const salaryData = getSalaryData(selectedCountry, categoryKey);
   
   // Mock data for other stats - in real app this would come from API
   const mockStats: CategoryStats = {
-    Job_Count: 1250,
+    Job_Count: Math.round(1250 * 0.3), // 30% of category jobs
     Avg_Salary: salaryData ? Math.round((salaryData.traineeSalary + salaryData.juniorSalary) / 2) : 85000,
     Avg_Max_Salary: 95000,
-    Recent_Jobs: 45,
-    Easy_Apply_Count: 800,
+    Recent_Jobs: Math.round(45 * 0.3),
+    Easy_Apply_Count: Math.round(800 * 0.3),
     Median_Salary: 82000,
-    Remote_Jobs: salaryData ? parseRemoteDistribution(salaryData.remoteDistribution).remote * 10 : 1125,
-    Onsite_Jobs: salaryData ? parseRemoteDistribution(salaryData.remoteDistribution).onsite * 10 : 125,
-    Easy_Apply_Jobs: 800,
-    Senior_Level_Jobs: 300,
-    Entry_Level_Jobs: 950
+    Remote_Jobs: Math.round(1125 * 0.3),
+    Onsite_Jobs: Math.round(125 * 0.3),
+    Easy_Apply_Jobs: Math.round(800 * 0.3),
+    Senior_Level_Jobs: Math.round(300 * 0.3),
+    Entry_Level_Jobs: Math.round(950 * 0.3)
   };
 
   const getDifficultyColor = (difficulty: string) => {
@@ -136,17 +134,17 @@ export default function CareerPage({ params }: CareerPageProps) {
     let score = 0;
     const reasons = [];
     
-    if (careerDetails.difficulty === 'Beginner') {
+    if (currentSubcategoryDetails.difficulty === 'Beginner') {
       score += 25;
       reasons.push(t('career.greatForNewcomers', language));
     }
     
-    if (careerDetails.growthPotential === 'High') {
+    if (currentSubcategoryDetails.growthPotential === 'High') {
       score += 25;
       reasons.push(t('career.highGrowthPotential', language));
     }
     
-    if (careerDetails.remoteWorkPercentage >= 80) {
+    if (currentSubcategoryDetails.remoteWorkPercentage >= 80) {
       score += 20;
       reasons.push(t('career.remoteFriendly', language));
     }
@@ -175,8 +173,8 @@ export default function CareerPage({ params }: CareerPageProps) {
       sessionStorage.setItem('dashboardScrollPosition', scrollPosition);
     }
     
-    // Navigate back
-    router.back();
+    // Navigate back to category page
+    router.push(`/career/${categorySlug}`);
   };
 
   return (
@@ -188,13 +186,22 @@ export default function CareerPage({ params }: CareerPageProps) {
           className="inline-flex items-center text-sky-600 hover:text-sky-700 mb-4 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          {t('career.backToPaths', language)}
+          {language === 'es' ? `Volver a ${categoryDetails.name}` : `Back to ${categoryDetails.name}`}
         </button>
         <div className="flex items-center gap-3 mb-4">
-          <h1 className="text-4xl font-bold text-gray-900">{careerDetails.name}</h1>
+          <h1 className="text-4xl font-bold text-gray-900">{currentSubcategoryDetails.name}</h1>
           <Star className="w-8 h-8 text-yellow-500" />
         </div>
-        <p className="text-xl text-gray-600 max-w-4xl">{careerDetails.description}</p>
+        <p className="text-xl text-gray-600 max-w-4xl">{currentSubcategoryDetails.description}</p>
+        <div className="mt-4 flex items-center gap-2">
+          <Badge className="text-sm bg-sky-100 text-sky-800">
+            {categoryDetails.name}
+          </Badge>
+          <span className="text-gray-400">→</span>
+          <Badge className="text-sm bg-purple-100 text-purple-800">
+            {currentSubcategoryDetails.name}
+          </Badge>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -243,10 +250,10 @@ export default function CareerPage({ params }: CareerPageProps) {
                     {t('career.youllLoveThis', language)}:
                   </h4>
                   <ul className="space-y-2 text-sm text-gray-600">
-                    <li>• You enjoy {careerDetails.whatYouDo.toLowerCase().split(',')[0]}</li>
-                    <li>• You want to work {careerDetails.remoteWorkPercentage >= 80 ? 'remotely' : 'in a collaborative environment'}</li>
-                    <li>• You&apos;re looking for {careerDetails.growthPotential.toLowerCase()} growth opportunities</li>
-                    <li>• You can commit {careerDetails.averageTimeToLearn} to learning</li>
+                    <li>• {language === 'es' ? 'Te gusta' : 'You enjoy'} {currentSubcategoryDetails.whatYouDo.toLowerCase().split(',')[0]}</li>
+                    <li>• {language === 'es' ? 'Quieres trabajar' : 'You want to work'} {currentSubcategoryDetails.remoteWorkPercentage >= 80 ? (language === 'es' ? 'remotamente' : 'remotely') : (language === 'es' ? 'en un entorno colaborativo' : 'in a collaborative environment')}</li>
+                    <li>• {language === 'es' ? 'Buscas oportunidades de crecimiento' : 'You\'re looking for'} {currentSubcategoryDetails.growthPotential.toLowerCase()} {language === 'es' ? '' : 'growth opportunities'}</li>
+                    <li>• {language === 'es' ? 'Puedes comprometerte' : 'You can commit'} {currentSubcategoryDetails.averageTimeToLearn} {language === 'es' ? 'al aprendizaje' : 'to learning'}</li>
                   </ul>
                 </div>
                 <div>
@@ -255,10 +262,10 @@ export default function CareerPage({ params }: CareerPageProps) {
                     {t('career.considerAnotherPath', language)}:
                   </h4>
                   <ul className="space-y-2 text-sm text-gray-600">
-                    <li>• You prefer {careerDetails.difficulty === 'Beginner' ? 'more challenging work' : 'simpler tasks'}</li>
-                    <li>• You need immediate high income (entry-level salaries are lower)</li>
-                    <li>• You don&apos;t enjoy continuous learning</li>
-                    <li>• You prefer {careerDetails.remoteWorkPercentage >= 80 ? 'office environments' : 'remote work'}</li>
+                    <li>• {language === 'es' ? 'Prefieres' : 'You prefer'} {currentSubcategoryDetails.difficulty === 'Beginner' ? (language === 'es' ? 'trabajo más desafiante' : 'more challenging work') : (language === 'es' ? 'tareas más simples' : 'simpler tasks')}</li>
+                    <li>• {language === 'es' ? 'Necesitas ingresos altos inmediatos (los salarios de nivel inicial son más bajos)' : 'You need immediate high income (entry-level salaries are lower)'}</li>
+                    <li>• {language === 'es' ? 'No disfrutas del aprendizaje continuo' : 'You don\'t enjoy continuous learning'}</li>
+                    <li>• {language === 'es' ? 'Prefieres' : 'You prefer'} {currentSubcategoryDetails.remoteWorkPercentage >= 80 ? (language === 'es' ? 'entornos de oficina' : 'office environments') : (language === 'es' ? 'trabajo remoto' : 'remote work')}</li>
                   </ul>
                 </div>
               </div>
@@ -273,7 +280,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               <Target className="w-4 h-4 text-sky-500" />
               {t('career.whatYoullDo', language)}
             </h4>
-            <p className="text-gray-600 text-sm">{careerDetails.whatYouDo}</p>
+            <p className="text-gray-600 text-sm">{currentSubcategoryDetails.whatYouDo}</p>
           </div>
 
           <Separator />
@@ -285,7 +292,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               {t('career.requiredSkills', language)}
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {careerDetails.requiredSkills.map((skill, index) => (
+              {currentSubcategoryDetails.requiredSkills.map((skill: string, index: number) => (
                 <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
                   <div className="w-1.5 h-1.5 bg-sky-400 rounded-full"></div>
                   {skill}
@@ -303,7 +310,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               {t('career.learningPath', language)}
             </h4>
             <div className="space-y-2">
-              {careerDetails.learningPath.map((step, index) => (
+              {currentSubcategoryDetails.learningPath.map((step: string, index: number) => (
                 <div key={index} className="flex items-start gap-3 text-sm">
                   <div className="flex-shrink-0 w-6 h-6 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-xs font-medium">
                     {index + 1}
@@ -324,7 +331,7 @@ export default function CareerPage({ params }: CareerPageProps) {
                 {t('career.entryLevelPositions', language)}
               </h4>
               <div className="space-y-1">
-                {careerDetails.entryLevelPositions.map((position, index) => (
+                {currentSubcategoryDetails.entryLevelPositions.map((position: string, index: number) => (
                   <div key={index} className="text-sm text-gray-600 flex items-center gap-2">
                     <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
                     {position}
@@ -339,7 +346,7 @@ export default function CareerPage({ params }: CareerPageProps) {
                 {t('career.advancedPositions', language)}
               </h4>
               <div className="space-y-1">
-                {careerDetails.advancedPositions.map((position, index) => (
+                {currentSubcategoryDetails.advancedPositions.map((position: string, index: number) => (
                   <div key={index} className="text-sm text-gray-600 flex items-center gap-2">
                     <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
                     {position}
@@ -358,7 +365,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               {t('career.popularTechnologies', language)}
             </h4>
             <div className="flex flex-wrap gap-2">
-              {careerDetails.popularTechnologies.map((tech, index) => (
+              {currentSubcategoryDetails.popularTechnologies.map((tech: string, index: number) => (
                 <Badge key={index} variant="secondary" className="text-xs">
                   {tech}
                 </Badge>
@@ -379,7 +386,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               <div>
                 <h5 className="font-medium text-gray-800 mb-2">{t('career.recommendedCourses', language)}</h5>
                 <div className="space-y-1">
-                  {careerDetails.resources.courses.slice(0, 3).map((course, index) => (
+                  {currentSubcategoryDetails.resources.courses.slice(0, 3).map((course: string, index: number) => (
                     <div key={index} className="text-sm text-gray-600 flex items-center gap-1">
                       <div className="w-1 h-1 bg-sky-400 rounded-full"></div>
                       {course}
@@ -391,7 +398,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               <div>
                 <h5 className="font-medium text-gray-800 mb-2">{t('career.practicePlatforms', language)}</h5>
                 <div className="space-y-1">
-                  {careerDetails.resources.platforms.slice(0, 3).map((platform, index) => (
+                  {currentSubcategoryDetails.resources.platforms.slice(0, 3).map((platform: string, index: number) => (
                     <div key={index} className="text-sm text-gray-600 flex items-center gap-1">
                       <div className="w-1 h-1 bg-green-400 rounded-full"></div>
                       {platform}
@@ -403,7 +410,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               <div>
                 <h5 className="font-medium text-gray-800 mb-2">{t('career.communities', language)}</h5>
                 <div className="space-y-1">
-                  {careerDetails.resources.communities.slice(0, 3).map((community, index) => (
+                  {currentSubcategoryDetails.resources.communities.slice(0, 3).map((community: string, index: number) => (
                     <div key={index} className="text-sm text-gray-600 flex items-center gap-1">
                       <div className="w-1 h-1 bg-purple-400 rounded-full"></div>
                       {community}
@@ -420,7 +427,7 @@ export default function CareerPage({ params }: CareerPageProps) {
               <TrendingUp className="w-4 h-4 text-sky-500" />
               {t('career.careerProspects', language)}
             </h4>
-            <p className="text-gray-700 text-sm">{careerDetails.careerProspects}</p>
+            <p className="text-gray-700 text-sm">{currentSubcategoryDetails.careerProspects}</p>
           </div>
         </div>
 
@@ -471,96 +478,6 @@ export default function CareerPage({ params }: CareerPageProps) {
             </CardContent>
           </Card>
 
-          {/* Job Distribution */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <PieChart className="w-5 h-5 text-sky-500" />
-                {t('career.jobDistribution', language)}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {salaryData ? (() => {
-                const distribution = parseRemoteDistribution(salaryData.remoteDistribution);
-                const total = distribution.remote + distribution.onsite + distribution.hybrid;
-                
-                return (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">{t('career.remote', language)}</span>
-                      <span className="font-semibold text-gray-900">{distribution.remote}%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-purple-500 h-2 rounded-full" 
-                        style={{ width: `${distribution.remote}%` }}
-                      ></div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">{t('career.onsite', language)}</span>
-                      <span className="font-semibold text-gray-900">{distribution.onsite}%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-blue-500 h-2 rounded-full" 
-                        style={{ width: `${distribution.onsite}%` }}
-                      ></div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">{t('career.hybrid', language)}</span>
-                      <span className="font-semibold text-gray-900">{distribution.hybrid}%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-green-500 h-2 rounded-full" 
-                        style={{ width: `${distribution.hybrid}%` }}
-                      ></div>
-                    </div>
-                  </>
-                );
-              })() : (
-                <div className="text-center text-gray-500 py-4">
-                  {t('career.noDistributionData', language)}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Experience Level */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-sky-500" />
-                {t('career.experienceLevel', language)}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">{t('career.entryLevel', language)}</span>
-                <span className="font-semibold text-gray-900">{Math.round(((mockStats.Entry_Level_Jobs || 0) / mockStats.Job_Count) * 100)}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-green-500 h-2 rounded-full" 
-                  style={{ width: `${((mockStats.Entry_Level_Jobs || 0) / mockStats.Job_Count) * 100}%` }}
-                ></div>
-              </div>
-              
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">{t('career.seniorLevel', language)}</span>
-                <span className="font-semibold text-gray-900">{Math.round(((mockStats.Senior_Level_Jobs || 0) / mockStats.Job_Count) * 100)}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-purple-500 h-2 rounded-full" 
-                  style={{ width: `${((mockStats.Senior_Level_Jobs || 0) / mockStats.Job_Count) * 100}%` }}
-                ></div>
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Key Information */}
           <Card>
             <CardHeader>
@@ -571,12 +488,12 @@ export default function CareerPage({ params }: CareerPageProps) {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center gap-2">
-                <Badge className={getDifficultyColor(careerDetails.difficulty)}>
-                  {careerDetails.difficulty}
+                <Badge className={getDifficultyColor(currentSubcategoryDetails.difficulty)}>
+                  {currentSubcategoryDetails.difficulty}
                 </Badge>
-                <Badge className={getGrowthColor(careerDetails.growthPotential)}>
+                <Badge className={getGrowthColor(currentSubcategoryDetails.growthPotential)}>
                   <TrendingUp className="w-3 h-3 mr-1" />
-                  {careerDetails.growthPotential} {t('career.growth', language)}
+                  {currentSubcategoryDetails.growthPotential} {t('career.growth', language)}
                 </Badge>
               </div>
               
@@ -584,19 +501,19 @@ export default function CareerPage({ params }: CareerPageProps) {
                 <div className="flex items-center gap-2 text-sm">
                   <Clock className="w-4 h-4 text-orange-500" />
                   <span className="text-gray-600">{t('career.timeToLearn', language)}</span>
-                  <span className="font-medium">{careerDetails.averageTimeToLearn}</span>
+                  <span className="font-medium">{currentSubcategoryDetails.averageTimeToLearn}</span>
                 </div>
                 
                 <div className="flex items-center gap-2 text-sm">
                   <DollarSign className="w-4 h-4 text-green-500" />
                   <span className="text-gray-600">{t('career.salaryRange', language)}</span>
-                  <span className="font-medium">{careerDetails.salaryRange}</span>
+                  <span className="font-medium">{currentSubcategoryDetails.salaryRange}</span>
                 </div>
                 
                 <div className="flex items-center gap-2 text-sm">
                   <Globe className="w-4 h-4 text-purple-500" />
                   <span className="text-gray-600">{t('career.remoteWork', language)}</span>
-                  <span className="font-medium">{careerDetails.remoteWorkPercentage}%</span>
+                  <span className="font-medium">{currentSubcategoryDetails.remoteWorkPercentage}%</span>
                 </div>
               </div>
             </CardContent>

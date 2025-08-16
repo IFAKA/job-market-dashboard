@@ -1,30 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { CategoryDetails } from '@/types/job';
-import { 
-  BookOpen, 
-  Clock, 
-  DollarSign, 
-  TrendingUp, 
-  Users, 
-  Code, 
-  Briefcase,
-  GraduationCap,
-  Globe,
-  Target,
-  ChevronDown,
-  ChevronUp,
-  ExternalLink,
-  CheckCircle,
+import {
   AlertCircle,
-  Star,
-  Heart
+  BookOpen,
+  CheckCircle,
+  Code,
+  GraduationCap,
+  Target,
+  TrendingUp,
+  Users
 } from 'lucide-react';
+// useState removed as it's not used
 
 interface CategoryDetailsProps {
   categoryDetails: CategoryDetails;
@@ -32,60 +21,7 @@ interface CategoryDetailsProps {
   avgSalary: number;
 }
 
-export function CategoryDetailsCard({ categoryDetails, jobCount, avgSalary }: CategoryDetailsProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'Beginner': return 'bg-green-100 text-green-800';
-      case 'Intermediate': return 'bg-yellow-100 text-yellow-800';
-      case 'Advanced': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const getGrowthColor = (growth: string) => {
-    switch (growth) {
-      case 'High': return 'bg-emerald-100 text-emerald-800';
-      case 'Medium': return 'bg-blue-100 text-blue-800';
-      case 'Low': return 'bg-orange-100 text-orange-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const getCareerFitScore = () => {
-    let score = 0;
-    const reasons = [];
-    
-    if (categoryDetails.difficulty === 'Beginner') {
-      score += 25;
-      reasons.push('Great for newcomers');
-    }
-    
-    if (categoryDetails.growthPotential === 'High') {
-      score += 25;
-      reasons.push('High growth potential');
-    }
-    
-    if (categoryDetails.remoteWorkPercentage >= 80) {
-      score += 20;
-      reasons.push('Remote-friendly');
-    }
-    
-    if (jobCount > 50) {
-      score += 15;
-      reasons.push('High job demand');
-    }
-    
-    if (avgSalary > 80000) {
-      score += 15;
-      reasons.push('Competitive salary');
-    }
-    
-    return { score, reasons };
-  };
-
-  const { score, reasons } = getCareerFitScore();
+export function CategoryDetailsCard({ categoryDetails }: CategoryDetailsProps) {
 
   return (
     <div className="w-full">

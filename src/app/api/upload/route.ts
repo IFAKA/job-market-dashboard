@@ -6,7 +6,7 @@ function parseTxtContent(content: string): Job[] {
   const lines = content.split('\n').filter(line => line.trim());
   const jobs: Job[] = [];
   
-  let currentJob: Partial<Job> = {};
+  // currentJob variable removed as it's not used
   let jobLines: string[] = [];
   
   for (let i = 0; i < lines.length; i++) {

@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Lightbulb, TrendingUp, Zap, Clock } from 'lucide-react';
 import { useLanguageContext } from '@/components/providers/language-provider';
 import { t } from '@/lib/i18n';

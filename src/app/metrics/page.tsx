@@ -1,33 +1,26 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { JobMetrics } from '@/types/job';
 import { useLanguageContext } from '@/components/providers/language-provider';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { t } from '@/lib/i18n';
-import { 
-  TrendingUp, 
-  Building2, 
-  Zap, 
-  Clock, 
-  Briefcase,
+import { JobMetrics } from '@/types/job';
+import {
   ArrowLeft,
   BarChart3,
-  PieChart,
-  DollarSign,
-  Users,
-  Globe,
+  Briefcase,
+  Building2,
   Calendar,
+  Globe,
+  Minus,
   Target,
   TrendingDown,
-  Minus
+  TrendingUp,
+  Zap
 } from 'lucide-react';
 import Link from 'next/link';
 
-interface MetricsPageProps {
-  metrics: JobMetrics;
-}
+// MetricsPageProps interface removed as it's not used
 
 export default function MetricsPage() {
   const { language } = useLanguageContext();
@@ -48,14 +41,7 @@ export default function MetricsPage() {
     }
   };
 
-  const getColorClasses = (color: 'primary' | 'secondary' | 'success' | 'warning') => {
-    switch (color) {
-      case 'primary': return 'bg-sky-100 text-sky-600 border-sky-200';
-      case 'secondary': return 'bg-yellow-100 text-yellow-600 border-yellow-200';
-      case 'success': return 'bg-emerald-100 text-emerald-600 border-emerald-200';
-      case 'warning': return 'bg-orange-100 text-orange-600 border-orange-200';
-    }
-  };
+  // getColorClasses function removed as it's not used
 
   return (
     <div className="container mx-auto px-4 py-8">

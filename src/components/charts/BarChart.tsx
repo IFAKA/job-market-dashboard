@@ -80,7 +80,7 @@ export function BarChart({ data, title, height = 300, width = 400 }: BarChartPro
       .attr('ry', 8)
       .style('transition', 'all 0.3s ease')
       .style('filter', 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))')
-      .on('mouseover', function(event, d) {
+      .on('mouseover', function() {
         d3.select(this)
           .attr('opacity', 0.9)
           .attr('transform', 'scale(1.02)')

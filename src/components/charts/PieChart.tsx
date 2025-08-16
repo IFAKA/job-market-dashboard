@@ -80,7 +80,7 @@ export function PieChart({ data, title, height = 300, width = 400 }: PieChartPro
       .attr('stroke-width', 3)
       .style('transition', 'all 0.3s ease')
       .style('filter', 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))')
-      .on('mouseover', function(event, d) {
+      .on('mouseover', function() {
         d3.select(this)
           .attr('transform', 'scale(1.05)')
           .attr('stroke-width', 4)
@@ -141,7 +141,7 @@ export function PieChart({ data, title, height = 300, width = 400 }: PieChartPro
       .attr('class', 'legend-item')
       .attr('transform', (d, i) => `translate(0, ${i * 25})`)
       .style('cursor', 'pointer')
-      .on('mouseover', function(event, d) {
+      .on('mouseover', function() {
         d3.select(this).select('rect').attr('opacity', 0.8);
         d3.select(this).select('text').attr('font-weight', '700');
       })

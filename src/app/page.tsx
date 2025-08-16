@@ -1,35 +1,30 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { MetricsGrid } from '@/components/dashboard/MetricsCard';
-import { TopOpportunities } from '@/components/dashboard/TopOpportunities';
-import { Recommendations } from '@/components/dashboard/Recommendations';
-import { CategoryExplorer } from '@/components/dashboard/CategoryExplorer';
 import { BarChart } from '@/components/charts/BarChart';
 import { PieChart } from '@/components/charts/PieChart';
-import { Job, JobMarketData } from '@/types/job';
-import { 
-  calculateMetrics, 
-  calculateCategoryStats, 
-  calculateTopOpportunities, 
-  calculateTechnologyInsights, 
-  generateRecommendations, 
-  prepareChartData 
-} from '@/lib/data-utils';
-import { BarChart3, PieChart as PieChartIcon, Code, Globe, Upload, RefreshCw } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { CategoryExplorer } from '@/components/dashboard/CategoryExplorer';
+import { MetricsGrid } from '@/components/dashboard/MetricsCard';
+import { Recommendations } from '@/components/dashboard/Recommendations';
+import { TopOpportunities } from '@/components/dashboard/TopOpportunities';
 import { useLanguageContext } from '@/components/providers/language-provider';
-import { LanguageSwitcher } from '@/components/ui/language-switcher';
+import { Button } from '@/components/ui/button';
 import { ExportButton } from '@/components/ui/export-button';
+import { LanguageSwitcher } from '@/components/ui/language-switcher';
+import {
+  prepareChartData
+} from '@/lib/data-utils';
+import { JobMarketData } from '@/types/job';
+import { BarChart3, Code, Globe, PieChart as PieChartIcon, Upload } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-import { t } from '@/lib/i18n';
-import { 
-  initializeDefaultData, 
-  getCurrentDataId, 
+import {
+  ensureCurrentDataInHistory,
+  getCurrentDataId,
   getDataById,
-  ensureCurrentDataInHistory
+  initializeDefaultData
 } from '@/lib/default-data';
+import { t } from '@/lib/i18n';
 
 export default function Dashboard() {
   const router = useRouter();

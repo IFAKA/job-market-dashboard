@@ -2,7 +2,6 @@
 
 import { useLanguageContext } from '@/components/providers/language-provider';
 import { LanguageSwitcher } from '@/components/ui/language-switcher';
-import { t } from '@/lib/i18n';
 
 export default function TestPage() {
   const { language } = useLanguageContext();

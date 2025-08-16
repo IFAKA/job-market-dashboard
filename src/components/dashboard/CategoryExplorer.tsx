@@ -1,30 +1,26 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useLanguageContext } from '@/components/providers/language-provider';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { categoryDetails } from '@/lib/category-details';
-import { CategoryStats, CategoryDetails } from '@/types/job';
-import { useLanguageContext } from '@/components/providers/language-provider';
+import { realCategoryDetails, getCareerSlug } from '@/lib/real-category-details';
 import { t } from '@/lib/i18n';
-import { 
-  Search, 
-  Filter, 
-  Grid3X3, 
-  List,
-  TrendingUp,
+import { CategoryDetails, CategoryStats } from '@/types/job';
+import {
+  ArrowRight,
+  CheckCircle,
   Clock,
   DollarSign,
-  Users,
-  CheckCircle,
-  AlertCircle,
-  Info,
-  ArrowRight
+  Grid3X3,
+  List,
+  Search,
+  TrendingUp,
+  Users
 } from 'lucide-react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface CategoryExplorerProps {
   categoryStats: Record<string, CategoryStats>;
@@ -48,7 +44,7 @@ export function CategoryExplorer({ categoryStats }: CategoryExplorerProps) {
   };
 
   // Filter and sort categories
-  const filteredCategories = Object.entries(categoryDetails)
+  const filteredCategories = Object.entries(realCategoryDetails)
     .filter(([categoryName, details]) => {
       const matchesSearch = categoryName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            details.description.toLowerCase().includes(searchTerm.toLowerCase());
@@ -113,14 +109,7 @@ export function CategoryExplorer({ categoryStats }: CategoryExplorerProps) {
     return indicators;
   };
 
-  const getCareerSlug = (careerName: string) => {
-    return careerName
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
-      .replace(/\s+/g, '-') // Replace spaces with hyphens
-      .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
-      .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
-  };
+
 
   return (
     <div className="space-y-6">

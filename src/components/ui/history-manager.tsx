@@ -6,7 +6,6 @@ import { Button } from './button';
 import { Card } from './card';
 import { Badge } from './badge';
 import { ConfirmationModal } from './confirmation-modal';
-import { ExportButton } from './export-button';
 import { useLanguageContext } from '@/components/providers/language-provider';
 import { t } from '@/lib/i18n';
 import { HistoryItem } from '@/lib/default-data';

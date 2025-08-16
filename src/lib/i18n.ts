@@ -2176,6 +2176,66 @@ export const translations: Translations = {
     ja: '成長',
     ko: '성장',
     zh: '增长'
+  },
+  'career.categoryOverview': {
+    en: 'Category Overview',
+    es: 'Resumen de Categoría',
+    fr: 'Aperçu de la Catégorie',
+    de: 'Kategorie-Übersicht',
+    pt: 'Visão Geral da Categoria',
+    it: 'Panoramica della Categoria',
+    nl: 'Categorie Overzicht',
+    ja: 'カテゴリ概要',
+    ko: '카테고리 개요',
+    zh: '类别概览'
+  },
+  'career.specializations': {
+    en: 'Specializations',
+    es: 'Especializaciones',
+    fr: 'Spécialisations',
+    de: 'Spezialisierungen',
+    pt: 'Especializações',
+    it: 'Specializzazioni',
+    nl: 'Specialisaties',
+    ja: '専門分野',
+    ko: '전문화',
+    zh: '专业化'
+  },
+  'career.noSpecializations': {
+    en: 'No Specializations Available',
+    es: 'No Hay Especializaciones Disponibles',
+    fr: 'Aucune Spécialisation Disponible',
+    de: 'Keine Spezialisierungen Verfügbar',
+    pt: 'Nenhuma Especialização Disponível',
+    it: 'Nessuna Specializzazione Disponibile',
+    nl: 'Geen Specialisaties Beschikbaar',
+    ja: '専門分野がありません',
+    ko: '사용 가능한 전문화가 없습니다',
+    zh: '没有可用的专业化'
+  },
+  'career.noSpecializationsDescription': {
+    en: 'This category doesn\'t have specific specializations yet. You can explore the general career path.',
+    es: 'Esta categoría aún no tiene especializaciones específicas. Puedes explorar la trayectoria profesional general.',
+    fr: 'Cette catégorie n\'a pas encore de spécialisations spécifiques. Vous pouvez explorer le parcours professionnel général.',
+    de: 'Diese Kategorie hat noch keine spezifischen Spezialisierungen. Sie können den allgemeinen Karriereweg erkunden.',
+    pt: 'Esta categoria ainda não tem especializações específicas. Você pode explorar o caminho de carreira geral.',
+    it: 'Questa categoria non ha ancora specializzazioni specifiche. Puoi esplorare il percorso di carriera generale.',
+    nl: 'Deze categorie heeft nog geen specifieke specialisaties. Je kunt het algemene carrièrepad verkennen.',
+    ja: 'このカテゴリにはまだ特定の専門分野がありません。一般的なキャリアパスを探索できます。',
+    ko: '이 카테고리에는 아직 특정 전문화가 없습니다. 일반적인 경력 경로를 탐색할 수 있습니다.',
+    zh: '此类别还没有具体的专业化。您可以探索一般职业道路。'
+  },
+  'career.viewGeneralPath': {
+    en: 'View General Path',
+    es: 'Ver Trayectoria General',
+    fr: 'Voir le Parcours Général',
+    de: 'Allgemeinen Pfad Anzeigen',
+    pt: 'Ver Caminho Geral',
+    it: 'Visualizza Percorso Generale',
+    nl: 'Algemeen Pad Bekijken',
+    ja: '一般的なパスを表示',
+    ko: '일반 경로 보기',
+    zh: '查看一般路径'
   }
 };
 
